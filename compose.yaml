@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+
+  web:
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    ports:
+      - 3000:3000
+
+    develop:
+      watch:
+        - path: ./package.json
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: .
+          target: /app
+          action: sync
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  api:
+
+      build:
+        context: ./server
+      # specify the file name (optional)
+        dockerfile: Dockerfile
+
+      ports:
+        - 5500:5500
+
+      develop:
+        watch:
+          - path: ./server/package.json
+            action: rebuild
+          - path: ./server/package-lock.json
+            action: rebuild
+          - path: ./server
+            target: /app
+            action: sync
+      volumes:
+      - ./server:/app
+      - /app/node_modules
+

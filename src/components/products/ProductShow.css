@@ -1,0 +1,89 @@
+.show-card {
+  position: relative;
+  border-radius: 10px;
+  width: 100%;
+  height: 200px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.show-flex {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.showname {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.showprice {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.show-price {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding-right: 1rem;
+}
+
+.showcategory {
+  margin-top: 2px;
+  font-size: 12px;
+  color: darkgray;
+  font-weight: bold;
+}
+
+.show-image button {
+  border: 2px solid black;
+  background-color: white;
+  padding: 5px 0;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.showimage {
+  width: 100%;
+  height: 125px;
+  background-color: white;
+  /* flex: 1; */
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.number-circle {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: red; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+.showimage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.show-image {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

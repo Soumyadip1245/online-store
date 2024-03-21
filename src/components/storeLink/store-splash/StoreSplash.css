@@ -1,0 +1,81 @@
+.container-image {
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    color: white;
+    min-height: 100vh;
+}
+
+.bg-image {
+
+    background-image: url('../../assests/icons-bg.svg');
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    width: 100%;
+    min-height: 100vh;
+}
+
+.h1ag span {
+    color: rgb(254, 8, 90);
+}
+
+.grid-text {
+    display: flex;
+    padding: 5rem 2rem 5rem 2rem;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+.google-button{
+    margin-top: 2rem;
+}
+.h1ag {
+    text-align: center;
+    font-size: 4rem;
+}
+
+.h5ag {
+    font-weight: 100;
+    margin-top: 7px;
+    text-align: center;
+    font-size: 15px;
+}
+.grid-image{
+    display: flex;
+}
+.grid-image img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.spinner {
+    text-align: center;
+}
+
+@media (max-width: 1000px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+        /* position: static; */
+        font-size: 70%;
+    }
+
+    .h1ag {
+        font-size: 2rem;
+    }
+
+    .h5ag {
+        font-size: 10px;
+    }
+
+    .grid-text {
+        padding: 2rem;
+    }
+}

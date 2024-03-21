@@ -1,0 +1,59 @@
+name: Deploy Firebase
+on:
+    push:
+        branches: 
+            - master
+            - development
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v2
+        
+        - name: set up node.js
+          uses: actions/setup-node@v2
+          with:
+            node-version: '18'
+        
+        - name: Install Dependencies
+          run: npm install
+
+        - name: Install Firebase Global Tools
+          run: npm install -g firebase-tools
+
+        - name: Build
+          env: 
+            REACT_APP_PRODUCTION: ${{secrets. REACT_APP_PRODUCTION}}
+            REACT_APP_STAGE: ${{secrets.REACT_APP_STAGE}}
+            REACT_APP_FIREBASE_CONFIG_API_KEY: ${{secrets.REACT_APP_FIREBASE_CONFIG_API_KEY}}
+            REACT_APP_FIREBASE_CONFIG_AUTH_DOMAIN: ${{secrets.REACT_APP_FIREBASE_CONFIG_AUTH_DOMAIN}}
+            REACT_APP_FIREBASE_CONFIG_PROJECT_ID: ${{secrets.REACT_APP_FIREBASE_CONFIG_PROJECT_ID}}
+            REACT_APP_FIREBASE_CONFIG_STORAGE_BUCKET: ${{secrets.REACT_APP_FIREBASE_CONFIG_STORAGE_BUCKET}}
+            REACT_APP_FIREBASE_CONFIG_MESSAGING_SENDER_ID: ${{secrets.REACT_APP_FIREBASE_CONFIG_MESSAGING_SENDER_ID}}
+            REACT_APP_FIREBASE_CONFIG_APP_ID: ${{secrets.REACT_APP_FIREBASE_CONFIG_APP_ID}}
+            REACT_APP_STORE_FIREBASE_API_KEY: ${{secrets.REACT_APP_STORE_FIREBASE_API_KEY}}
+            REACT_APP_STORE_FIREBASE_AUTH_DOMAIN: ${{secrets.REACT_APP_STORE_FIREBASE_AUTH_DOMAIN}}
+            REACT_APP_STORE_FIREBASE_PROJECT_ID: ${{secrets.REACT_APP_STORE_FIREBASE_PROJECT_ID}}
+            REACT_APP_STORE_FIREBASE_STORAGE_BUCKET: ${{secrets.REACT_APP_STORE_FIREBASE_STORAGE_BUCKET}}
+            REACT_APP_STORE_FIREBASE_MESSAGING_SENDER_ID: ${{secrets.REACT_APP_STORE_FIREBASE_MESSAGING_SENDER_ID}}
+            REACT_APP_STORE_FIREBASE_APP_ID: ${{secrets.REACT_APP_STORE_FIREBASE_APP_ID}}
+            REACT_APP_RAZORPAY_KEY_ID: ${{secrets.REACT_APP_RAZORPAY_KEY_ID}}
+            REACT_APP_RAZORPAY_KEY_SECRET: ${{secrets.REACT_APP_RAZORPAY_KEY_SECRET}}
+            REACT_APP_APPWRITE_ENDPOINT: ${{secrets.REACT_APP_APPWRITE_ENDPOINT}}
+            REACT_APP_APPWRITE_PROJECT: ${{secrets.REACT_APP_APPWRITE_PROJECT}}
+            REACT_APP_FACEIO_ID: ${{secrets.REACT_APP_FACEIO_ID}}
+            REACT_APP_GOOGLEMAP_KEY: ${{secrets.REACT_APP_GOOGLEMAP_KEY}}
+            REACT_APP_SERVER_URL: ${{secrets.REACT_APP_SERVER_URL}}
+            REACT_APP_RENDER_URL: ${{secrets.REACT_APP_RENDER_URL}}
+            REACT_APP_VERCEL_URL: ${{secrets.REACT_APP_VERCEL_URL}}
+          run: CI=false npm run build
+         
+        - name: Deploy Hosting In Production
+          if:  github.ref == 'refs/heads/master'
+          run: firebase deploy --only hosting:online-storev7 --token ${{secrets.FIREBASE_TOKEN}} --project default --force
+        
+        - name: Deploy Hosting In Development
+          if:  github.ref == 'refs/heads/development'
+          run: firebase deploy --only hosting:online-developmentv7 --token ${{secrets.FIREBASE_TOKEN}} --project default --force
