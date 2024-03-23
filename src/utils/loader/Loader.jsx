@@ -9,7 +9,7 @@ const Loader = ({full}) => {
         position: "fixed",
         top: 0,
         right: 0,
-        width: full ? "100%": "calc(100% - 200px)",
+        width: full ? "100%": "calc(100% - 20%)",
         height: "100%",
         background: "rgba(255, 255, 255, 0.7)",
         display: "flex",
