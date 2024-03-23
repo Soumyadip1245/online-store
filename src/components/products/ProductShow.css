@@ -1,5 +1,6 @@
 .show-card {
   position: relative;
+  border: 1px solid var(--card-border);
   border-radius: 10px;
   width: 100%;
   height: 200px;
@@ -16,13 +17,16 @@
 }
 
 .showname {
-  font-weight: bold;
+  /* font-weight: bold; */
   font-size: 1rem;
+  color: var(--color-text);
+
 }
 
 .showprice {
   font-weight: bold;
   font-size: 1.2rem;
+  color: white;
 }
 
 .show-price {
@@ -30,7 +34,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  color: white;
   padding-right: 1rem;
 }
 
@@ -43,7 +47,8 @@
 
 .show-image button {
   border: 2px solid black;
-  background-color: white;
+  color: white;
+  background-color: var(--button-background);
   padding: 5px 0;
   font-weight: bold;
   cursor: pointer;
@@ -79,10 +84,12 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  background-color: transparent;
 }
 
 .show-image {
   width: 25%;
+  background: transparent;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

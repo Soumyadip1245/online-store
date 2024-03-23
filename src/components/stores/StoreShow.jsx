@@ -24,23 +24,23 @@ import { useQuery } from "react-query";
 import { Alert, message } from "antd";
 import Seller from "../../models/seller";
 
-const StoreShow = ({ store, editClick,seller:initialSeller,storeSeller }) => {  
+const StoreShow = ({ store, editClick, seller: initialSeller, storeSeller }) => {
   const fetchStoreAndProducts = async () => {
-  const products = await Product.getAllProductsByStore(store._id);
-  return products;
-};
-  const { data, isLoading } = useQuery("products",fetchStoreAndProducts);
+    const products = await Product.getAllProductsByStore(store._id);
+    return products;
+  };
+  const { data, isLoading } = useQuery("products", fetchStoreAndProducts);
   const [toggleState, setToggleState] = useState(store.isEnabled);
   // const [store, setStore] = useState(new Store());
   const [products, setProducts] = useState([]);
   const [enable, setEnable] = useState(false);
   const [edit, setEdit] = useState(false)
-  const [seller,setSeller] = useState(new Seller())
-  useEffect(()=>{
-    setSeller(Seller.toCls(seller))
-  },[initialSeller])
+  const [seller, setSeller] = useState(new Seller())
   useEffect(() => {
-    if(data){
+    setSeller(Seller.toCls(seller))
+  }, [initialSeller])
+  useEffect(() => {
+    if (data) {
       setProducts(data)
     }
   }, [data]);
@@ -49,7 +49,7 @@ const StoreShow = ({ store, editClick,seller:initialSeller,storeSeller }) => {
     setToggleState(!toggleState);
     store.isEnabled = !toggleState
 
-    
+
     await store.updateEnabled()
   };
   const handleCopyClick = () => {
@@ -142,114 +142,39 @@ const StoreShow = ({ store, editClick,seller:initialSeller,storeSeller }) => {
     <>
 
       <VoiceRecognition commands={commands} />
-      <Box m={2}>
-        <Card style={{ border: "1px solid lightgrey" }}>
-          <CardContent>
-            {seller.istheSubscriptionAvailable && <Alert message="Subscription Ended. Renew Subscription" type="info" showIcon />}
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <div className="badge">
-                <p>{store.isVerified ? "Verified" : "Not Verified"}</p>
-              </div>
-              <div sx={{ display: 'flex' }}>
-                <IconButton onClick={onEdit}><Edit /></IconButton>
-                {!seller.istheSubscriptionAvailable && store.isVerified && <Switch checked={toggleState} onChange={handleToggleChange} />}
-              </div>
-            </Box>
-            
-          </CardContent>
-          <Divider />
-          <CardContent>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <img
-                src={store.imageUrl}
-                style={{ width: "100px", height: "100px", objectFit: "cover" }}
-              />
-              <Box display="flex" flexDirection="column">
-                <Typography variant="body1" fontWeight="bold">
-                  {store.storeName}
-                </Typography>
-                <Typography variant="body2" fontWeight="normal">
-                  GST: {store.gstNumber}
-                </Typography>
-              </Box>
-            </Box>
-          </CardContent>
-        </Card>
-      </Box>
-      <Box m={2}>
-        <Card style={{ border: "1px solid lightgrey" }}>
-          <CardContent>
-            <Typography variant="body1" fontWeight="bold">
-              Store Link
-            </Typography>
-          </CardContent>
-          <Divider />
-          <CardContent>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Box>
-                <img
-                  src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${store.storeUrl}`}
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    objectFit: "cover",
-                  }}
-                />
-              </Box>
-            </Box>
-          </CardContent>
-          <Divider />
-          <CardContent>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography
-                variant="body2"
-                style={{
-                  flex: 1,
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {store.storeUrl}
-              </Typography>
-              <IconButton color="inherit" onClick={handleCopyClick}>
-                <FileCopyOutlinedIcon />
-              </IconButton>
-            </Box>
-          </CardContent>
-        </Card>
-      </Box>
-      <Box m={2}>
-        <Card style={{ border: "1px solid lightgrey" }}>
-          <CardContent>
-            <Typography variant="body1" fontWeight="bold">
-              Products
-            </Typography>
-          </CardContent>
-          <Divider />
-          <CardContent sx={{ padding: 0 }}>
-            {isLoading && <Loader />}
-            {!isLoading && <ProductList voice={true} showChecked={true} products={products} onCheckbox={onCheckbox} enableIndex={enable}/>}
-          </CardContent>
+      <div className="store-container">
+        <div className="card-design flex-card">
+          <div>
+            <h5 className="store-name">{store.storeName}</h5>
+            <span className="gstNumber">{store.gstNumber}</span><br></br>
 
-        </Card>
-      </Box>
+            <button className="btn-design" onClick={onEdit} style={{ marginTop: '1rem' }}>Edit</button>
+
+          </div>
+          {!seller.istheSubscriptionAvailable && store.isVerified && <Switch checked={toggleState} onChange={handleToggleChange} />}
+
+        </div>
+        <div className="card-design">
+          <h5 className="store-name">Store URL</h5>
+          <div className="card-text">
+            <div>
+              <p className="written">Copy the url below so that your buyers can access your store, products and place orders. You can either share url or share the QR image.</p>
+
+              <button className="btn-design" onClick={handleCopyClick} style={{ marginTop: '1rem' }}>Copy</button>
+
+            </div>
+            <div className="store-image">
+              <img src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${store.storeUrl}`} alt="" />
+            </div>
+          </div>
+        </div>
+        <div className="card-design" id="products">
+          <h5 className="store-name">Products</h5>
+
+          {isLoading && <Loader />}
+          {!isLoading && <ProductList voice={true} showChecked={true} products={products} onCheckbox={onCheckbox} enableIndex={enable} />}
+        </div>
+      </div>
     </>
   );
 };

@@ -1,0 +1,35 @@
+.dashboard-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboard-heading{
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.dashboard-counter{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+.counter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.counter-icon{
+    color: var(--color-text);
+    font-size: 2.5rem;
+}
+.counter-value{
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    margin: 5px 0;
+}
+.counter p{
+    color: var(--color-text);
+}

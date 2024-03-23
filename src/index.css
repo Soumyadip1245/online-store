@@ -17,7 +17,7 @@
     --icon-color: #ea5b5f;
     --sidebar-hover: #2b1614;
     --card-border: #462422; 
-    --page-bg: linear-gradient(135deg, #3a0f0f, #120909, #0a0505);
+    --page-bg: linear-gradient(51deg, #0a0505, #120909, #3a0f0f);
 }
 .red-theme {
     --button-background: #852b2b;
@@ -48,7 +48,7 @@
     --icon-color: #5aa8ec;
     --sidebar-hover: #172028;
     --card-border: #273441; 
-    --page-bg: linear-gradient(135deg, #1e4c6e, #0e1418, #06080b);
+    --page-bg: linear-gradient(51deg, #1e4c6e, #0e1418, #06080b);
 }
 
 .gray-theme {
@@ -60,4 +60,25 @@
     --sidebar-hover: #202020;
     --card-border: #343434; 
     --page-bg: linear-gradient(135deg, #1d1f5a, #0f0f0f, #0a0a0a);
+}
+.card-design{
+    border-radius: 10px;
+    width: calc(100% - 20%);
+    margin: 1rem;
+    padding: 2rem;
+    border: 1px solid var(--card-border);
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.btn-design{
+    color: white;
+    border: none;
+    background-color: var(--button-background);
+    border-radius: 13px;
+    padding: 12px 2rem;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
 }

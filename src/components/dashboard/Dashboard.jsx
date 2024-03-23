@@ -100,81 +100,56 @@ const Dashboard = () => {
       {!user.isStaff && (!seller.sellerName || !seller.paymentDetails.accountNumber) && (
         <Stepper stepperToggle={stepperLoad} />
       )}
-      {(seller.sellerName && seller.paymentDetails.accountNumber) && <>
-        <Row gutter={16} justify="center" style={{ margin: '1rem', backgroundColor: 'transparent' }}>
-          <Col span={6}>
-            <Card headStyle={{ backgroundColor: '#bdbdbd47' }}
-              title="Total Orders"
-              style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}
-            >
-              {orderData.totalOrder}
-            </Card>
-          </Col>
-          <Col span={6}>
-            <Card headStyle={{ backgroundColor: '#bdbdbd47' }}
-              title="Total Earnings"
-              style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}
-            >
-              Rs. {orderData.totalEarning}
-            </Card>
-          </Col>
-          <Col span={6}>
-            <Card headStyle={{ backgroundColor: '#bdbdbd47' }}
-              title="Pending Orders"
-              style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}
-            >
-              {orderData.pendingOrder}
-            </Card>
-          </Col>
-          <Col span={6}>
-            <Card headStyle={{ backgroundColor: '#bdbdbd47' }}
-              title="Unpaid Orders"
-              style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}
-            >
-              {orderData.unpaidOrder}
-            </Card>
-          </Col>
-        </Row>
-        <Row gutter={16} justify="center" style={{ margin: '1rem', backgroundColor: 'transparent' }}>
-          <Col span={18}>
-            <Card
-              headStyle={{ backgroundColor: '#bdbdbd47' }}
-              title="Need Help"
-              style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}
-            >
-              <ChatService />
-            </Card>
-          </Col>
-          <Col span={6}>
-            <Card
-              headStyle={{ backgroundColor: '#bdbdbd47' }}
-              title="Recent Orders"
-            >
-              <List
-                dataSource={orderData.recentOrder}
-                renderItem={(item, index) => (
-                  <List.Item style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div>
-                      <Typography.Text>#{item.orderNumber}</Typography.Text>
-                    </div>
-                    <div>
-                      {item.isAccepted ? (
-                        <Badge status="success" />
-                      ) : item.isRejected ? <Badge status='error' /> : <Badge status='warning' />}
-                    </div>
-                  </List.Item>
-                )}
-              />
-
-
-            </Card>
-          </Col>
-        </Row>
-
-
-
-
-
+      {(seller.sellerName && seller.paymentDetails.accountNumber) &&
+       <>
+      <div className="dashboard-container">
+      <div className="card-design">
+        <h5 className="dashboard-heading">Account Statistics</h5>
+       <div className="dashboard-counter">
+        <div className="counter">
+          <div className="counter-icon">
+          <i class="fa-solid fa-sack-dollar"></i>
+          </div>
+          <div className="counter-value">
+          Rs. {orderData.totalEarning}
+          </div>
+          <p>Total Earnings</p>
+        </div>
+        <div className="counter">
+          <div className="counter-icon">
+          <i class="fa-solid fa-square-check"></i>
+          </div>
+          <div className="counter-value">
+          {orderData.totalOrder}
+          </div>
+         
+          <p>Total Orders</p>
+        </div>
+        <div className="counter">
+          <div className="counter-icon">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          </div>
+          <div className="counter-value">
+          {orderData.pendingOrder}
+          </div>
+          <p>Total Pending Orders</p>
+        </div>
+        <div className="counter">
+          <div className="counter-icon">
+          <i class="fa-solid fa-vault"></i>
+          </div>
+          <div className="counter-value">
+          {orderData.unpaidOrder}
+          </div>
+          <p>Total Unpaid Orders</p>
+        </div>
+       </div>
+       </div>
+       <div className="card-design" >
+       <h5 className="dashboard-heading">Need Help</h5>
+       <ChatService/>
+       </div>
+      </div>
       </>}
     </>
 
