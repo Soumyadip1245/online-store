@@ -24,7 +24,7 @@ const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, edit
   const [originalStore, setOriginal] = useState(new Store())
   const [loading, setLoading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
-  const [image,setImage] = useState(null)
+  const [image, setImage] = useState(null)
   const [store, setStore] = useState({
     storeName: initialStore.storeName || "",
     uniqueName: initialStore.uniqueName || "",
@@ -137,102 +137,63 @@ const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, edit
   return (
     <>
       <VoiceRecognition commands={commands} />
-      <form >
-        <Box m={2}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography variant="h6">Store Details</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                label="Store Name"
-                name="storeName"
-                value={store?.storeName}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                label="Store Link Unique Name"
-                name="uniqueName"
-                value={store?.uniqueName}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                label="Address"
-                name="storeAddress"
-                value={store?.storeAddress}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                label="GST Number"
-                name="gstNumber"
-                value={store?.gstNumber}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={store.isPaynow}
-                    onChange={handleChange}
-                    name="isPaynow"
-                  />
-                }
-                label="Pay Now"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
+      <h4>Store Details</h4>
+      <div className="storedetails-container">
 
-                    checked={store.isPaylater}
-                    onChange={handleChange}
-                    name="isPaylater"
-                  />
-                }
-                label="Pay Later"
-              />
-            </Grid>
+        <div className="card-design">
+          <p className="store-name">Store Details</p>
+          <div className="input-text">
+            <input type="text" name="storeName"
+              value={store?.storeName}
+              onChange={handleChange} placeholder="enter your store name" className="input-field" />
+            <p className="written text-wrap">Store name is visible to all those who will access your store.</p>
+          </div>
+          <div className="input-text">
+            <input type="text" name="uniqueName"
+              value={store?.uniqueName}
+              onChange={handleChange} placeholder="enter your store unique name" className="input-field" />
+            <p className="written text-wrap">Unique name is the name which will be available in your store url. Don't use space or uppercase letters</p>
+          </div>
+          <div className="input-text">
+            <input type="text" name="storeAddress"
+              value={store?.storeAddress}
+              onChange={handleChange} placeholder="enter your store address" className="input-field" />
+            <p className="written text-wrap">Store address is the address of the store.</p>
+          </div>
+          <div className="input-text">
+            <input type="text" name="gstNumber"
+              value={store?.gstNumber}
+              onChange={handleChange} placeholder="enter your store GST number" className="input-field" />
+            <p className="written text-wrap">Store GST number for gst invoice or receipt (OPTIONAL)</p>
+          </div>
+          <div className="input-text">
+            <div className="toggle-card">
+              <input type="checkbox" id="toggle" className="input-checkbox" checked={store.isPaynow}
+                onChange={handleChange}
+                name="isPaynow" />
+              <label htmlFor="toggle" className="toggle-button"></label>
+              <p style={{ color: 'var(--color-text)', fontWeight: 'bold' }}>Pay Now</p>
+            </div>
+            <p className="written text-wrap">Enable if you want to enable razorpay payments, and place order only if payment is done.</p>
+          </div>
+          <div className="input-text">
+            <div className="toggle-card">
+              <input type="checkbox" id="toggle1" className="input-checkbox" checked={store.isPaylater}
+                onChange={handleChange}
+                name="isPaylater" />
+              <label htmlFor="toggle1" className="toggle-button"></label>
+              <p style={{ color: 'var(--color-text)', fontWeight: 'bold' }}>Pay Later</p>
+            </div>
+            <p className="written text-wrap">Enable if you want customer to place order without paying, and can pay after the order is placed.</p>
+          </div>
+          <div className="input-text">
+            <input name="fileInput" type="file" accept="image/*" onChange={imageHandler} className="imagedrop" />
+            <p className="written text-wrap">Choose image for your store.</p>
 
-            {
-              <Grid item xs={12} sm={6}>
-                <input
-                  name="fileInput"
-                  onChange={imageHandler}
-                  type="file"
-                  accept="image/*"
-                />
-                {loading && (
-                  <CircularProgress size={20} style={{ marginLeft: "8px" }} />
-                )}
-                {uploadSuccess && (
-                  <CheckCircleIcon
-                    style={{ color: green[500], marginLeft: "8px" }}
-                  />
-                )}
-              </Grid>
-            }
-            <Grid item xs={12}>
-              <Button type="button" onClick={handleSubmit} variant="contained" color="primary">
-                {edit ? "Edit" : "Save"}
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </form>
+          </div>
+          <button className="btn-design" type="button" onClick={handleSubmit}>Save</button>
+        </div>
+      </div>
     </>
   );
 };

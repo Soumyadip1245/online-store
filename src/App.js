@@ -159,7 +159,7 @@ const App = () => {
                 path={curr.path}
                 element={
                   curr.protected ? (
-                    <div style={{ display: "flex", minHeight: "100vh", background: "var(--page-bg)" }}>
+                    <div style={{ display: "flex", minHeight: "100vh", background: "var(--page-bg)"}}>
                       {loggedIn && <Sidebar />}
                       <div style={{ flex: 1, overflow: "auto" }}>
                         <ProtectedRoute component={curr.element} />

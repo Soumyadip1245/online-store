@@ -41,11 +41,11 @@ const ProductList = ({ products, showChecked, onCheckbox, edit, voice, seller, s
   return (
     <>
       {!voice && <VoiceRecognition commands={commands} />}
-      <Box m={2}>
-        {!showChecked && <Typography mb={2} variant="body1" >
+      <Box mt={2}>
+        {!showChecked && <Typography mb={2} variant="body1" style={{color: 'white'}} >
           <a
             onClick={onAddNewProductClick}
-            style={{ color: "blue", cursor: "pointer" }}
+            style={{ color: "var(--color-text)", fontWeight:'bold' }}
           >
             Click
           </a>{" "}

@@ -1,0 +1,48 @@
+.filter-container {
+    margin-bottom: 20px;
+  }
+
+.table-header{
+    background-color: var(--sidebar-hover);
+    color: #fff;
+}
+.table-body{
+    background-color: transparent;
+}
+  
+  .chip {
+    display: inline-block;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+    background-color: var(--button-background); 
+    color: #fff; 
+  }
+  
+  .chip.active {
+    background-color: var(--button-hover-background);
+    color: #fff; 
+  }
+  
+  .table-container {
+   
+    color: var(--color-text); 
+  }
+  
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .custom-table th,
+  .custom-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--button-background);
+  }
+  
+  .order-id {
+    cursor: pointer;
+  }
+  

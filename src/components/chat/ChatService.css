@@ -125,23 +125,7 @@
 .msger-send-btn:hover {
   background: rgb(0, 180, 50);
 }
-.input-field{
-  width: 80%;
-    flex: 1;
-    background-color: var(--sidebar-hover);
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    color: white;
-    outline: none;
-    border-radius: 0.5rem;
-    border: none;
-    /* placeholder-color: var(--text-gray-700); */
-}
-.input-field:focus{
-  outline: none;
-}
+
 .msger-chat::-webkit-scrollbar{
   display: none;
 }
@@ -154,15 +138,7 @@
   /* border-top: 1px solid #ddd; Add a border to separate from the messages */
 }
 
-.input-field {
-  flex: 1;
-  background-color: var(--sidebar-hover);
-  padding: 0.75rem;
-  color: white;
-  outline: none;
-  border-radius: 0.5rem;
-  border: none;
-}
+
 
 .message-btnn {
   display: flex;

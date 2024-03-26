@@ -151,7 +151,14 @@ const StoreShow = ({ store, editClick, seller: initialSeller, storeSeller }) => 
             <button className="btn-design" onClick={onEdit} style={{ marginTop: '1rem' }}>Edit</button>
 
           </div>
-          {!seller.istheSubscriptionAvailable && store.isVerified && <Switch checked={toggleState} onChange={handleToggleChange} />}
+          <div className="toggle-switch">
+            {!seller.istheSubscriptionAvailable && store.isVerified && (
+              <label className="switch">
+                <input type="checkbox" checked={toggleState} onChange={handleToggleChange} />
+                <span className="slider"></span>
+              </label>
+            )}
+          </div>
 
         </div>
         <div className="card-design">
