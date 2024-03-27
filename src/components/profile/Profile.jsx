@@ -34,13 +34,13 @@ const Profile = ({ profileSuccess, stepper }) => {
   const fetchData = async () => {
     return await GetUser(user);
   };
-  const {data,isLoading} = useQuery("profile",fetchData,{enabled: !!user})
+  const { data, isLoading } = useQuery("profile", fetchData, { enabled: !!user })
 
-  useEffect(()=>{
-    if(data) setSeller(data)
-  },[data])
+  useEffect(() => {
+    if (data) setSeller(data)
+  }, [data])
   const handleSubmit = async (event) => {
-    
+
     originalSeller._id = seller._id;
     // event.preventDefault();
 
@@ -55,9 +55,9 @@ const Profile = ({ profileSuccess, stepper }) => {
     stepper ? profileSuccess() : navigate('/dashboard')
 
   }
-  if(isLoading) return <Loader/>
+  if (isLoading) return <Loader />
   const updateFormData = (fieldName, value) => {
-    
+
     setSeller((prevSeller) => {
       if (fieldName === 'sellerName') {
         return {
@@ -125,89 +125,88 @@ const Profile = ({ profileSuccess, stepper }) => {
   return (
     <>
       <VoiceRecognition commands={commands} />
-     
-      {!isLoading &&
-        <Box m={2}>
-          <form style={{ marginTop: "20px" }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="sellerName"
-                  label="Seller Name"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  value={
-                    seller.sellerName || ''
-                  }
-                  onChange={(e) => updateFormData("sellerName", e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="address"
-                  label="Address"
-                  variant="outlined"
-                  fullWidth
-                  value={
-                    seller.profile.address || ''
-                  }
-                  onChange={(e) => updateFormData("address", e.target.value)}
+      <h4> Profile</h4>
 
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="city"
-                  label="City"
-                  variant="outlined"
-                  fullWidth
-                  value={
-                    seller.profile.city || ''
-                  }
-                  onChange={(e) => updateFormData("city", e.target.value)}
+      {!isLoading && (
+        <div>
+          <form>
+            <div className="storedetails-container">
 
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="state"
-                  label="State"
-                  variant="outlined"
-                  fullWidth
-                  value={
-                    seller.profile.state || ''
-                  }
-                  onChange={(e) => updateFormData("state", e.target.value)}
+              <div className="card-design">
+                <p className="store-name">Profile</p>
+                <div className="input-text">
+                  <input
+                    type="text"
+                    placeholder="enter your seller name"
+                    className="input-field"
+                    name="sellerName"
+                    value={seller.sellerName}
+                    onChange={(e) => updateFormData("sellerName", e.target.value)}
+                  />
+                  <p className="written text-wrap">Seller name is visible to all those who will access your store.</p>
 
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="pincode"
-                  label="Pincode"
-                  variant="outlined"
-                  fullWidth
-                  value={
-                    seller.profile.pincode
-                  }
-                  onChange={(e) => updateFormData("pincode", e.target.value)}
+                </div>
+                <div className="input-text">
+                  <input
+                    type="text"
+                    placeholder="enter your address"
+                    className="input-field"
+                    name="address"
+                    value={seller.profile.address}
+                    onChange={(e) => updateFormData("address", e.target.value)}
+                  />
+                  <p className="written text-wrap">Address is visible to all those who will access your store.</p>
 
-                />
-              </Grid>
-            </Grid>
+                </div>
+                <div className="input-text">
+                  <input
+                    type="text"
+                    placeholder="enter your city"
+                    className="input-field"
+                    name="city"
+                    value={seller.profile.city}
+                    onChange={(e) => updateFormData("city", e.target.value)}
+                  />
+                  <p className="written text-wrap">Pincode is visible to all those who will access your store.</p>
 
-            <Button
-              type="button"
-              variant="contained"
-              color="primary"
-              onClick={handleSubmit}
-              style={{ marginTop: "20px" }}
-            >
-              Submit
-            </Button>
+                </div>
+                <div className="input-text">
+                  <input
+                    type="text"
+                    name="state"
+                    placeholder="enter your state"
+                    className="input-field"
+                    value={seller.profile.state}
+                    onChange={(e) => updateFormData("state", e.target.value)}
+                  />
+                  <p className="written text-wrap">State is visible to all those who will access your store.</p>
+
+                </div>
+                <div className="input-text">
+                  <input
+                    type="text"
+                    name="pincode"
+                    placeholder="enter your pincode"
+                    className="input-field"
+                    value={seller.profile.pincode}
+                    onChange={(e) => updateFormData("pincode", e.target.value)}
+                  />
+                  <p className="written text-wrap">Pincode is visible to all those who will access your store.</p>
+
+                </div>
+                <button
+                  type="button"
+                  className="btn-design"
+                  onClick={handleSubmit}
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
           </form>
-        </Box>}
+        </div>
+
+      )}
     </>
   );
 };

@@ -152,82 +152,71 @@ const ProductEdit = ({ stepper, productSuccess }) => {
     product.productPrice = Number(item.price.replace(/,/g, ''));
     await imageLink(item.image)
   }
+
   return (
     <>
-      <VoiceRecognition commands={commands} />
-
       {loader && <Loader />}
-      {!loader && <form >
-        <Box m={2}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography variant="h6">Product Details</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                label="Product Name"
-                name="productName"
-                value={product.productName}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                type="number"
-                label="Product Price"
-                name="productPrice"
-                value={product.productPrice}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                label="Category"
-                name="productCategory"
-                value={product.productCategory}
-                onChange={handleChange}
-              />
-            </Grid>
+      {!loader && (
+        <form>
+          <h4>Product Details</h4>
+          <div className="storedetails-container">
+            <div className='card-design'>
+              <p className='store-name'>Product Details</p>
+              <div className='input-text'>
+                <input
+                  type="text"
+                  placeholder='enter your product name'
+                  className='input-field'
+                  value={product.productName}
+                  onChange={(e) => setProduct({ ...product, productName: e.target.value })}
+                />
+                <p className="written text-wrap">Product name is visible to all those who will access your store.</p>
+              </div>
+              <div className='input-text'>
+                <input
+                  type="number"
+                  placeholder='enter your product price'
+                  className='input-field'
+                  value={product.productPrice}
+                  onChange={(e) => setProduct({ ...product, productPrice: e.target.value })}
+                />
+                <p className="written text-wrap">Product price is visible to all those who will access your store.</p>
 
+              </div>
+              <div className='input-text'>
+                <input
+                  type="text"
+                  placeholder='enter your category'
+                  className='input-field'
+                  value={product.productCategory}
+                  onChange={(e) => setProduct({ ...product, productCategory: e.target.value })}
+                />
+                            <p className="written text-wrap">Choose category for your product.</p>
 
-
-            {
-              <Grid item xs={12} sm={6}>
+              </div>
+              <div className='input-text'>
                 <input
                   name="fileInput"
                   onChange={imageHandler}
                   type="file"
                   accept="image/*"
+                  className='imagedrop'
                 />
-                {loading && (
-                  <CircularProgress size={20} style={{ marginLeft: "8px" }} />
-                )}
-                {uploadSuccess && (
-                  <CheckCircleIcon
-                    style={{ color: green[500], marginLeft: "8px" }}
-                  />
-                )}
-              </Grid>
-            }
-            <Grid item xs={12}>
-              <Button type="button" onClick={handleSubmit} variant="contained" color="primary">
-                Save
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </form>}
-      <Box m={2}>
-        <Scrapper sendProduct={sendProduct} />
-      </Box>
+                            <p className="written text-wrap">Choose image for your product.</p>
+
+                {loading && <div>Loading...</div>}
+                {uploadSuccess && <div>Upload Success!</div>}
+              </div>
+             
+                <button type="button" className='btn-design' onClick={handleSubmit}>Save</button>
+              
+            </div>
+          </div>
+        </form>
+      )}
+      <Scrapper sendProduct={sendProduct} />
     </>
-  )
+  );
 }
 
 export default ProductEdit

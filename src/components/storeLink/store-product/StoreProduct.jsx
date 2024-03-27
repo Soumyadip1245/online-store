@@ -37,8 +37,6 @@ const StoreProduct = ({ product }) => {
     setCart([...cart, c])
   };
 
-
-
   return (
     <div className="show-card storelink-theme">
     <div className="show-flex">

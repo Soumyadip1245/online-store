@@ -13,12 +13,12 @@ const AccessList = ({accessList,seller,deleteAccess}) => {
   return (
     <>
       <Box m={2}>
-      <Typography mb={2} variant="body1" >
+      <Typography mb={2} variant="body1"  style={{color: 'white'}}>
           <a
             onClick={onAddNewStaffClick}
-            style={{ color: "blue", cursor: "pointer" }}
+            style={{ color: "var(--color-text)", fontWeight:'bold' }}
           >
-            Click
+            Click 
           </a>{" "}
           here to add new staffs
         </Typography>
