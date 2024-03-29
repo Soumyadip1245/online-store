@@ -3,7 +3,7 @@ import './sidebar12.css'
 import Logo from '../../assests/INFINITY-removebg-preview.png'
 import {Layout} from "antd";
 import MenuList from "./MenuList";
-const {Header,Sider} = Layout
+import AppInfo from "../AppInfo";
 const Sidebar = () => {
   return (
     <div className="sidebar-content">
@@ -13,6 +13,7 @@ const Sidebar = () => {
         </div>
       </div>
       <MenuList/>
+      <AppInfo />
     </div>
      
   );

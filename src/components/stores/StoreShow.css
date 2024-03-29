@@ -147,7 +147,10 @@
       transition: .4s;
       border-radius: 24px; 
     }
-    
+    .input-dropdown{
+        color: var(--color-text);
+
+    }
     .slider:before {
       position: absolute;
       content: "";

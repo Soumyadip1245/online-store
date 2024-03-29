@@ -92,6 +92,19 @@ const AccessEdit = () => {
     navigate("/access");
   };
 
+  const handleRoleChange = (event, name) => {
+    const isChecked = event.target.checked;
+    let updatedRoles = [...access.roles];
+    if (isChecked) {
+      updatedRoles.push(name);
+    } else {
+      updatedRoles = updatedRoles.filter((role) => role !== name);
+    }
+    setAccess((prevAccess) => ({
+      ...prevAccess,
+      roles: updatedRoles,
+    }));
+  };
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -138,13 +151,13 @@ const AccessEdit = () => {
               <div className="input-text">
                 <input
                   type="text"
-                  placeholder="enter your store name"
+                  placeholder="enter your staff name"
                   name="staffName"
                   className="input-field"
                   value={access.staffName}
                   onChange={handleChange}
                 />
-                <p className="written text-wrap">Store name is visible to all those who will access your store.</p>
+                <p className="written text-wrap">Staff name is visible to all those who will access your store.</p>
 
               </div>
               <div className="input-text">
@@ -171,24 +184,27 @@ const AccessEdit = () => {
                 <p className="written text-wrap">Email is visible to the store owner.</p>
 
               </div>
-              <div className="form-group">
-                <select
-                  className="form-select"
-                  name="roles"
-                  multiple
-                  value={access.roles}
-                  onChange={handleChange}
-                >
-                  {names.map((name) => (
-                    <option key={name} value={name}>
-                      {name}
-                    </option>
-                  ))}
-                </select>
+              <div className="input-text">
+                {names.map((name) => (
+                  <label key={name} className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      label={name}
+                      className="input-field"
+                      checked={access.roles.includes(name)}
+                      onChange={(event) => handleRoleChange(event, name)}
+                    />
+                    {name}
+                  </label>
+
+                ))}
+
+                <p className="written text-wrap">Select roles for the staff.</p>
+
               </div>
-           
-                <button className="btn-design" type="submit">Save</button>
-              
+
+              <button className="btn-design" type="submit">Save</button>
+
             </div>
           </div>
         </form>

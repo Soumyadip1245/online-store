@@ -94,6 +94,12 @@ const MenuList = () => {
             show: !isFormVisible && (roles.length > 0 ? false : true),
         },
         {
+            name: "Settings",
+            route: "/settings",
+            icon: <i class="fa-solid fa-gear"></i>,
+            show: true,
+        },
+        {
             name: "Forms",
             route: "/forms",
             icon: <i class="fa-brands fa-google-play"></i>,

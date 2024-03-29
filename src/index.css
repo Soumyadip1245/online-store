@@ -12,7 +12,7 @@
 }
 
 :root {
-    --button-background: #852b2b;
+    /* --button-background: #852b2b;
     --button-hover-background: #bd3436;
     --card-bg: rgba(69, 36, 34, 0.15);
     --color-text: #9c605c;
@@ -21,7 +21,7 @@
     --card-border: #462422;
     --toggle-color: #421617;
     --toggle-off: #d34648;
-    --page-bg:linear-gradient(51deg, #0a0505, #120909, #3a0f0f);
+    --page-bg:linear-gradient(51deg, #0a0505, #120909, #3a0f0f); */
 }
 
 .red-theme {
@@ -33,6 +33,8 @@
     --sidebar-hover: #2b1614;
     --card-border: #462422;
     --page-bg: #120909;
+    --toggle-color: #421617;
+    --toggle-off: #d34648;
 }
 
 .blue-theme {
@@ -43,6 +45,8 @@
     --icon-color: #4581ff;
     --sidebar-hover: #1d1728;
     --card-border: #312741;
+    --toggle-color: #421617;
+    --toggle-off: #d34648;
     --page-bg: linear-gradient(135deg, #05040b, #071b57, #0a0912);
 }
 
@@ -54,7 +58,9 @@
     --icon-color: #5aa8ec;
     --sidebar-hover: #172028;
     --card-border: #273441;
-    --page-bg: linear-gradient(51deg, #1e4c6e, #0e1418, #06080b);
+    --toggle-color: #421617;
+    --toggle-off: #d34648;
+    --page-bg: linear-gradient(250deg, #1e4c6e, #0e1418, #06080b);
 }
 
 .gray-theme {
@@ -62,6 +68,8 @@
     --button-hover-background: #333abe;
     --card-bg: #141414;
     --color-text: #7c7c7c;
+    --toggle-color: #421617;
+    --toggle-off: #d34648;
     --icon-color: #5962eb;
     --sidebar-hover: #202020;
     --card-border: #343434;
@@ -125,4 +133,37 @@
     color: var(--color-text);
     outline: none;
     border: none;
+}
+
+.custom-scrollbar {
+  
+    height: 300px;
+    width: 300px;
+
+    overflow: auto;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--toggle-color);
+    border-radius: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background-color: var(--sidebar-hover);
+}
+
+
+.custom-scrollbar::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-corner:horizontal {
+    display: none;
+}
+.imagedrop{
+    color: var(--color-text)
 }

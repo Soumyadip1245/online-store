@@ -45,16 +45,16 @@ const ProductDetails = () => {
     return <Loader/>
   }
   return (
-    <>
-   
-      <Box>
+   <div className="productdetails-container" style={{display: 'flex',flexDirection: 'column', justifyContent: 'center',alignItems: 'center'}}>
+   <div className='card-design'>
         {!isLoading &&  < ProductList products={products}  edit={true} /> }
        
-        </Box>
+        </div >
+   </div>
+     
 
 
 
-    </>
   )
 }
 

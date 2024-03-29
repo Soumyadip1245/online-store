@@ -26,6 +26,7 @@ import OrderComponent from "./components/orders/order-component/OrderComponent"
 import Sidebar from "./components/dashboard/side-bar/Sidebar"
 import ChatWith from "./components/chat/ChatWith"
 import StoreConfirmation from "./components/storeLink/store-confirmation/StoreConfirmation"
+import Setting from "./components/setting/Setting"
 
 const App = () => {
   const { loggedIn, checkStatus } = AuthLayout()
@@ -104,6 +105,12 @@ const App = () => {
       generated: false,
     },
     {
+      path: "/settings",
+      protected: true,
+      element: Setting,
+      generated: false,
+    },
+    {
       path: "/orders",
       protected: true,
       element: OrderComponent,
@@ -159,7 +166,7 @@ const App = () => {
                 path={curr.path}
                 element={
                   curr.protected ? (
-                    <div style={{ display: "flex", minHeight: "100vh", background: "var(--page-bg)"}}>
+                    <div style={{ display: "flex", minHeight: "100vh", background: "var(--page-bg)", backgroundAttachment: "fixed"}}>
                       {loggedIn && <Sidebar />}
                       <div style={{ flex: 1, overflow: "auto" }}>
                         <ProtectedRoute component={curr.element} />

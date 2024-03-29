@@ -1,4 +1,4 @@
-.theme-container{
+/* .theme-container{
     width: 100%;
     display: flex;
     justify-content: center;
@@ -24,15 +24,15 @@
     justify-content: space-between;
 }
 .semi-bar{
-    width: 28px; /* Adjust the width as needed */
-    height: 15px; /* Adjust the height as needed */
-    background-color: #2e413c; /* Change to desired color */
+    width: 28px; 
+    height: 15px; 
+    background-color: #2e413c; 
     border-radius: 100px; 
   }
   .circle-bar{
     width: 15px;
     height: 15px;
-    background-color: #2e413c; /* Change to desired color */
+    background-color: #2e413c; 
     border-radius: 50%;
   }
   
@@ -87,7 +87,6 @@
     align-items: center;
     margin-top: 1rem;
     gap: 5px;
-    /* clip-path: inset(0 0 40% 0); */
   }
   .square{
     width: 45px;
@@ -100,4 +99,4 @@
     display: flex;
     align-items: flex-end;
     margin-top: 2rem;
-  }
+  } */

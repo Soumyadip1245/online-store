@@ -11,9 +11,10 @@ const AccessList = ({accessList,seller,deleteAccess}) => {
     }
    
   return (
-    <>
-      <Box m={2}>
-      <Typography mb={2} variant="body1"  style={{color: 'white'}}>
+  <div className="access-container">
+     <div className="card-design">
+     <p className="staff-name">Staff Details</p>
+    <Typography mb={2} variant="body1"  style={{color: 'white'}}>
           <a
             onClick={onAddNewStaffClick}
             style={{ color: "var(--color-text)", fontWeight:'bold' }}
@@ -28,8 +29,8 @@ const AccessList = ({accessList,seller,deleteAccess}) => {
             <AccessShow key={curr} access={curr} deleteAccess={deleteAccess} />
           );
         })}
-      </Box>
-    </>
+   </div>
+  </div>
   )
 }
 

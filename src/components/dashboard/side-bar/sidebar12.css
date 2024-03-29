@@ -1,12 +1,16 @@
-.sidebar-content{
-    min-height: 100vh;
+.sidebar-content {
+    position: sticky;
+    top: 0;
+    height: 100%;
     width: 20%;
     padding: 0 1rem;
     color: white;
     display: flex;
     flex-direction: column;
-    /* background: var(--page-bg); */
-}
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
 .sidebar-logo {
     display: grid;
     grid-template-columns: max-content max-content;

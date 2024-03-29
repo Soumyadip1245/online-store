@@ -27,6 +27,8 @@ import { sendMail } from "../../../utils/mail";
 import Loader from "../../../utils/loader/Loader";
 import { useQuery } from "react-query";
 import { message } from "antd";
+import './PaymentDetails.css'
+import Razorpay from '../../assests/razorpay.png'
 const PaymentDetails = ({ paymentSuccess, stepper }) => {
   const [seller, setSeller] = useState(new Seller());
   const [loading, setLoading] = useState(false);
@@ -101,154 +103,71 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
   return (
     <>
 
-      {isLoading ? <Loader /> :
-        <Box m={2}>
-          {seller.paymentDetails.isEntered && (
-            <Card>
-              <CardContent>
-                <Grid container spacing={2}>
-                  {/* Seller details on the left side */}
-                  <Grid item xs={12} sm={8}>
-                    <Box>
-                      <Typography
-                        variant="h8"
-                        gutterBottom
-                        fontWeight="bold"
-                        style={{ marginBottom: 0 }}
-                      >
-                        Razorpay Account
-                      </Typography>
-                      <Box ml={4} mt={1} mb={1} mr={4}>
-                        <Badge
-                          color={seller.paymentDetails.isVerified ? "success" : "warning"}
-                          badgeContent={
-                            seller.paymentDetails.isVerified ? "Verified" : "Waiting"
-                          }
-                        />
-                      </Box>
-                      <Typography variant="body1">
-                        Account ID:{" "}
-                        {seller.paymentDetails.razorpayId
-                          ? seller.paymentDetails.razorpayId
-                          : "Not Assigned"}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                  {/* Image on the right side, responsive for mobile */}
-                  <Grid item xs={12} sm={4}>
-                    <Box display="flex" justifyContent="flex-end">
-                      <img
-                        src={seller.imageUrl}
-                        alt="Razorpay Logo"
-                        style={{ width: "100px", height: "100px" }}
-                      />
-                    </Box>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
+      {isLoading && <Loader />}
+      {!isLoading && <div className="payment-container">
+        <div className="card-design">
+          <p className="payment-name">Payment Details</p>
+          <div className="payment-flex">
+            <div className="payment-column">
+              <p className="written rz">{seller.paymentDetails.razorpayId
+                ? seller.paymentDetails.razorpayId
+                : "Not Assigned"}</p>
+              <p className="written">This is razorpay account ID generated, so that your customer can make payment through razorpay gateway</p>
+            </div>
+            <div>
+              <div className="badges">
+                {seller.paymentDetails.isVerified ? "Verified" : "Waiting"}
+              </div>
+            </div>
 
-          )}
+          </div>
+        </div>
+        <div className="card-design">
+            <p className="store-name">Payment Details</p>
+            <div className="input-text">
+              <input type="text" name="bankName" disabled={seller.paymentDetails.isEntered}
+                value={seller.paymentDetails.bankName
+                }
+                onChange={(e) => updateFormData("bankName", e.target.value)} placeholder="enter your bank name" className="input-field" />
+              <p className="written text-wrap">Bank name so that all payment can be settled.</p>
+            </div>
+            <div className="input-text">
+              <input type="text" name="accountNumber"
+                disabled={seller.paymentDetails.isEntered}
+                value={seller.paymentDetails.accountNumber
+                }
+                onChange={(e) => updateFormData("accountNumber", e.target.value)} placeholder="enter your account number" className="input-field" />
+              <p className="written text-wrap">Account number so that all payment can be settled.</p>
+            </div>
+            <div className="input-text">
+              <input type="text" name="ifscCode"
+                value={
+                  seller.paymentDetails.ifscCode
+                }
+                disabled={seller.paymentDetails.isEntered}
+                onChange={(e) => updateFormData("ifscCode", e.target.value)} placeholder="enter your ifsc code" className="input-field" />
+              <p className="written text-wrap">IFSC code so that all payment can be settled.</p>
+            </div>
+            <div className="input-text">
+              <input type="text" name="branch"
+                disabled={seller.paymentDetails.isEntered}
+                value={seller.paymentDetails.branch
+                }
+                onChange={(e) => updateFormData("branch", e.target.value)} placeholder="enter your bank branch" className="input-field" />
+              <p className="written text-wrap">Branch so that all payment can be settled.</p>
+            </div>
+            <div className="input-text">
+              <input type="text" name="upiLink"
+                disabled={seller.paymentDetails.isEntered}
+                value={seller.paymentDetails.upiLink
+                }
+                onChange={(e) => updateFormData("upiLink", e.target.value)} placeholder="enter your upi id" className="input-field" />
+              <p className="written text-wrap">UPI id so that all payment can be settled.</p>
+            </div>
 
-          <form style={{ marginTop: "20px" }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="bankName"
-                  label="Bank Name"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  disabled={seller.paymentDetails.isEntered}
-                  value={seller.paymentDetails.bankName
-                  }
-                  onChange={(e) => updateFormData("bankName", e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="accountNumber"
-                  label="Account Number"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  disabled={seller.paymentDetails.isEntered}
-                  value={seller.paymentDetails.accountNumber
-                  }
-                  onChange={(e) => updateFormData("accountNumber", e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="ifscCode"
-                  label="IFSC Code"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  disabled={seller.paymentDetails.isEntered}
-                  value={
-                    seller.paymentDetails.ifscCode
-                  }
-                  onChange={(e) => updateFormData("ifscCode", e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="branch"
-                  label="Branch"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  disabled={seller.paymentDetails.isEntered}
-                  value={seller.paymentDetails.branch
-                  }
-                  onChange={(e) => updateFormData("branch", e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="upiLink"
-                  label="UPI ID"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  disabled={seller.paymentDetails.isEntered}
-                  value={seller.paymentDetails.upiLink
-                  }
-                  onChange={(e) => updateFormData("upiLink", e.target.value)}
-                />
-              </Grid>
-              {/* {!seller.paymentDetails.isEntered && <Grid item xs={12} sm={6}>
-                <input
-                  name="fileInput"
-                  onChange={imageHandler}
-                  type="file"
-                  accept="image/*"
-                  required
-                />
-                {loading && (
-                  <CircularProgress size={20} style={{ marginLeft: "8px" }} />
-                )}
-                {uploadSuccess && (
-                  <CheckCircleIcon
-                    style={{ color: green[500], marginLeft: "8px" }}
-                  />
-                )}
-              </Grid>} */}
-
-            </Grid>
-
-            {!seller.paymentDetails.isEntered && <Button
-              type="button"
-              variant="contained"
-              color="primary"
-              onClick={handleSubmit}
-              style={{ marginTop: "20px" }}
-            >
-              Submit
-            </Button>}
-          </form>
-        </Box>}
+            <button className="btn-design" type="button" onClick={handleSubmit}>Save</button>
+            </div>
+      </div>}
     </>
   );
 };

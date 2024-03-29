@@ -158,7 +158,6 @@ const ProductEdit = ({ stepper, productSuccess }) => {
       {loader && <Loader />}
       {!loader && (
         <form>
-          <h4>Product Details</h4>
           <div className="storedetails-container">
             <div className='card-design'>
               <p className='store-name'>Product Details</p>
