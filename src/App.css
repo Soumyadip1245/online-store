@@ -1,0 +1,34 @@
+.main-background {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--page-bg);
+    background-attachment: fixed;
+    position: relative;
+  }
+.gradient1{
+    position: fixed;
+    top: 0;
+    right: 12rem;
+    border-radius: 70rem;
+    height: 15rem;
+    width: 50rem;
+    background-color: var(--gradient1);
+    transform: rotate(32deg);
+    opacity: 0.25;
+    filter: blur(100px);
+    /* z-index: -1; */
+}
+.gradient2{
+    background-color: var(--gradient2);
+    border-radius: 70rem;
+    width: 50rem;
+    height: 15rem;
+    top: 0;
+    position: fixed;
+    right: -12rem;
+    transform: rotate(32deg);
+    opacity: 0.25;
+    filter: blur(100px);
+    /* z-index: -1; */
+}
+  

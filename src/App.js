@@ -27,7 +27,7 @@ import Sidebar from "./components/dashboard/side-bar/Sidebar"
 import ChatWith from "./components/chat/ChatWith"
 import StoreConfirmation from "./components/storeLink/store-confirmation/StoreConfirmation"
 import Setting from "./components/setting/Setting"
-
+import './App.css'
 const App = () => {
   const { loggedIn, checkStatus } = AuthLayout()
   const RoutesData = [
@@ -166,7 +166,9 @@ const App = () => {
                 path={curr.path}
                 element={
                   curr.protected ? (
-                    <div style={{ display: "flex", minHeight: "100vh", background: "var(--page-bg)", backgroundAttachment: "fixed"}}>
+                    <div className="main-background">
+                      <div className="gradient2"></div>
+                      <div className="gradient1"></div>
                       {loggedIn && <Sidebar />}
                       <div style={{ flex: 1, overflow: "auto" }}>
                         <ProtectedRoute component={curr.element} />

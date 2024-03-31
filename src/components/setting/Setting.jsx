@@ -8,6 +8,14 @@ const themes = [
     {
         name: 'teal',
         className: 'green-theme'
+    },
+    {
+        name: 'blue',
+        className: 'blue-theme'
+    },
+    {
+        name: 'gray',
+        className: 'gray-theme'
     }
 ]
 const Setting = () => {

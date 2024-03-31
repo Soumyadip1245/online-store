@@ -32,12 +32,16 @@
     --icon-color: #ea5b5f;
     --sidebar-hover: #2b1614;
     --card-border: #462422;
-    --page-bg: #120909;
+    --page-bg: #130909;
     --toggle-color: #421617;
     --toggle-off: #d34648;
+    --gradient1: rgba(80, 31, 36, 1);
+    --gradient2: rgba(133, 42, 43, 1);
 }
 
 .blue-theme {
+    --gradient1: #1f2450;
+    --gradient2: #083aa7;
     --button-background: #093aa7;
     --button-hover-background: #034eec;
     --card-bg: #110f19;
@@ -47,10 +51,12 @@
     --card-border: #312741;
     --toggle-color: #421617;
     --toggle-off: #d34648;
-    --page-bg: linear-gradient(135deg, #05040b, #071b57, #0a0912);
+    --page-bg: #0d0a12;
 }
 
 .green-theme {
+    --gradient1: #1f503b;
+    --gradient2: #285b87;
     --button-background: #275b87;
     --button-hover-background: #317dbf;
     --card-bg: #0e1418;
@@ -60,10 +66,12 @@
     --card-border: #273441;
     --toggle-color: #421617;
     --toggle-off: #d34648;
-    --page-bg: linear-gradient(250deg, #1e4c6e, #0e1418, #06080b);
+    --page-bg: #0a0e12;
 }
 
 .gray-theme {
+    --gradient1: #383838;
+    --gradient2: #292d86;
     --button-background: #292d86;
     --button-hover-background: #333abe;
     --card-bg: #141414;
@@ -73,7 +81,7 @@
     --icon-color: #5962eb;
     --sidebar-hover: #202020;
     --card-border: #343434;
-    --page-bg: linear-gradient(135deg, #1d1f5a, #0f0f0f, #0a0a0a);
+    --page-bg: #0e0e0e;
 }
 
 .card-design {
