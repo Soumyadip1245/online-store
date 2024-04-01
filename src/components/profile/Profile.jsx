@@ -143,7 +143,7 @@ const Profile = ({ profileSuccess, stepper }) => {
                     value={seller.sellerName}
                     onChange={(e) => updateFormData("sellerName", e.target.value)}
                   />
-                  <p className="written text-wrap">Seller name is visible to all those who will access your store.</p>
+                  <p className="written text-wrap">The seller name will be prominently displayed for all visitors to see.</p>
 
                 </div>
                 <div className="input-text">
@@ -155,7 +155,7 @@ const Profile = ({ profileSuccess, stepper }) => {
                     value={seller.profile.address}
                     onChange={(e) => updateFormData("address", e.target.value)}
                   />
-                  <p className="written text-wrap">Address is visible to all those who will access your store.</p>
+                  <p className="written text-wrap">The address will be visible to all visitors accessing your store.</p>
 
                 </div>
                 <div className="input-text">
@@ -167,7 +167,7 @@ const Profile = ({ profileSuccess, stepper }) => {
                     value={seller.profile.city}
                     onChange={(e) => updateFormData("city", e.target.value)}
                   />
-                  <p className="written text-wrap">Pincode is visible to all those who will access your store.</p>
+                  <p className="written text-wrap">The pincode will be visible to all visitors accessing your store.</p>
 
                 </div>
                 <div className="input-text">
@@ -179,7 +179,7 @@ const Profile = ({ profileSuccess, stepper }) => {
                     value={seller.profile.state}
                     onChange={(e) => updateFormData("state", e.target.value)}
                   />
-                  <p className="written text-wrap">State is visible to all those who will access your store.</p>
+                  <p className="written text-wrap">The state will be visible to all visitors accessing your store.</p>
 
                 </div>
                 <div className="input-text">
@@ -191,9 +191,10 @@ const Profile = ({ profileSuccess, stepper }) => {
                     value={seller.profile.pincode}
                     onChange={(e) => updateFormData("pincode", e.target.value)}
                   />
-                  <p className="written text-wrap">Pincode is visible to all those who will access your store.</p>
+                  <p className="written text-wrap">The pincode will be visible to all visitors accessing your store.</p>
 
                 </div>
+                <div>
                 <button
                   type="button"
                   className="btn-design"
@@ -201,6 +202,7 @@ const Profile = ({ profileSuccess, stepper }) => {
                 >
                   Submit
                 </button>
+                </div>
               </div>
             </div>
           </form>

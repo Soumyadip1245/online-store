@@ -143,7 +143,7 @@ const Scrapper = ({ sendProduct }) => {
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
-                        <p className="written text-wrap">Product name will be search through our providers and if found product details will be shown and you can add it directly to your products.</p>
+                        <p className="written text-wrap">Search for the product name through our providers. If found, view the product details and add it directly to your inventory.</p>
                     </div>
                     <div>
                         <button className="btn-design" onClick={fetchRender}>Search</button>

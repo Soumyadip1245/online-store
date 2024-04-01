@@ -169,7 +169,7 @@ const ProductEdit = ({ stepper, productSuccess }) => {
                   value={product.productName}
                   onChange={(e) => setProduct({ ...product, productName: e.target.value })}
                 />
-                <p className="written text-wrap">Product name is visible to all those who will access your store.</p>
+                <p className="written text-wrap">The product name will be prominently displayed for all visitors to see.</p>
               </div>
               <div className='input-text'>
                 <input
@@ -179,7 +179,7 @@ const ProductEdit = ({ stepper, productSuccess }) => {
                   value={product.productPrice}
                   onChange={(e) => setProduct({ ...product, productPrice: e.target.value })}
                 />
-                <p className="written text-wrap">Product price is visible to all those who will access your store.</p>
+                <p className="written text-wrap">The product price will be clearly displayed for all visitors to view.</p>
 
               </div>
               <div className='input-text'>
@@ -190,7 +190,7 @@ const ProductEdit = ({ stepper, productSuccess }) => {
                   value={product.productCategory}
                   onChange={(e) => setProduct({ ...product, productCategory: e.target.value })}
                 />
-                            <p className="written text-wrap">Choose category for your product.</p>
+                            <p className="written text-wrap">Select the appropriate category for your product.</p>
 
               </div>
               <div className='input-text'>
@@ -206,8 +206,9 @@ const ProductEdit = ({ stepper, productSuccess }) => {
                 {loading && <div>Loading...</div>}
                 {uploadSuccess && <div>Upload Success!</div>}
               </div>
-             
+             <div>
                 <button type="button" className='btn-design' onClick={handleSubmit}>Save</button>
+                </div>
               
             </div>
           </div>

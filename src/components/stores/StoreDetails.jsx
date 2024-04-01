@@ -146,25 +146,25 @@ const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, edit
             <input type="text" name="storeName"
               value={store?.storeName}
               onChange={handleChange} placeholder="enter your store name" className="input-field" />
-            <p className="written text-wrap">Store name is visible to all those who will access your store.</p>
+            <p className="written text-wrap">Your store's name will be prominently displayed for all visitors to see.</p>
           </div>
           <div className="input-text">
             <input type="text" name="uniqueName"
               value={store?.uniqueName}
               onChange={handleChange} placeholder="enter your store unique name" className="input-field" />
-            <p className="written text-wrap">Unique name is the name which will be available in your store url. Don't use space or uppercase letters</p>
+            <p className="written text-wrap">Craft a distinctive name for your store URL. Avoid spaces and uppercase letters for a clean, memorable web address.</p>
           </div>
           <div className="input-text">
             <input type="text" name="storeAddress"
               value={store?.storeAddress}
               onChange={handleChange} placeholder="enter your store address" className="input-field" />
-            <p className="written text-wrap">Store address is the address of the store.</p>
+            <p className="written text-wrap">The store address is where you'll find us located.</p>
           </div>
           <div className="input-text">
             <input type="text" name="gstNumber"
               value={store?.gstNumber}
               onChange={handleChange} placeholder="enter your store GST number" className="input-field" />
-            <p className="written text-wrap">Store GST number for gst invoice or receipt (OPTIONAL)</p>
+            <p className="written text-wrap">Enter your store's GST number for accurate invoicing and receipts (OPTIONAL)</p>
           </div>
           <div className="input-text">
             <div className="toggle-card">
@@ -174,7 +174,7 @@ const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, edit
               <label htmlFor="toggle" className="toggle-button"></label>
               <p style={{ color: 'var(--color-text)', fontWeight: 'bold' }}>Pay Now</p>
             </div>
-            <p className="written text-wrap">Enable if you want to enable razorpay payments, and place order only if payment is done.</p>
+            <p className="written text-wrap">Opt to activate Razorpay payments for seamless transactions. Orders will be processed upon successful payment.</p>
           </div>
           <div className="input-text">
             <div className="toggle-card">
@@ -184,12 +184,11 @@ const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, edit
               <label htmlFor="toggle1" className="toggle-button"></label>
               <p style={{ color: 'var(--color-text)', fontWeight: 'bold' }}>Pay Later</p>
             </div>
-            <p className="written text-wrap">Enable if you want customer to place order without paying, and can pay after the order is placed.</p>
+            <p className="written text-wrap">Enable the option for customers to place orders without immediate payment. They can complete the payment after placing the order.</p>
           </div>
           <div className="input-text">
             <input name="fileInput" type="file" accept="image/*" onChange={imageHandler} className="imagedrop" />
             <p className="written text-wrap">Choose image for your store.</p>
-
           </div>
           <button className="btn-design" type="button" onClick={handleSubmit}>Save</button>
         </div>

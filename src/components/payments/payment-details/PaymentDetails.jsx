@@ -112,7 +112,7 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
               <p className="written rz">{seller.paymentDetails.razorpayId
                 ? seller.paymentDetails.razorpayId
                 : "Not Assigned"}</p>
-              <p className="written">This is razorpay account ID generated, so that your customer can make payment through razorpay gateway</p>
+              <p className="written">This is your unique Razorpay account ID generated, allowing your customers to make secure payments through the Razorpay gateway.</p>
             </div>
             <div>
               <div className="badges">
@@ -129,7 +129,7 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
                 value={seller.paymentDetails.bankName
                 }
                 onChange={(e) => updateFormData("bankName", e.target.value)} placeholder="enter your bank name" className="input-field" />
-              <p className="written text-wrap">Bank name so that all payment can be settled.</p>
+              <p className="written text-wrap">Please provide the name of your bank for seamless settlement of all payments.</p>
             </div>
             <div className="input-text">
               <input type="text" name="accountNumber"
@@ -137,7 +137,7 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
                 value={seller.paymentDetails.accountNumber
                 }
                 onChange={(e) => updateFormData("accountNumber", e.target.value)} placeholder="enter your account number" className="input-field" />
-              <p className="written text-wrap">Account number so that all payment can be settled.</p>
+              <p className="written text-wrap">Kindly provide your account number to facilitate seamless settlement of all payments.</p>
             </div>
             <div className="input-text">
               <input type="text" name="ifscCode"
@@ -146,7 +146,7 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
                 }
                 disabled={seller.paymentDetails.isEntered}
                 onChange={(e) => updateFormData("ifscCode", e.target.value)} placeholder="enter your ifsc code" className="input-field" />
-              <p className="written text-wrap">IFSC code so that all payment can be settled.</p>
+              <p className="written text-wrap">Please provide the IFSC code to ensure smooth settlement of all payments.</p>
             </div>
             <div className="input-text">
               <input type="text" name="branch"
@@ -154,7 +154,7 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
                 value={seller.paymentDetails.branch
                 }
                 onChange={(e) => updateFormData("branch", e.target.value)} placeholder="enter your bank branch" className="input-field" />
-              <p className="written text-wrap">Branch so that all payment can be settled.</p>
+              <p className="written text-wrap">Please specify the branch to facilitate smooth settlement of all payments.</p>
             </div>
             <div className="input-text">
               <input type="text" name="upiLink"
@@ -162,10 +162,12 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
                 value={seller.paymentDetails.upiLink
                 }
                 onChange={(e) => updateFormData("upiLink", e.target.value)} placeholder="enter your upi id" className="input-field" />
-              <p className="written text-wrap">UPI id so that all payment can be settled.</p>
+              <p className="written text-wrap">Kindly provide your UPI ID to ensure seamless settlement of all payments.</p>
             </div>
 
+            <div>
             <button className="btn-design" type="button" onClick={handleSubmit}>Save</button>
+            </div>
             </div>
       </div>}
     </>

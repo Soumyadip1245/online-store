@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import './Setting.css'
 const themes = [
     {
+        name: 'purple',
+        className: 'purple-theme'
+    },
+    {
         name: 'red',
         className: 'red-theme'
     },

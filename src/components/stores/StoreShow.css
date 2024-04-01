@@ -29,7 +29,7 @@
 }
 
 .toggle-button {
-    border: var(--color-text);
+    border: #fff;
 }
 
 .btn-design {
@@ -60,23 +60,27 @@
     grid-template-columns: repeat(2, 1fr);
     margin-top: 1rem;
 }
-.storedetails-container{
+
+.storedetails-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.input-text{
+
+.input-text {
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
-.text-wrap{
+
+.text-wrap {
     width: 50%;
     margin: 1rem 0;
 }
-.toggle-card{
+
+.toggle-card {
     width: 80%;
     display: flex;
     align-items: center;
@@ -87,91 +91,92 @@
 }
 
 .input-checkbox {
-    display: none; /* Hide the checkbox */
+    display: none;
 }
 
 .toggle-button {
-    width: 40px; /* Set the width of the toggle button */
-    height: 20px; /* Set the height of the toggle button */
-    background-color: var(--toggle-color); /* Set the background color of the toggle button */
-    border-radius: 10px; /* Round the corners to make it look like a button */
+    width: 40px;
+    height: 20px;
+    background-color: var(--color-text);
+    border-radius: 10px;
     position: relative;
     cursor: pointer;
 }
 
-.input-checkbox:checked + .toggle-button {
-    background-color: var(--toggle-off); /* Change the background color when checked */
+.input-checkbox:checked+.toggle-button {
+    background-color: var(--toggle-color);
 }
 
 .toggle-button::after {
     content: '';
     position: absolute;
-    width: 16px; /* Set the width of the toggle indicator */
-    height: 16px; /* Set the height of the toggle indicator */
-    background-color: white; /* Set the color of the toggle indicator */
-    border-radius: 50%; /* Round the indicator to make it a circle */
-    top: 2px; /* Position the indicator */
-    left: 2px; /* Position the indicator */
-    transition: transform 0.3s; /* Add a smooth transition effect */
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
 }
 
-.input-checkbox:checked + .toggle-button::after {
-    transform: translateX(20px); /* Move the indicator to the right when checked */
+.input-checkbox:checked+.toggle-button::after {
+    transform: translateX(20px);
 }
+
 .toggle-switch {
     display: inline-block;
-  }
-  
-  .switch {
-      position: relative;
-      display: inline-block;
-      width: 40px;
-      height: 24px; 
-    }
-    
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      -webkit-transition: .4s;
-      transition: .4s;
-      border-radius: 24px; 
-    }
-    .input-dropdown{
-        color: var(--color-text);
+}
 
-    }
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px; 
-      width: 18px; 
-      left: 3px;
-      bottom: 3px;
-      background-color: #fff;
-      -webkit-transition: .4s;
-      transition: .4s;
-      border-radius: 50%;
-    }
-    
-    input:checked + .slider {
-      background-color: var(--button-hover-background);
-    }
-    
-    input:checked + .slider:before {
-      -webkit-transform: translateX(16px); 
-      -ms-transform: translateX(16px); 
-      transform: translateX(16px);
-    }
-    
-  
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-text);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.input-dropdown {
+    color: var(--color-text);
+
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #fff;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: var(--button-hover-background);
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(16px);
+    -ms-transform: translateX(16px);
+    transform: translateX(16px);
+}

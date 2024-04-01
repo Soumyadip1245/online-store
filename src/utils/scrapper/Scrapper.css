@@ -1,6 +1,6 @@
 .tool {
     font-family: 'Arial', sans-serif;
-    background-color: rgba(52, 58, 64, 0.5);
+    background-color: var(--sidebar-hover);
     color: white;
     display: flex;
     flex-direction: column;
@@ -22,12 +22,12 @@
 .toolmain {
     width: 50%;
     max-width: 400px;
-    background-color: #080533;
+    background-color: var(--gradient1);
     padding: 20px;
 }
 
 .toolservice {
-    background-color: #080533;
+    background-color: var(--gradient1);
     border-radius: 50%;
     margin-bottom: 20px;
     padding: 20px;

@@ -22,14 +22,6 @@ const ProductShow = ({ product: initialProduct, onAddToCart, onCheckbox, showChe
     navigate('/product-edit/' + product)
   }
 
-  // const commands = [
-  //   {
-  //     command: "add product",
-  //     callback: () => {
-  //     },
-  //   },
-
-  // ];
   return (
 
     <div className="show-card">

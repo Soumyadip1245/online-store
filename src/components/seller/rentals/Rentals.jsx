@@ -2,6 +2,7 @@ import { AppBar, Box, Button, CircularProgress, IconButton, Toolbar, Typography 
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import * as dayjs from "dayjs";
 import React, { useEffect, useState } from 'react'
+import styled from '@emotion/styled';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -19,6 +20,7 @@ import { pay } from '../../../utils/razorpay';
 import Loader from '../../../utils/loader/Loader';
 import VoiceRecognition from '../../../utils/voice-recognition/VoiceRecognition';
 import { speakMessage } from '../../../utils/voice-recognition/Speak';
+import "./Rentals.css";
 import { useMutation, useQuery } from 'react-query';
 import { message } from 'antd';
 const Rentals = () => {
@@ -71,6 +73,14 @@ const Rentals = () => {
       handlePaymentFailure
     );
   }
+  const AcceptedDot = styled('span')({
+    display: 'inline-block',
+    width: '10px',
+    height: '10px',
+    borderRadius: '50%',
+    backgroundColor: '#17b31b',
+    marginRight: '5px',
+  });
   const commands = [
     {
       command: "Rental Status",
@@ -94,7 +104,6 @@ const Rentals = () => {
         purchase()
       },
     }
-
   ];
   const mutation = useMutation(async () => {
     const today = new Date()
@@ -116,48 +125,42 @@ const Rentals = () => {
 
   if (isLoading) return <Loader />
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <div className="container">
       <VoiceRecognition commands={commands} />
-
-      {/* {loader && <Loader/>} */}
-      {!isLoading && <Box sx={{ display: "flex", flexGrow: 1, flexDirection: "column", justifyContent: "space-between" }}>
-        <Box m={2} >
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-              <TableHead>
-                <TableRow sx={{ backgroundColor: '#f2f2f2' }}>
-                  <TableCell>Rental</TableCell>
-                  <TableCell>Start Date</TableCell>
-                  <TableCell>End Date</TableCell>
-                  <TableCell>Amount</TableCell>
-                  <TableCell>Purchased On</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rentals.map((curr) => {
-                  return <TableRow key={curr._id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row" >
-                      {curr.type == 'Free' ? "Free" : "Paid"}
-                    </TableCell>
-                    <TableCell >{dayjs(curr.startDate).format('DD/MM/YYYY')}</TableCell>
-                    <TableCell >{dayjs(curr.endDate).format('DD/MM/YYYY')}</TableCell>
-                    <TableCell >₹ {curr.type == 'Free' ? "0" : "500"}</TableCell>
-                    <TableCell >{dayjs(curr.createdAt).format('DD/MM/YYYY')}</TableCell>
-                  </TableRow>
-                })}
-
-
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
-        <Button variant="contained" onClick={purchase}>Purchase</Button>
-      </Box>}
-
-    </Box>
-  )
+      
+      {!isLoading && (
+        <div className="content-container">
+          <div className="table-container">
+            <table className="table">
+              <thead>
+                <tr className="table-row">
+                  <th>Rental</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Amount</th>
+                  <th>Purchased On</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rentals.map((curr) => (
+                  <tr key={curr._id} className="table-row">
+                    <td><><AcceptedDot/>{curr.type === 'Free' ? "Free" : "Paid"}</></td>
+                    <td>{new Date(curr.startDate).toLocaleDateString('en-IN')}</td>
+                    <td>{new Date(curr.endDate).toLocaleDateString('en-IN')}</td>
+                    <td>₹ {curr.type === 'Free' ? "0" : "500"}</td>
+                    <td>{new Date(curr.createdAt).toLocaleDateString('en-IN')}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+          <button className="purchase-button" onClick={purchase}>Purchase</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Rentals

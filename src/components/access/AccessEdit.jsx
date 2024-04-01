@@ -157,7 +157,7 @@ const AccessEdit = () => {
                   value={access.staffName}
                   onChange={handleChange}
                 />
-                <p className="written text-wrap">Staff name is visible to all those who will access your store.</p>
+                <p className="written text-wrap">The staff name will be displayed for all visitors to see.</p>
 
               </div>
               <div className="input-text">
@@ -169,7 +169,7 @@ const AccessEdit = () => {
                   value={access.mobile}
                   onChange={handleChange}
                 />
-                <p className="written text-wrap">Mobile number is visible to the store owner.</p>
+                <p className="written text-wrap">The mobile number will be visible only to the store owner.</p>
 
               </div>
               <div className="input-text">
@@ -181,7 +181,7 @@ const AccessEdit = () => {
                   value={access.email}
                   onChange={handleChange}
                 />
-                <p className="written text-wrap">Email is visible to the store owner.</p>
+                <p className="written text-wrap">The email will be visible exclusively to the store owner.</p>
 
               </div>
               <div className="input-text">
@@ -199,11 +199,12 @@ const AccessEdit = () => {
 
                 ))}
 
-                <p className="written text-wrap">Select roles for the staff.</p>
+                <p className="written text-wrap">Choose the roles for your staff members.</p>
 
               </div>
-
+              <div>
               <button className="btn-design" type="submit">Save</button>
+              </div>
 
             </div>
           </div>
