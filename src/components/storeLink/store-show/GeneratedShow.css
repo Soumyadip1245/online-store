@@ -5,6 +5,7 @@
 
 .container.storelink {
     display: flex;
+    flex-direction: row;
 }
 
 .sidebar.storelink {

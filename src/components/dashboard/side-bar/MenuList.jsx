@@ -94,17 +94,17 @@ const MenuList = () => {
             show: !isFormVisible && (roles.length > 0 ? false : true),
         },
         {
-            name: "Settings",
-            route: "/settings",
-            icon: <i class="fa-solid fa-gear"></i>,
-            show: true,
-        },
-        {
             name: "Forms",
             route: "/forms",
             icon: <i class="fa-brands fa-google-play"></i>,
             show: isFormVisible
         },
+        {
+            name: "Settings",
+            route: "/settings",
+            icon: <i class="fa-solid fa-gear"></i>,
+            show: true,
+        }
     ];
     const defaultSelectedKey = menuItems.find(item => location.pathname.startsWith(item.route))?.route || '/dashboard';
 
@@ -112,6 +112,7 @@ const MenuList = () => {
         <>
             {menuItems.map((item) => (
                 item.show && (
+
                     <Link className="menu-link" to={item.route} key={item.route}>
                        <div className={`sidebar-link ${item.route === defaultSelectedKey ? 'sidebar-hover' : ''}`}>
                             <div className="sidebar-icon">
@@ -122,8 +123,19 @@ const MenuList = () => {
                             </div>
                         </div>
                     </Link>
+                    
                 )
             ))}
+            <Link className="menu-link" onClick={logout}>
+                       <div className="sidebar-link">
+                            <div className="sidebar-icon">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            </div>
+                            <div className="sidebar-text">
+                                Logout
+                            </div>
+                        </div>
+                    </Link>
         </>
     );
     

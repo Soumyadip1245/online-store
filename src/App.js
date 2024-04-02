@@ -175,7 +175,10 @@ const App = () => {
                       </div>
                     </div>
                   ) : curr.generated ? (
+                    <div style={{ flex: 1, overflow: "auto" }}>
                     <StoreRoute component={curr.element} />
+                  </div>
+                    
                   ) : (
                     <curr.element />
                   )

@@ -125,7 +125,6 @@ const Profile = ({ profileSuccess, stepper }) => {
   return (
     <>
       <VoiceRecognition commands={commands} />
-      <h4> Profile</h4>
 
       {!isLoading && (
         <div>

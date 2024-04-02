@@ -1,43 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,800;1,500&family=Spectral:wght@200&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,800;1,500&family=Spectral:wght@200&display=swap'); */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.css-hyum1k-MuiToolbar-root {
     padding: 0;
 }
-
-:root {
-    /* --button-background: #852b2b;
-    --button-hover-background: #bd3436;
-    --card-bg: rgba(69, 36, 34, 0.15);
-    --color-text: #9c605c;
-    --icon-color: #ea5b5f;
-    --sidebar-hover: #2b1614;
-    --card-border: #462422;
-    --toggle-color: #421617;
-    --toggle-off: #d34648;
-    --page-bg:linear-gradient(51deg, #0a0505, #120909, #3a0f0f); */
-}
-.purple-theme {
-    --button-background: #572987;
-    --button-hover-background: #7831bf;
-    --card-bg: #1b1b2e;
-    --color-text: #676790;
-    --icon-color:#a359ec;
-    --sidebar-hover: #171728;
-    --card-border: #5d5dae;
-    --page-bg: #191127;
-    --toggle-color: #8d44d6;
-    --toggle-off: #1b2c3c;
-    --gradient1: rgba(80, 31, 36, 1);
-    --gradient2: rgba(133, 42, 43, 1);
-}
-
 .red-theme {
     --button-background: #852b2b;
     --button-hover-background: #bd3436;
@@ -97,7 +71,20 @@
     --card-border: #343434;
     --page-bg: #0e0e0e;
 }
-
+.purple-theme {
+    --button-background: #572987;
+    --button-hover-background: #7831bf;
+    --card-bg: #1b1b2e;
+    --color-text: #676790;
+    --icon-color:#a359ec;
+    --sidebar-hover: #171728;
+    --card-border: #5d5dae;
+    --page-bg: #0a0a12;
+    --toggle-color: #8d44d6;
+    --toggle-off: #1b2c3c;
+    --gradient1: #1f1f50;
+    --gradient2: #572887;
+}
 .card-design {
     border-radius: 10px;
     width: calc(100% - 20%);
