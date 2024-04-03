@@ -12,8 +12,8 @@
 .purple-theme{
   --color-theme: #17172a;
   --two-circle:  #5d5dae;
-  --inside-color: linear-gradient(51deg, #0a0505, #120909, #3a0f0f);
-  --inside-theme: #332426;
+  --inside-color: linear-gradient(215deg, #1c1c32, #0d0d16, #0a0a12);
+  --inside-theme: #252530;
 }
 .red-theme{
   --color-theme: #40181c;
