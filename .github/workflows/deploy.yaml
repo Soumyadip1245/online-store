@@ -48,6 +48,7 @@ jobs:
             REACT_APP_SERVER_URL: ${{secrets.REACT_APP_SERVER_URL}}
             REACT_APP_RENDER_URL: ${{secrets.REACT_APP_RENDER_URL}}
             REACT_APP_VERCEL_URL: ${{secrets.REACT_APP_VERCEL_URL}}
+            REACT_APP_APPWRITE_STORAGE: ${{secrets.REACT_APP_APPWRITE_STORAGE}}
           run: CI=false npm run build
          
         - name: Deploy Hosting In Production
