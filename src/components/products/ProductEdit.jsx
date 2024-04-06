@@ -74,11 +74,12 @@ const ProductEdit = ({ stepper, productSuccess }) => {
   const imageLink = async (link) => {
     const response = await axios.get(link, { responseType: 'blob' });
     const blob = response.data;
+    const file = new File([blob], { type: 'image/jpeg' });
 
-    console.log(blob)
+    console.log(file);
     try {
       setLoading(true);
-      const data = await original.uploadImage(blob);
+      const data = await original.uploadBlob(file);
       original.productImage = data;
       setUploadSuccess(true);
     } catch (error) {

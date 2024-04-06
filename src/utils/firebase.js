@@ -1,9 +1,9 @@
 import { getFirestore, collection, doc, getDocs, addDoc, setDoc, deleteDoc, where, orderBy, query, limit, getDoc, Firestore, onSnapshot } from "firebase/firestore"
 import { nanoid } from "nanoid"
-import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
+// import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { initializeApp } from "firebase/app"
 import { getAuth, GoogleAuthProvider } from "firebase/auth"
-import { Client, Storage } from "appwrite"
+import { Client, Storage, ID } from "appwrite"
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_CONFIG_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_CONFIG_AUTH_DOMAIN,
@@ -87,9 +87,15 @@ class FirebaseService {
   }
   async uploadFile(file) {
     const unique = file.name
-    console.log(process.env, process.env.REACT_APP_APPWRITE_STORAGE)
     const fileData = new File([file], unique, { type: file.type })
     const result = await storage.createFile(process.env.REACT_APP_APPWRITE_STORAGE, unique, fileData)
+    return unique
+  }
+  async uploadBlob(file) {
+    const unique = nanoid(10)
+    console.log("File: ",unique)
+    // const fileData = new File([file], unique, InputFile.fromBlob(file, unique))
+    const result = await storage.createFile(process.env.REACT_APP_APPWRITE_STORAGE, unique,file)
     return unique
   }
   async uploadPDF(file, orderNumber) {

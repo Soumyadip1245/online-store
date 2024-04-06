@@ -137,6 +137,9 @@ class Product {
   async uploadImage(file) {
     return fb.uploadFile(file);
   }
+  async uploadBlob(file) {
+    return fb.uploadBlob(file);
+  }
   async downloadUrl(file) {
     return await fb.imageUrl(file);
   }
