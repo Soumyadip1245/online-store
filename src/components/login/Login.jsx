@@ -13,14 +13,13 @@ import "react-phone-input-2/lib/style.css"
 import Loader from "../../utils/loader/Loader"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import Logo from '../assests/background-image.png'
 import { login } from "../../store/authSlice"
 import Banner from "../assests/banner.jpg"
 import "./Login.css"
 import Notify from "../../utils/snackbar/Notify"
 import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition"
 import { speakMessage } from "../../utils/voice-recognition/Speak"
-
+import Logo from '../assests/INFINITY-removebg-preview.png'
 import { Layout, Row, Col, Form, Input, Button, Checkbox, Divider, Card, message } from 'antd';
 
 const { Content } = Layout;
@@ -32,7 +31,7 @@ const Login = () => {
   const [isAvailable, setAvailable] = useState(false)
 
   const sendOtp = async () => {
-    
+
     const confirmation = await phoneLogin(phone)
     if (confirmation) {
       setConfirmation(confirmation)
@@ -46,9 +45,9 @@ const Login = () => {
     const data = await googleLogin()
 
     if (data) {
-     message.success("LoggedIn successfully")
+      message.success("LoggedIn successfully")
     } else {
-     message.warning("Something went wrong from google authentication")
+      message.warning("Something went wrong from google authentication")
     }
   }
   const handleCheckbox = (e) => {
@@ -107,49 +106,37 @@ const Login = () => {
   ]
 
   return (
-    
-    <Layout className="box-container login" style={{ position: 'relative',minHeight: '100vh' }}>
-      
-    <div style={{  marginTop: '1rem', left: '50%',  zIndex: '1' }}>
-      <h1 className='h1ag'><span>Online</span> Stores</h1>
+    <div className="login-container">
+       <div className="login-header">
+       <img src={Logo} alt="logo" width="10%" />
+        <h2>Online Stores</h2>
+        <div className="projector">
+          
+        </div>
+      </div>
+    <div className="login-card">
+      <div className="login-form">
+        <div className="login-text">
+          <h2 className="login-heading">Login to your Account</h2>
+          <div className="login-hint">Choose any method of login to account</div>
+        </div>
+        <div>
+          <div className="field-heading">Phone Number</div>
+          <input type="text" className="input-field loginfield" placeholder="enter your phone number"/>
+        </div>
+        <div style={{marginTop: "2rem"}}>
+          <div className="field-heading">Enter OTP</div>
+          <input type="text" className="input-field loginfield" placeholder="enter OTP"/>
+        </div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <button className="btn-design login-submit">Submit</button>
+        </div>
+        <div className="login-hint">You can also login with <a style={{color:"rgba(130, 136, 254, 1)",cursor: 'pointer'}}>Google login</a></div>
+      </div>
     </div>
-    <Content>
-    <VoiceRecognition commands={commands} />
-      <Row  justify="center" align="middle">
-        <Col xs={24} sm={12} md={12} lg={12} xl={12} xxl={12}>
-          <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img src={Logo} alt="Your Image" style={{ objectFit: 'contain', maxWidth: '100%', maxHeight: '100%' }} />
-          </div>
-        </Col>
-        <Col xs={24} sm={12} md={12} lg={12} xl={12} xxl={12} style={{ padding: '24px' }}>
-         {!isAvailable && <Card title="Login" className="login-card">
-            {!checkbox && (
-              <>
-                <GoogleButton style={{ width: '100%' }} onClick={google} />
-                <Divider>OR</Divider>
-              </>
-            )}
+    </div>
+   
 
-            <PhoneInput
-              country={'in'}
-              value={phone}
-              onChange={(value, country, e, formattedValue) => setPhone(formattedValue)}
-              inputStyle={{ width: '100%' }}
-            />
-             <div id="recaptcha-container" sx={{ mb: 2 }}></div>
-            <div style={{ marginTop: 16 }}>
-              <Checkbox value={checkbox} onChange={handleCheckbox}>Are you staff?</Checkbox>
-            </div>
-            <Button onClick={sendOtp} style={{ marginTop: 16 }}>Send OTP</Button>
-          </Card>}
-          {isAvailable && <Card title="Verify OTP">
-          <OTPInput className="otppppp-input" value={otp} onChange={(value) => setValue(value)} autoFocus OTPLength={6} otpType="text" />
-          <Button onClick={verifyOtp} style={{ marginTop: 16 }}>Verify OTP</Button>
-            </Card>}
-        </Col>
-      </Row>
-    </Content>
-  </Layout>
 
   )
 }

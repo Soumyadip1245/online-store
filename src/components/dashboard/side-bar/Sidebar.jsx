@@ -9,7 +9,7 @@ const Sidebar = () => {
     <div className="sidebar-content">
       <div className="sidebar-logo">
         <div className="image-logo">
-          <img src={Logo} alt="" />
+          <img src={Logo} alt="logo" />
         </div>
       </div>
       <MenuList/>

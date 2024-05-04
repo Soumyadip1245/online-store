@@ -1,34 +1,62 @@
-.box-container{
-    width: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    position: relative;
-    color: white;
-    min-height: 100vh;
-    background-color: #19191c;
-    font-family: 'Montserrat', sans-serif;
-    /* background-image: url('../../assests/screen.svg'); */
-}
-.google-button{
-    width: 50% !important;
-    margin: 0 auto;
-}
-.otppppp-input{
-    width: 50%;
-    margin: 5px auto;
+.login-card{
+    display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
 }
-.login{
-    background-image: url("../assests/layered-waves-haikei.png");
+.login-container{
+    background-color: rgba(14, 14,14, 1);
+    min-height: 100vh;
 }
-
-@media (max-width: 800px){
-    .google-button{
-        width: 100% !important;
-    }
-    .otppppp-input{
-        width: 100%;
-    }
+.login-form{
+    padding: 3rem;
+    background-color: rgba(32, 32, 32, 0.5);
+    border-radius: 0.75rem;
+    max-width: 600px;
+    width: 100%;
+    margin: 5rem auto;
+    
+}
+.login-text{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.login-heading{
+    color: rgba(255, 255, 255, 1);
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+.login-hint{
+    color: rgba(124, 124, 124, 1);
+    margin-top: 1rem;
+}
+.field-heading{
+    color: rgba(255, 255, 255, 1);
+    font-weight: 700;
+}
+.loginfield{
+    width: 100%;
+    margin-top: 1rem;
+}
+.login-submit{
+    background-color: rgba(41, 45, 134, 1);
+    width: 50%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.login-header{
+    right: 0;
+    left: 0;
+    background-color: rgba(14, 14, 14, 1);
+    border-color: rgba(60, 60, 60, 0.5);
+    align-items: center;
+    height: 5rem;
+    border-bottom-width: 1px;
+    display: flex;
+    position: fixed;
+    color: white;
 }

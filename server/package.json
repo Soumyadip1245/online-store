@@ -18,6 +18,6 @@
     "express": "^4.18.2",
     "googleapis": "^118.0.0",
     "nodemon": "^2.0.22",
-    "puppeteer": "^19.10.1"
+    "puppeteer": "^19.11.1"
   }
 }

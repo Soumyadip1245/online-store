@@ -1,5 +1,6 @@
 import * as React from "react"
 import "./Dashboard.css"
+import axios from 'axios'
 import { useSelector } from "react-redux"
 import { createandGetUser } from "../login/Auth"
 import { useEffect } from "react"
@@ -37,6 +38,13 @@ const Dashboard = () => {
   }, [data])
   const stepperLoad = (data) => {
     setSeller(data)
+  }
+  const fetchData = async () => {
+    const response = await axios.post('/fetchData',{
+      "fetcher": 1,
+      "query": "vest"
+  })
+  console.log(response.data)
   }
   const getDashboard = async () => {
 
@@ -146,6 +154,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
+            <button className="btn-design" onClick={fetchData}>Fetch</button>
             <div className="card-design" style={{flex: 1}}>
               <h5 className="dashboard-heading">Need Help</h5>
              {showChat && <ChatService />}
