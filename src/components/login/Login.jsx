@@ -29,18 +29,39 @@ const Login = () => {
   const [checkbox, setCheckbox] = useState(false)
   const [confirmation, setConfirmation] = useState(null)
   const [isAvailable, setAvailable] = useState(false)
+  const [isOtpSent, setIsOtpSent] = useState(false);
+
+
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+    if (!value.startsWith("+91")) {
+      setPhone(`+91${value.replace(/^(\+91)?/i, "")}`); // Ensure "+91" at the start
+    } else {
+      setPhone(value);
+    }
+  };
 
   const sendOtp = async () => {
-
-    const confirmation = await phoneLogin(phone)
-    if (confirmation) {
-      setConfirmation(confirmation)
-      setAvailable(true)
-      message.success("OTP sent")
-    } else {
-      message.warning("Trouble sending the OTP")
+    if (phone.length < 13) { // Phone number with country code should be at least 13 characters
+      message.warning("Please enter a valid phone number with country code.");
+      return;
     }
-  }
+
+    try {
+      const confirmationResult = await phoneLogin(phone); // Ensure proper setup
+      if (confirmationResult) {
+        setConfirmation(confirmationResult);
+        setIsOtpSent(true);
+        message.success("OTP sent successfully.");
+      } else {
+        message.warning("Trouble sending OTP. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error sending OTP:", error); // Log the error for debugging
+      message.error("An error occurred while sending OTP. Please try again later.");
+    }
+  };
+
   const google = async () => {
     const data = await googleLogin()
 
@@ -107,38 +128,68 @@ const Login = () => {
 
   return (
     <div className="login-container">
-       <div className="login-header">
-       <img src={Logo} alt="logo" width="10%" />
-        <h2>Online Stores</h2>
-        <div className="projector">
-          
-        </div>
-      </div>
+    <div className="login-header">
+      <img src={Logo} alt="logo" width="10%" />
+      <h2>Online Stores</h2>
+    </div>
+
     <div className="login-card">
       <div className="login-form">
         <div className="login-text">
           <h2 className="login-heading">Login to your Account</h2>
-          <div className="login-hint">Choose any method of login to account</div>
+          <div className="login-hint">Choose any method of login to your account.</div>
         </div>
-        <div>
-          <div className="field-heading">Phone Number</div>
-          <input type="text" className="input-field loginfield" placeholder="enter your phone number"/>
+
+        {!isOtpSent ? (
+          <>
+            <div>
+              <div className="field-heading">Phone Number</div>
+              <input
+                type="tel"
+                value={phone}
+                onChange={handlePhoneChange}
+                className="input-field loginfield"
+                placeholder="Enter your phone number"
+              />
+            </div>
+            <div id="recaptcha-container" sx={{ mb: 2 }}></div>  
+          <div style={{ marginTop: 16 }}>
+              <Checkbox value={checkbox} style={{color:'rgba(255, 255, 255, 1)'}} onChange={handleCheckbox}>Are you staff?</Checkbox>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <button onClick={sendOtp} className="btn-design login-submit">Send OTP</button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div>
+              <div className="field-heading">Enter OTP</div>
+              <input
+                type="text"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                className="input-field loginfield"
+                placeholder="Enter OTP"
+              />
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <button onClick={verifyOtp} className="btn-design login-submit">Verify OTP</button>
+            </div>
+          </>
+        )}
+
+        <div className="login-hint">
+          You can also login with 
+          <a onClick={googleLogin} style={{ color: "rgba(130, 136, 254, 1)", cursor: 'pointer' }}>Google login</a>.
         </div>
-        <div style={{marginTop: "2rem"}}>
-          <div className="field-heading">Enter OTP</div>
-          <input type="text" className="input-field loginfield" placeholder="enter OTP"/>
-        </div>
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-          <button className="btn-design login-submit">Submit</button>
-        </div>
-        <div className="login-hint">You can also login with <a style={{color:"rgba(130, 136, 254, 1)",cursor: 'pointer'}}>Google login</a></div>
       </div>
     </div>
-    </div>
-   
-
-
+  </div>
   )
 }
 
 export default Login
+
+
