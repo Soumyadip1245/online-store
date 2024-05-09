@@ -1,6 +1,6 @@
 import { getFirestore, collection, doc, getDocs, addDoc, setDoc, deleteDoc, where, orderBy, query, limit, getDoc, Firestore, onSnapshot } from "firebase/firestore"
 import { nanoid } from "nanoid"
-// import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { initializeApp } from "firebase/app"
 import { getAuth, GoogleAuthProvider } from "firebase/auth"
 import { Client, Storage, ID } from "appwrite"
@@ -27,7 +27,7 @@ const appStore = initializeApp(storeConfig, "store")
 const db = getFirestore(app)
 const auth = getAuth(app)
 const authStore = getAuth(appStore)
-
+const storage1 = getStorage(app)
 const client = new Client().setEndpoint(process.env.REACT_APP_APPWRITE_ENDPOINT).setProject(process.env.REACT_APP_APPWRITE_PROJECT)
 
 const storage = new Storage(client)
@@ -86,17 +86,15 @@ class FirebaseService {
     return objs
   }
   async uploadFile(file) {
-    const unique = file.name
-    const fileData = new File([file], unique, { type: file.type })
-    const result = await storage.createFile(process.env.REACT_APP_APPWRITE_STORAGE, unique, fileData)
-    return unique
+    const uniqueName = nanoid() + "-" + file.name
+    const storageRef = ref(storage1, `projectfiles/${uniqueName}`)
+    await uploadBytes(storageRef, file)
+    return uniqueName
   }
-  async uploadBlob(file) {
-    const unique = nanoid(10)
-    console.log("File: ",unique)
-    // const fileData = new File([file], unique, InputFile.fromBlob(file, unique))
-    const result = await storage.createFile(process.env.REACT_APP_APPWRITE_STORAGE, unique,file)
-    return unique
+  imageUrl(fileId) {
+    if (!fileId) return null
+    const fileRef = ref(storage, `projectfiles/${fileId}`)
+    return getDownloadURL(fileRef)
   }
   async uploadPDF(file, orderNumber) {
     console.log(orderNumber)
@@ -109,8 +107,8 @@ class FirebaseService {
   }
   imageUrl(fileId) {
     if (!fileId) return null
-    const result = storage.getFileDownload(process.env.REACT_APP_APPWRITE_STORAGE, fileId)
-    return result
+    const fileRef = ref(storage1, `projectfiles/${fileId}`)
+    return getDownloadURL(fileRef)
   }
   async realSelect(table, ...wheres) {
     const q = query(collection(db, table), ...wheres)

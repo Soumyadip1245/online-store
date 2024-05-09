@@ -9,27 +9,21 @@ const Loader = ({full}) => {
         position: "fixed",
         top: 0,
         right: 0,
-        width: full ? "100%": "calc(100% - 20%)",
+        width: full ? "100%": "calc(100% - 285px)",
         height: "100%",
-        background: "rgba(255, 255, 255, 0.7)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        zIndex: 999, 
-        backdropFilter: "blur(5px)", 
+        
       }}
     >
-
-      <MagnifyingGlass
-        visible={true}
-        height="80"
-        width="80"
-        ariaLabel="magnifying-glass-loading"
-        wrapperStyle={{}}
-        wrapperClass="magnifying-glass-wrapper"
-        glassColor="#c0efff"
-        color="#e15b64"
-      />
+      <div className="backend-containeri">
+                        <div className="backend-loader"></div>
+                        <div className="backend-loader delay1"></div>
+                        <div className="backend-loader delay2"></div>
+                        <div className="backend-loader delay4"></div>
+                    </div>
+     
     </div>
   );
 };

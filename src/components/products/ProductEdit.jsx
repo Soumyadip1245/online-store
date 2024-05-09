@@ -90,16 +90,12 @@ const ProductEdit = ({ stepper, productSuccess }) => {
   };
   const imageHandler = async (event) => {
 
-    try {
-      setLoading(true);
       const data = await original.uploadImage(event.target.files[0]);
-      original.productImage = data;
-      setUploadSuccess(true);
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    } finally {
-      setLoading(false);
-    }
+      console.log("Image FileId: ",data)
+      const imgLink = await original.downloadUrl(data)
+      console.log("Image Link: ",imgLink)
+      original.productImage = imgLink;
+   
   };
   const back = () => {
     navigate('/product-details')

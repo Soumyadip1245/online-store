@@ -59,7 +59,6 @@ class Product {
     const product = Product.toCls(obj);
     product.seller = await Seller.getById(product.sellerId);
     product.store = await Store.getById(product.storeId);
-    product.imageUrl = await fb.imageUrl(product.productImage);
     return product;
   }
   async create() {
@@ -134,11 +133,10 @@ class Product {
      isAdded: this.isAdded
     });
   }
+ 
+
   async uploadImage(file) {
     return fb.uploadFile(file);
-  }
-  async uploadBlob(file) {
-    return fb.uploadBlob(file);
   }
   async downloadUrl(file) {
     return await fb.imageUrl(file);

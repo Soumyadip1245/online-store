@@ -28,6 +28,7 @@ import ChatWith from "./components/chat/ChatWith"
 import StoreConfirmation from "./components/storeLink/store-confirmation/StoreConfirmation"
 import Setting from "./components/setting/Setting"
 import './App.css'
+import Compare from "./components/compare/Compare"
 const App = () => {
   const { loggedIn, checkStatus } = AuthLayout()
   const RoutesData = [
@@ -108,6 +109,12 @@ const App = () => {
       path: "/settings",
       protected: true,
       element: Setting,
+      generated: false,
+    },
+    {
+      path: "/explore",
+      protected: true,
+      element: Compare,
       generated: false,
     },
     {

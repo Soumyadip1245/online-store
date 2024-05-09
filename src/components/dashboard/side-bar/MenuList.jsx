@@ -70,6 +70,12 @@ const MenuList = () => {
             show: !isFormVisible && (roles.length > 0 ? roles.includes("Orders") : true),
         },
         {
+            name: "Explore",
+            route: "/explore",
+            icon: <i class="fa-solid fa-code-compare"></i>,
+            show: true,
+        },
+        {
             name: "Rentals",
             route: "/rentals",
             icon: <i class="fa-solid fa-rectangle-list"></i>,

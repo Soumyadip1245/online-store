@@ -128,65 +128,60 @@ const Login = () => {
 
   return (
     <div className="login-container">
-    <div className="login-header">
-      <img src={Logo} alt="logo" width="10%" />
-      <h2>Online Stores</h2>
-    </div>
+      <div className="login-card">
+        <div className="login-form">
+          <div className="login-text">
+            <h2 className="login-heading">Login to your Account</h2>
+            <div className="login-hint">Choose any method of login to your account.</div>
+          </div>
 
-    <div className="login-card">
-      <div className="login-form">
-        <div className="login-text">
-          <h2 className="login-heading">Login to your Account</h2>
-          <div className="login-hint">Choose any method of login to your account.</div>
-        </div>
+          {!isOtpSent ? (
+            <>
+              <div>
+                <div className="field-heading">Phone Number</div>
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={handlePhoneChange}
+                  className="input-field loginfield"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+              <div id="recaptcha-container" sx={{ mb: 2 }}></div>
+              <div style={{ marginTop: 16 }}>
+                <Checkbox value={checkbox} style={{ color: 'rgba(255, 255, 255, 1)' }} onChange={handleCheckbox}>Are you staff?</Checkbox>
+              </div>
 
-        {!isOtpSent ? (
-          <>
-            <div>
-              <div className="field-heading">Phone Number</div>
-              <input
-                type="tel"
-                value={phone}
-                onChange={handlePhoneChange}
-                className="input-field loginfield"
-                placeholder="Enter your phone number"
-              />
-            </div>
-            <div id="recaptcha-container" sx={{ mb: 2 }}></div>  
-          <div style={{ marginTop: 16 }}>
-              <Checkbox value={checkbox} style={{color:'rgba(255, 255, 255, 1)'}} onChange={handleCheckbox}>Are you staff?</Checkbox>
-            </div>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <button onClick={sendOtp} className="btn-design login-submit">Send OTP</button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <div className="field-heading">Enter OTP</div>
+                <input
+                  type="text"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  className="input-field loginfield"
+                  placeholder="Enter OTP"
+                />
+              </div>
 
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <button onClick={sendOtp} className="btn-design login-submit">Send OTP</button>
-            </div>
-          </>
-        ) : (
-          <>
-            <div>
-              <div className="field-heading">Enter OTP</div>
-              <input
-                type="text"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                className="input-field loginfield"
-                placeholder="Enter OTP"
-              />
-            </div>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <button onClick={verifyOtp} className="btn-design login-submit">Verify OTP</button>
+              </div>
+            </>
+          )}
 
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <button onClick={verifyOtp} className="btn-design login-submit">Verify OTP</button>
-            </div>
-          </>
-        )}
-
-        <div className="login-hint">
-          You can also login with 
-          <a onClick={googleLogin} style={{ color: "rgba(130, 136, 254, 1)", cursor: 'pointer' }}>Google login</a>.
+          <div className="login-hint">
+            You can also login with
+            <a onClick={googleLogin} style={{ color: "rgba(130, 136, 254, 1)", cursor: 'pointer' }}>Google login</a>.
+          </div>
         </div>
       </div>
     </div>
-  </div>
   )
 }
 

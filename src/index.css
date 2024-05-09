@@ -174,3 +174,7 @@ span.MuiStepLabel-label.Mui-disabled.MuiStepLabel-alternativeLabel.css-1hv8oq8-M
 .imagedrop{
     color: var(--color-text)
 }
+.index-container{
+    min-height: 100vh;
+    display: block;
+}

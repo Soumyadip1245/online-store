@@ -1,11 +1,11 @@
 .main-background {
     display: flex;
-    min-height: 100vh;
     background-color: var(--page-bg);
     background-attachment: fixed;
     position: relative;
     z-index: 0;
     padding: 0 4rem;
+    top: 5rem;
   }
 
 .gradient1{

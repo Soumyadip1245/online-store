@@ -52,16 +52,14 @@ const ProductList = ({ products, showChecked, onCheckbox, edit, voice, seller, s
           
           here to add new products
         </Typography>}
-        <Grid container spacing={2}>
           {products.map((curr, key) => {
             return (
-              <Grid item xs={6}>
+              <div className=".compare-container">
                 <ProductShow index={key} product={curr} edit={edit} key={key} seller={seller} store={store} onCheckbox={onCheckbox} showChecked={showChecked} enableIndex = {enableIndex} />
-              </Grid>
+              </div>
             );
           })}
 
-        </Grid>
 
       </Box>
     </>
