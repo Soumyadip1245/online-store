@@ -1,13 +1,20 @@
 .main-background {
-    display: flex;
+    min-height: 100vh;
     background-color: var(--page-bg);
     background-attachment: fixed;
     position: relative;
+    display: flex;
+    flex-direction: column;
     z-index: 0;
-    padding: 0 4rem;
-    top: 5rem;
   }
-
+.page-divider{
+    display: flex;
+    top: 5rem;
+    padding: 0 4rem;
+    z-index: 0;
+    margin-top: 5rem;
+    /* position: relative; */
+}
 .gradient1{
     position: fixed;
     top: 0;

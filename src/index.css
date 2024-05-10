@@ -25,6 +25,20 @@
     --toggle-off: #421617;
     --gradient1: rgba(80, 31, 36, 1);
     --gradient2: rgba(133, 42, 43, 1);
+    --header-left:#341c1b;
+    --header-left-hover:#673b38;
+    --header-dropdown:#231210;
+    --header-dropdown-links:#9c605c;
+    --header-dropdown-links-hover:#ffffff;
+    --header-background:#1e0d0e;
+    --header-hamburger:#9c605c;
+    --header-dropdown-icon:#9c605c;
+    --header-dropdown-icons-bg:#361c1a;
+    --header-dropdown-icons-bg-hover:#ffffff;
+    --header-border:#351516;
+
+
+
 }
 
 .blue-theme {
@@ -40,6 +54,17 @@
     --toggle-color: #1a63ff;
     --toggle-off: #1c243c;
     --page-bg: #0d0a12;
+    --header-left:#251e31;
+    --header-left-hover:#4a3f60;
+    --header-dropdown:#181322;
+    --header-dropdown-links:#756690;
+    --header-dropdown-links-hover:#ffffff;
+    --header-background:#110f1e;
+    --header-hamburger:#756690;
+    --header-dropdown-icon:#756690;
+    --header-dropdown-icons-bg:#251e32;
+    --header-dropdown-icons-bg-hover:#ffffff;
+    --header-border:#1b1f2f;
 }
 
 .green-theme {
@@ -55,6 +80,17 @@
     --toggle-color: #4491d6;
     --toggle-off: #1c3c3b;
     --page-bg: #0a0e12;
+    --header-left:#212c38;
+    --header-left-hover:#3f4f60;
+    --header-dropdown:#121a22;
+    --header-dropdown-links:#677c90;
+    --header-dropdown-links-hover:#ffffff;
+    --header-background:#0e1a1a;
+    --header-hamburger:#677c90;
+    --header-dropdown-icon:#677c90;
+    --header-dropdown-icons-bg:#1e2832;
+    --header-dropdown-icons-bg-hover:#ffffff;
+    --header-border:#1a2f2f;
 }
 
 .gray-theme {
@@ -70,6 +106,17 @@
     --sidebar-hover: #202020;
     --card-border: #343434;
     --page-bg: #0e0e0e;
+    --header-left:#29292e;
+    --header-left-hover:#4f4f4f;
+    --header-dropdown:#1a1a1a;
+    --header-dropdown-links:#7c7c7c;
+    --header-dropdown-links-hover:#ffffff;
+    --header-background:#161617;
+    --header-hamburger:#7c7c7c;
+    --header-dropdown-icon:#7c7c7c;
+    --header-dropdown-icons-bg:#282828;
+    --header-dropdown-icons-bg-hover:#ffffff;
+    --header-border:#252525;
 }
 .purple-theme {
     --button-background: #572987;
@@ -84,6 +131,17 @@
     --toggle-off: #1b2c3c;
     --gradient1: #1f1f50;
     --gradient2: #572887;
+    --header-left:#242038;
+    --header-left-hover:#3f3f60;
+    --header-dropdown:#131322;
+    --header-dropdown-links:#676790;
+    --header-dropdown-links-hover:#ffffff;
+    --header-background:#0e0e1e;
+    --header-hamburger:#676790;
+    --header-dropdown-icon:#676790;
+    --header-dropdown-icons-bg:#1e1e32;
+    --header-dropdown-icons-bg-hover:#ffffff;
+    --header-border:#1a232f;
 }
 .card-design {
     border-radius: 10px;
@@ -177,4 +235,5 @@ span.MuiStepLabel-label.Mui-disabled.MuiStepLabel-alternativeLabel.css-1hv8oq8-M
 .index-container{
     min-height: 100vh;
     display: block;
+    
 }

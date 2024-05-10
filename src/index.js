@@ -5,6 +5,7 @@ import App from "./App"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ThemeProvider, createTheme } from "@mui/material"
 import Header from "./components/Header"
+import { BrowserRouter } from "react-router-dom"
 const storedThemeColor = localStorage.getItem("theme-color")
 const themeColor = storedThemeColor || "red-theme"
 document.body.classList.add(themeColor)
@@ -26,10 +27,11 @@ const theme = createTheme({
 root.render(
   <ThemeProvider theme={theme}>
     <QueryClientProvider client={queryClient}>
-      <div className="index-container">
-        {/* <Header /> */}
+      
+       
         <App />
-      </div>
+       
+       
     </QueryClientProvider>
   </ThemeProvider>
 )

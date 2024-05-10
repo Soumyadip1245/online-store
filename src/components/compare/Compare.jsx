@@ -62,7 +62,7 @@ const Compare = () => {
         try{
             oproduct.productName = data.name
             oproduct.productCategory = data.title
-            oproduct.productPrice = data.price
+            oproduct.productPrice = parseInt(data.price)
             oproduct.sellerId = seller._id
             oproduct.productImage = data.image
             oproduct.storeId = storedata._id
@@ -131,7 +131,7 @@ const Compare = () => {
                                             <p className='showname'>{curr.name}</p>
                                             <p className='showcategory'>{curr.title}</p>
                                         </div>
-                                        <p className='showprice'>{curr.price}</p>
+                                        <p className='showprice'>₹ {curr.price}</p>
                                     </div>
                                     <div className="show-image">
                                         <div className="showimage">

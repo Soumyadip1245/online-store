@@ -37,11 +37,7 @@ const MenuList = () => {
         fetchUser(user)
         hasEffect.current = true
     }, [user])
-    const logout = async () => {
-        await logoutUser()
-        message.success("Logout successfully")
-        navigate("/")
-    }
+    
     const isFormVisible = seller.sellerName === '' && seller.paymentDetails.accountNumber === '';
     console.log(isFormVisible)
     const menuItems = [
@@ -81,36 +77,16 @@ const MenuList = () => {
             icon: <i class="fa-solid fa-rectangle-list"></i>,
             show: !isFormVisible && (roles.length > 0 ? roles.includes("Rentals") : true),
         },
-        {
-            name: "Transactions",
-            route: "/payment-details",
-            icon: <i class="fa-brands fa-cc-amazon-pay"></i>,
-            show: !isFormVisible && (roles.length > 0 ? roles.includes("Transactions") : true),
-        },
+       
         {
             name: "Access",
             route: "/access",
             icon: <i class="fa-solid fa-clipboard-user"></i>,
             show: !isFormVisible && (roles.length > 0 ? roles.includes("Access") : true),
-        },
-        {
-            name: "Profile",
-            route: "/profile",
-            icon: <i class="fa-solid fa-user"></i>,
-            show: !isFormVisible && (roles.length > 0 ? false : true),
-        },
-        {
-            name: "Forms",
-            route: "/forms",
-            icon: <i class="fa-brands fa-google-play"></i>,
-            show: isFormVisible
-        },
-        {
-            name: "Settings",
-            route: "/settings",
-            icon: <i class="fa-solid fa-gear"></i>,
-            show: true,
         }
+      
+       
+       
     ];
     const defaultSelectedKey = menuItems.find(item => location.pathname.startsWith(item.route))?.route || '/dashboard';
 
@@ -119,7 +95,7 @@ const MenuList = () => {
             {menuItems.map((item) => (
                 item.show && (
 
-                    <Link className="menu-link" to={item.route} key={item.route}>
+                    <Link className="menu-link" to={item.route} key={item.route} onClick={()=>window.scrollTo(0, 0)}>
                        <div className={`sidebar-link ${item.route === defaultSelectedKey ? 'sidebar-hover' : ''}`}>
                             <div className="sidebar-icon">
                                 {item.icon}
@@ -132,16 +108,7 @@ const MenuList = () => {
                     
                 )
             ))}
-            <Link className="menu-link" onClick={logout}>
-                       <div className="sidebar-link">
-                            <div className="sidebar-icon">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            </div>
-                            <div className="sidebar-text">
-                                Logout
-                            </div>
-                        </div>
-                    </Link>
+            
         </>
     );
     

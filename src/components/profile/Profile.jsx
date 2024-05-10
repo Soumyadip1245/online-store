@@ -1,20 +1,5 @@
 import React, { useEffect, useState } from "react";
-import language from '../../language.json'
-import {
-  Typography,
-  Card,
-  CardContent,
-  TextField,
-  Button,
-  Grid,
-  Box,
-  Badge,
-  CircularProgress,
-  AppBar,
-  Toolbar,
-  IconButton,
-} from "@mui/material";
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+
 import Seller from "../../models/seller";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -27,8 +12,6 @@ import { message } from "antd";
 const Profile = ({ profileSuccess, stepper }) => {
   const [seller, setSeller] = useState(new Seller());
   const [originalSeller, setOriginal] = useState(new Seller());
-  const [loading, setLoading] = useState(false);
-  const [loader, setLoader] = useState(true);
 
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
@@ -143,7 +126,7 @@ const Profile = ({ profileSuccess, stepper }) => {
                     value={seller.sellerName}
                     onChange={(e) => updateFormData("sellerName", e.target.value)}
                   />
-                  <p className="written text-wrap">{language.hindi.profile.heading1}</p>
+                  <p className="written text-wrap">Seller name is visible to all those who will access your store.</p>
 
                 </div>
                 <div className="input-text">

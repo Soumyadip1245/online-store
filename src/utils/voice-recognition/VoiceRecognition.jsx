@@ -34,8 +34,8 @@ const VoiceRecognition = ({ commands }) => {
   return (
     <div className="voice-recognition-container">
       {/* {listening && <p>{transcript}</p>} */}
-    {listening && <div className="floating-microphone"><MicIcon/></div>}
-    {!listening && <div className="floating-microphone"><MicOff/></div>}
+    {listening && <i class="fa-solid fa-microphone"></i>}
+    {!listening && <i class="fa-solid fa-microphone-slash"></i>}
   </div>
   
   );

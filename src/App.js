@@ -29,6 +29,8 @@ import StoreConfirmation from "./components/storeLink/store-confirmation/StoreCo
 import Setting from "./components/setting/Setting"
 import './App.css'
 import Compare from "./components/compare/Compare"
+import VoiceRecognition from "./utils/voice-recognition/VoiceRecognition"
+import Header from "./components/Header"
 const App = () => {
   const { loggedIn, checkStatus } = AuthLayout()
   const RoutesData = [
@@ -174,12 +176,16 @@ const App = () => {
                 element={
                   curr.protected ? (
                     <div className="main-background">
+                       <Header /> 
                       <div className="gradient2"></div>
                       <div className="gradient1"></div>
+                      <div className="page-divider">
                       {loggedIn && <Sidebar />}
                       <div style={{ flex: 1, overflow: "auto" }}>
                         <ProtectedRoute component={curr.element} />
                       </div>
+                        </div>
+                     
                     </div>
                   ) : curr.generated ? (
                     <div style={{ flex: 1, overflow: "auto" }}>

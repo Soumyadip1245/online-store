@@ -7,11 +7,6 @@ import AppInfo from "../AppInfo";
 const Sidebar = () => {
   return (
     <div className="sidebar-content">
-      <div className="sidebar-logo">
-        <div className="image-logo">
-          <img src={Logo} alt="logo" />
-        </div>
-      </div>
       <MenuList/>
       <AppInfo />
     </div>
