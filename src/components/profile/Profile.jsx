@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import language from '../../language.json'
 import {
   Typography,
   Card,
@@ -142,7 +143,7 @@ const Profile = ({ profileSuccess, stepper }) => {
                     value={seller.sellerName}
                     onChange={(e) => updateFormData("sellerName", e.target.value)}
                   />
-                  <p className="written text-wrap">The seller name will be prominently displayed for all visitors to see.</p>
+                  <p className="written text-wrap">{language.hindi.profile.heading1}</p>
 
                 </div>
                 <div className="input-text">

@@ -27,7 +27,7 @@ root.render(
   <ThemeProvider theme={theme}>
     <QueryClientProvider client={queryClient}>
       <div className="index-container">
-        <Header />
+        {/* <Header /> */}
         <App />
       </div>
     </QueryClientProvider>
