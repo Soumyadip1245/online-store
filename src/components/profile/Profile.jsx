@@ -10,10 +10,13 @@ import { speakMessage } from "../../utils/voice-recognition/Speak";
 import { useQuery } from "react-query";
 import { message } from "antd";
 import voiceCommands from "../commands/profileCommand";
+import { useTranslation } from "react-i18next";
+import i18n from "../../utils/i18n";
 const Profile = ({ profileSuccess, stepper }) => {
   const [seller, setSeller] = useState(new Seller());
   const [originalSeller, setOriginal] = useState(new Seller());
 
+  const { t } = useTranslation();
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const fetchData = async () => {
@@ -63,7 +66,6 @@ const Profile = ({ profileSuccess, stepper }) => {
       }
     });
   };
-
   const commands = voiceCommands(speakMessage, updateFormData, handleSubmit);
   return (
     <>
@@ -85,8 +87,8 @@ const Profile = ({ profileSuccess, stepper }) => {
                     value={seller.sellerName}
                     onChange={(e) => updateFormData("sellerName", e.target.value)}
                   />
-                  <p className="written text-wrap">Seller name is visible to all those who will access your store.</p>
-
+                  <p className="written text-wrap">{t('profile.heading1')}</p>
+                  {/* <button className="btn-design" type="button" onClick={()=>i18n.changeLanguage('hi')}>Language</button> */}
                 </div>
                 <div className="input-text">
                   <input
