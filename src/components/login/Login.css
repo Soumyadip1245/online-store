@@ -192,6 +192,7 @@ hr{
     display: flex;
     margin: 1rem 0;
 }
+
 .icon-anchor{
     color: var(--header-dropdown-icon);
     background-color: var(--header-dropdown-icons-bg);

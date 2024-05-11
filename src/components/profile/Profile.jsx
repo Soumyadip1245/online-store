@@ -9,6 +9,7 @@ import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition";
 import { speakMessage } from "../../utils/voice-recognition/Speak";
 import { useQuery } from "react-query";
 import { message } from "antd";
+import voiceCommands from "../commands/profileCommand";
 const Profile = ({ profileSuccess, stepper }) => {
   const [seller, setSeller] = useState(new Seller());
   const [originalSeller, setOriginal] = useState(new Seller());
@@ -63,49 +64,7 @@ const Profile = ({ profileSuccess, stepper }) => {
     });
   };
 
-  const commands = [
-    {
-      command: "set seller name to *",
-      callback: (sellerName) => {
-        speakMessage(`Setting seller name to ${sellerName}`);
-        updateFormData("sellerName", sellerName);
-      },
-    },
-    {
-      command: "set address to *",
-      callback: (address) => {
-        speakMessage(`Setting address to ${address}`);
-        updateFormData("address", address);
-      },
-    },
-    {
-      command: "set city to *",
-      callback: (city) => {
-        speakMessage(`Setting city to ${city}`);
-        updateFormData("city", city);
-      },
-    },
-    {
-      command: "set state to *",
-      callback: (state) => {
-        speakMessage(`Setting state to ${state}`);
-        updateFormData("state", state);
-      },
-    },
-    {
-      command: "set pincode to *",
-      callback: (pincode) => {
-        speakMessage(`Setting pincode to ${pincode}`);
-        updateFormData("pincode", pincode);
-      },
-    },
-    {
-      command: "save profile",
-      callback: () => {
-        handleSubmit()
-      },
-    },
-  ];
+  const commands = voiceCommands(speakMessage, updateFormData, handleSubmit);
   return (
     <>
       <VoiceRecognition commands={commands} />
