@@ -198,7 +198,7 @@ static async update(id, obj, table) {
     return fb.uploadPDF(file,orderNumber);
   }
   async downloadUrl(file) {
-    return await fb.imageUrl(file);
+    return await fb.getInvoice(file);
   }
 }
 

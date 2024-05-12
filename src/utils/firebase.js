@@ -79,6 +79,11 @@ class FirebaseService {
   limit(number) {
     return limit(number)
   }
+  getInvoice(fileId) {
+    if (!fileId) return null
+    const result = storage.getFileDownload(process.env.REACT_APP_APPWRITE_STORAGE, fileId)
+    return result
+  }
   async select(table, ...wheres) {
     const q = query(collection(db, table), ...wheres)
     const snap = await getDocs(q)
@@ -91,11 +96,7 @@ class FirebaseService {
     await uploadBytes(storageRef, file)
     return uniqueName
   }
-  imageUrl(fileId) {
-    if (!fileId) return null
-    const fileRef = ref(storage, `projectfiles/${fileId}`)
-    return getDownloadURL(fileRef)
-  }
+
   async uploadPDF(file, orderNumber) {
     console.log(orderNumber)
     const uniqueName = orderNumber

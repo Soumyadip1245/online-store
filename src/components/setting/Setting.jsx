@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Setting.css'
+import Language from './Language'
 const themes = [
     {
         name: 'purple',
@@ -100,6 +101,10 @@ const Setting = () => {
                     </div>
                     <p className="written text-wrap">Enable the option for activating the voice feature for the app.</p>
                 </div>
+            </div>
+            <div className="card-design">
+                <h5 className="setting-heading">Select Language</h5>
+                <Language/>
             </div>
         </div>
     )
