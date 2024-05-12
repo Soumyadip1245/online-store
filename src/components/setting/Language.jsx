@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './Language.css'
 import i18n from '../../utils/i18n';
 const languageFlags = {
     'English (United States) — English': 'https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg',
     'Hindi(India) — हिंदी': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png',
 };
+
 const Language = () => {
     const [selectedLanguage, setSelectedLanguage] = useState(localStorage.getItem('languageName') || 'English (United States) — English');
     const [selectedFlag, setSelectedFlag] = useState(languageFlags[selectedLanguage]);
+    const [isLanguageListOpen, setIsLanguageListOpen] = useState(false);
+    const languageBoxRef = useRef(null);
+
     const handleLanguageSelect = (language) => {
         setSelectedLanguage(language);
         setSelectedFlag(languageFlags[language]);
@@ -19,10 +23,29 @@ const Language = () => {
         i18n.changeLanguage(languageCode)
         localStorage.setItem('language', languageCode)
         localStorage.setItem('languageName',language)
+        setIsLanguageListOpen(false);
     };
+
+    useEffect(() => {
+        // Function to close the language list when clicking outside of it
+        const handleClickOutside = (event) => {
+            if (languageBoxRef.current && !languageBoxRef.current.contains(event.target)) {
+                setIsLanguageListOpen(false);
+            }
+        };
+
+        // Adding event listener to document's click event
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            // Removing event listener on component unmount
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
+
     return (
-        <div className='language-box'>
-            <button className='language-button' onClick={() => handleLanguageSelect(selectedLanguage)}>
+        <div ref={languageBoxRef} className='language-box'>
+            <button className='language-button' onClick={() => setIsLanguageListOpen(!isLanguageListOpen)}>
                 <span className='first-lang'>
                     <span className='flag'>
                         {selectedFlag && <img src={selectedFlag} alt={selectedLanguage} style={{ width: '24px', height: 'auto' }} />}
@@ -35,26 +58,28 @@ const Language = () => {
                     </span>
                 </span>
             </button>
-            <ul className='lang-list'>
-                <li className='lang-list-item' onClick={() => handleLanguageSelect('English (United States) — English')}>
-                    <span className='lang-list-eng'></span>
-                    English (United States) — English
-                </li>
-                <li className='lang-list-item' onClick={() => handleLanguageSelect('Hindi(India) — हिंदी')}>
-                    <span className='lang-list-hin'></span>
-                    Hindi(India) — हिंदी
-                </li>
-                <li className='lang-list-item' onClick={() => handleLanguageSelect('French(France) — Français')}>
-                    <span className='lang-list-fre'></span>
-                    French(France) — Français
-                </li>
-                <li className='lang-list-item' onClick={() => handleLanguageSelect('German (Germany) — Deutsch')}>
-                    <span className='lang-list-ger'></span>
-                    German (Germany) — Deutsch
-                </li>
-            </ul>
+            {isLanguageListOpen && (
+                <ul className='lang-list'>
+                    <li className='lang-list-item' onClick={() => handleLanguageSelect('English (United States) — English')}>
+                        <span className='lang-list-eng'></span>
+                        English (United States) — English
+                    </li>
+                    <li className='lang-list-item' onClick={() => handleLanguageSelect('Hindi(India) — हिंदी')}>
+                        <span className='lang-list-hin'></span>
+                        Hindi(India) — हिंदी
+                    </li>
+                    <li className='lang-list-item' onClick={() => handleLanguageSelect('French(France) — Français')}>
+                        <span className='lang-list-fre'></span>
+                        French(France) — Français
+                    </li>
+                    <li className='lang-list-item' onClick={() => handleLanguageSelect('German (Germany) — Deutsch')}>
+                        <span className='lang-list-ger'></span>
+                        German (Germany) — Deutsch
+                    </li>
+                </ul>
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default Language
+export default Language;

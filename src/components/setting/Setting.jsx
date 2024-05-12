@@ -30,6 +30,7 @@ const Setting = () => {
     const currentApplied = localStorage.getItem('theme-color') || 'red-theme'
     const [selectedColor, setSelectedColor] = useState(themes.find(color => color.className === currentApplied).name || 'red');
     const [isVoiceEnabled, setIsVoiceEnabled] = useState(localStorage.getItem("voice") === "true");
+    
     const handleClick = (colorName, className) => {
         document.body.className = className;
         localStorage.setItem('theme-color', className)
@@ -105,7 +106,7 @@ const Setting = () => {
                     <p className="written text-wrap">Enable the option for activating the voice feature for the app.</p>
                 </div>
             </div>
-            <div className="card-design">
+            <div className="card-design height-auto">
                 <h5 className="setting-heading">Select Language</h5>
                 <Language/>
             </div>
