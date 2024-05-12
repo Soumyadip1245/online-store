@@ -12,6 +12,8 @@ const Header = () => {
     const [staff, setStaff] = useState(false)
     const [face, setFace] = useState(false)
     const [seller, setSeller] = useState(new Seller());
+    const dropdownRef = useRef(null);
+
     const location = useLocation()
     const user = useSelector((state) => state.auth.user)
     const navigate = useNavigate()
@@ -47,6 +49,19 @@ const Header = () => {
         await logoutUser()
         navigate("/")
     }
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setDropdownVisibility(false);
+            }
+        }
+    
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [dropdownRef]);
+    
 
     return (
 
@@ -80,7 +95,7 @@ const Header = () => {
             </div>
 
             {isDropdownVisible && (
-                <div className="dropdown-container">
+                <div ref={dropdownRef} className="dropdown-container">
                     <div className="container-dropdown">
                         {!isFormVisible && (roles.length > 0 ? false : true) && <a onClick={() => navigate('/profile')} className="dropdown-link">
                             <span className="icon">

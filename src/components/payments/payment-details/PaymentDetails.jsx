@@ -29,6 +29,8 @@ import { useQuery } from "react-query";
 import { message } from "antd";
 import './PaymentDetails.css'
 import Razorpay from '../../assests/razorpay.png'
+import VoiceRecognition from "../../../utils/voice-recognition/VoiceRecognition";
+import { speakMessage } from "../../../utils/voice-recognition/Speak";
 const PaymentDetails = ({ paymentSuccess, stepper }) => {
   const [seller, setSeller] = useState(new Seller());
   const [loading, setLoading] = useState(false);
@@ -99,9 +101,11 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
 
     console.log(seller)
   };
+  const commands=[];
 
   return (
     <>
+      <VoiceRecognition commands={commands} />
 
       {isLoading && <Loader />}
       {!isLoading && <div className="payment-container">
