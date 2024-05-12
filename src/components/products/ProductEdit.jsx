@@ -211,7 +211,7 @@ const ProductEdit = ({ stepper, productSuccess }) => {
           </div>
         </form>
       )}
-      <Scrapper sendProduct={sendProduct} />
+      {/* <Scrapper sendProduct={sendProduct} /> */}
     </>
   );
 }
