@@ -30,6 +30,7 @@ const Login = () => {
   const [confirmation, setConfirmation] = useState(null)
   const [isAvailable, setAvailable] = useState(false)
   const [isOtpSent, setIsOtpSent] = useState(false);
+  const [isStaff, setIsStaff] = useState(false);
 
 
   const handlePhoneChange = (e) => {
@@ -80,6 +81,9 @@ const Login = () => {
     }
     setCheckbox(isChecked)
   }
+  const handleCheckboxChange = () => {
+    setIsStaff(!isStaff);
+  };
   const verifyOtp = async () => {
     try {
       await confirmation.confirm(otp)
@@ -148,9 +152,14 @@ const Login = () => {
                 />
               </div>
               <div id="recaptcha-container" sx={{ mb: 2 }}></div>
-              <div style={{ marginTop: 16 }}>
-                <Checkbox value={checkbox} style={{ color: 'rgba(255, 255, 255, 1)' }} onChange={handleCheckbox}>Are you staff?</Checkbox>
+              <div style={{ marginTop: 16,    display: 'flex', color: '#fff',fontWeight: '700' }}>
+                {/* <Checkbox value={checkbox} style={{ color: 'rgba(255, 255, 255, 1)' }} onChange={handleCheckbox}>Are you staff?</Checkbox> */}
+                <div className="custom-checkbox" onClick={handleCheckboxChange}>
+                  {isStaff && <div className="checkbox-icon">✔</div>}
+                </div>
+                <span className="checkbox-label">Are you staff?</span>
               </div>
+             
 
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <button onClick={sendOtp} className="btn-design login-submit">Send OTP</button>
@@ -177,7 +186,7 @@ const Login = () => {
 
           <div className="login-hint">
             You can also login with
-            <a onClick={googleLogin} style={{ color: "rgba(130, 136, 254, 1)", cursor: 'pointer' }}>Google login</a>.
+            <a onClick={googleLogin} style={{ color: "rgba(130, 136, 254, 1)", cursor: 'pointer' }}>  Google login</a>.
           </div>
         </div>
       </div>

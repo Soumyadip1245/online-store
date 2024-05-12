@@ -12,6 +12,8 @@ import { GetUser } from "../login/Auth";
 import { useQuery } from 'react-query'
 import { useSelector } from 'react-redux'
 import Store from '../../models/store'
+import VoiceRecognition from '../../utils/voice-recognition/VoiceRecognition'
+import { speakMessage } from '../../utils/voice-recognition/Speak';
 const services = [
     { id: 1, name: 'Amazon', logo: AmazonLogo, code: 1 },
     { id: 2, name: 'Shopping', logo: ShoppingLogo, code: 2 },
@@ -26,7 +28,7 @@ const Compare = () => {
     const [search, setSearch] = useState("")
     const [product, setProducts] = useState([])
     const [oproduct, setoProducts] = useState(new Product())
-    const [store,setStore] = useState(new Store())
+    const [store, setStore] = useState(new Store())
     const handleInputChange = (code) => {
         console.log(code)
         setFetcher(code);
@@ -59,7 +61,7 @@ const Compare = () => {
     };
     const addProduct = async (data) => {
         const storedata = await store.getStoreBySeller(seller._id)
-        try{
+        try {
             oproduct.productName = data.name
             oproduct.productCategory = data.title
             oproduct.productPrice = parseInt(data.price)
@@ -68,9 +70,9 @@ const Compare = () => {
             oproduct.storeId = storedata._id
             await oproduct.create()
         }
-       catch(e){
-        console.log(e.message)
-       }
+        catch (e) {
+            console.log(e.message)
+        }
     }
     const user = useSelector((state) => state.auth.user);
 
@@ -82,72 +84,77 @@ const Compare = () => {
     useEffect(() => {
         if (data) setSeller(data)
     }, [data])
+
+    const commands = [];
     return (
-        <div className="compare-container">
-            <div className="card-design">
-                <p className="store-name">Explore Products</p>
-                <p className="written text-wrap">Explore 1000s of products from the below services.</p>
-                <div className="services-container">
-                    {services.map((service) => (
-                        <a onClick={() => handleInputChange(service.code)}>
-                            <div className="services-info" key={service.id}>
-                                <img src={service.logo} alt={service.name} />
-                                <p className="written text-wrap">{service.name}</p>
-                                {fetcher === service.code && (
-                                    <i className="fa-solid fa-circle-check icontool" ></i>
-                                )}
-                            </div>
-                        </a>
-                    ))}
+        <>
+            <VoiceRecognition commands={commands} />
+            <div className="compare-container">
+                <div className="card-design">
+                    <p className="store-name">Explore Products</p>
+                    <p className="written text-wrap">Explore 1000s of products from the below services.</p>
+                    <div className="services-container">
+                        {services.map((service) => (
+                            <a onClick={() => handleInputChange(service.code)}>
+                                <div className="services-info" key={service.id}>
+                                    <img src={service.logo} alt={service.name} />
+                                    <p className="written text-wrap">{service.name}</p>
+                                    {fetcher === service.code && (
+                                        <i className="fa-solid fa-circle-check icontool" ></i>
+                                    )}
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                    <input type="text" className="input-field" placeholder='Search products' value={search} onChange={(e) => setSearch(e.target.value)} />
+                    <div style={{ marginTop: '1rem' }}>
+                        <button className="btn-design" onClick={fetchQuery}>Search</button>
+                    </div>
                 </div>
-                <input type="text" className="input-field" placeholder='Search products' value={search} onChange={(e) => setSearch(e.target.value)} />
-                <div style={{ marginTop: '1rem' }}>
-                    <button className="btn-design" onClick={fetchQuery}>Search</button>
-                </div>
-            </div>
-            <div className="card-design flex-design">
-                <div className="backend-container">
-                    {load == 1 && <div className="backend-containeri">
-                        <div className="backend-loader"></div>
-                        <div className="backend-loader delay1"></div>
-                        <div className="backend-loader delay2"></div>
-                        <div className="backend-loader delay4"></div>
-                    </div>}
-                    {load == 2}
-                    {load == 2 && <i className="fa-solid fa-circle-check icontool1" ></i>}
-                    {load == 4 && <i className="fa-solid fa-circle-xmark iconreject" ></i>}
-                </div>
-                <p className="written" >{text}</p>
+                <div className="card-design flex-design">
+                    <div className="backend-container">
+                        {load == 1 && <div className="backend-containeri">
+                            <div className="backend-loader"></div>
+                            <div className="backend-loader delay1"></div>
+                            <div className="backend-loader delay2"></div>
+                            <div className="backend-loader delay4"></div>
+                        </div>}
+                        {load == 2}
+                        {load == 2 && <i className="fa-solid fa-circle-check icontool1" ></i>}
+                        {load == 4 && <i className="fa-solid fa-circle-xmark iconreject" ></i>}
+                    </div>
+                    <p className="written" >{text}</p>
 
-            </div>
-            {load == 2 && <div className="card-design">
-                <div className='compare-container1'>
-                    {
-                        product.map(curr => (
-                            <div className="show-card compare-product">
-                                <div className="show-flex">
-                                    <div className="show-price">
-                                        <div>
-                                            <p className='showname'>{curr.name}</p>
-                                            <p className='showcategory'>{curr.title}</p>
+                </div>
+                {load == 2 && <div className="card-design">
+                    <div className='compare-container1'>
+                        {
+                            product.map(curr => (
+                                <div className="show-card compare-product">
+                                    <div className="show-flex">
+                                        <div className="show-price">
+                                            <div>
+                                                <p className='showname'>{curr.name}</p>
+                                                <p className='showcategory'>{curr.title}</p>
+                                            </div>
+                                            <p className='showprice'>₹ {curr.price}</p>
                                         </div>
-                                        <p className='showprice'>₹ {curr.price}</p>
-                                    </div>
-                                    <div className="show-image">
-                                        <div className="showimage">
-                                            <img src={curr.image || NotFound} alt="" />
-                                        </div>
-                                        <button className="btn-design" onClick={() => addProduct(curr)}>Add to Store</button>
+                                        <div className="show-image">
+                                            <div className="showimage">
+                                                <img src={curr.image || NotFound} alt="" />
+                                            </div>
+                                            <button className="btn-design" onClick={() => addProduct(curr)}>Add to Store</button>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))
-                    }
-                </div>
+                            ))
+                        }
+                    </div>
 
-            </div>}
-        </div>
+                </div>}
+            </div>
+        </>
     )
 }
 

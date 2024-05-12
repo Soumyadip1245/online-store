@@ -3,6 +3,8 @@ import './OrderList.css'; // Import CSS file for styling
 import date from 'date-and-time';
 import OrderSummary from '../order-summary/OrderSummary';
 import styled from '@emotion/styled';
+import VoiceRecognition from '../../../utils/voice-recognition/VoiceRecognition';
+import { speakMessage } from '../../../utils/voice-recognition/Speak';
 
 const OrderList = ({ orders, openSummary, themeMode }) => {
   const [filter, setFilter] = useState('all');
@@ -57,9 +59,11 @@ const OrderList = ({ orders, openSummary, themeMode }) => {
     setOrders(order);
     openSummary(order);
   }
+  const commands=[];
 
   return (
     <>
+          <VoiceRecognition commands={commands} />
       <div className="filter-container">
         {['all', 'accepted', 'rejected', 'pending', 'paid'].map((status) => (
           <span

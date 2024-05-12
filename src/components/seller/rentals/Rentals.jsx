@@ -125,8 +125,11 @@ const Rentals = () => {
 
   if (isLoading) return <Loader />
   return (
+    <>
+          {/* <VoiceRecognition commands={commands} /> */}
+
     <div className="container">
-      <VoiceRecognition commands={commands} />
+      
       
       {!isLoading && (
         <div className="content-container">
@@ -160,6 +163,7 @@ const Rentals = () => {
         </div>
       )}
     </div>
+    </>
   );
 }
 
