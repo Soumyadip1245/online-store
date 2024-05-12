@@ -27,6 +27,7 @@ const Setting = () => {
     const currentApplied = localStorage.getItem('theme-color') || 'red-theme'
     const [selectedColor, setSelectedColor] = useState(themes.find(color => color.className === currentApplied).name || 'red');
     const [isVoiceEnabled, setIsVoiceEnabled] = useState(localStorage.getItem("voice") === "true");
+    
     const handleClick = (colorName, className) => {
         document.body.className = className;
         localStorage.setItem('theme-color', className)
