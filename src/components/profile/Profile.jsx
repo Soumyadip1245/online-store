@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+// import {localData} from '../../utils/localSetting'
 import Seller from "../../models/seller";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ import { message } from "antd";
 import voiceCommands from "../commands/profileCommand";
 import { useTranslation } from "react-i18next";
 import i18n from "../../utils/i18n";
+import useLocalData from "../../utils/localSetting";
 const Profile = ({ profileSuccess, stepper }) => {
   const [seller, setSeller] = useState(new Seller());
   const [originalSeller, setOriginal] = useState(new Seller());
@@ -19,6 +20,7 @@ const Profile = ({ profileSuccess, stepper }) => {
   const { t } = useTranslation();
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
+  const {activateVoice} = useLocalData()
   const fetchData = async () => {
     return await GetUser(user);
   };
@@ -69,7 +71,7 @@ const Profile = ({ profileSuccess, stepper }) => {
   const commands = voiceCommands(speakMessage, updateFormData, handleSubmit);
   return (
     <>
-      <VoiceRecognition commands={commands} />
+     {activateVoice && <VoiceRecognition commands={commands} />}
 
       {!isLoading && (
         <div>

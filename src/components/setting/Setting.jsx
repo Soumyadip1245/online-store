@@ -25,15 +25,23 @@ const themes = [
 const Setting = () => {
     const currentApplied = localStorage.getItem('theme-color') || 'red-theme'
     const [selectedColor, setSelectedColor] = useState(themes.find(color => color.className === currentApplied).name || 'red');
- 
+    const [isVoiceEnabled, setIsVoiceEnabled] = useState(localStorage.getItem("voice") === "true");
     const handleClick = (colorName, className) => {
         document.body.className = className;
         localStorage.setItem('theme-color', className)
         setSelectedColor(colorName);
     };
-    useEffect(()=>{
+    useEffect(() => {
+        localStorage.setItem("voice", isVoiceEnabled ? "true" : "false");
+    }, [isVoiceEnabled]);
+
+    const handleToggle = () => {
+        setIsVoiceEnabled(!isVoiceEnabled);
+    };
+
+    useEffect(() => {
         console.log(selectedColor)
-    },[selectedColor])
+    }, [selectedColor])
     return (
         <div className="setting-container">
             <div className="card-design">
@@ -78,6 +86,19 @@ const Setting = () => {
                             </div>)
                     }
 
+                </div>
+            </div>
+            <div className="card-design">
+                <h5 className="setting-heading">Enable Voice</h5>
+                <div className="input-text">
+                    <div className="toggle-card">
+                        <input type="checkbox" id="toggle1" className="input-checkbox" checked={isVoiceEnabled}
+                    onChange={handleToggle}/>
+                
+                        <label htmlFor="toggle1" className="toggle-button"></label>
+                        <p style={{ color: 'var(--color-text)', fontWeight: 'bold' }}>Voice</p>
+                    </div>
+                    <p className="written text-wrap">Enable the option for activating the voice feature for the app.</p>
                 </div>
             </div>
         </div>
