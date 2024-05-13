@@ -12,10 +12,10 @@ const Header = () => {
     const [staff, setStaff] = useState(false);
     const [face, setFace] = useState(false);
     const [seller, setSeller] = useState(new Seller());
+    const user = useSelector((state) => state.auth.user)
     const dropdownRef = useRef(null);
 
     const location = useLocation();
-    const user = useSelector((state) => state.auth.user);
     const navigate = useNavigate();
 
     const fetchUser = async (user) => {
@@ -95,6 +95,15 @@ const Header = () => {
             {isDropdownVisible && (
                 <div ref={dropdownRef} className="dropdown-container">
                     <div className="container-dropdown">
+
+                        <a className="dropdown-link colorChange">
+                            <span className="icon colorChange">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>
+                            Contact Support
+                        </a>
+
+                        <hr />
                         {!isFormVisible && (roles.length > 0 ? false : true) && <a onClick={() => { navigate('/profile'); setDropdownVisibility(false); }} className="dropdown-link">
                             <span className="icon">
                                 <i className="fa-solid fa-user"></i>

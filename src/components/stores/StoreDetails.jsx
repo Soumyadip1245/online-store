@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition";
 import { message } from 'antd';
+import { storeRoute } from "../../utils/store-name";
 const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, editGetting, stepper, edit }) => {
   const [originalStore, setOriginal] = useState(new Store())
   const [loading, setLoading] = useState(false);
@@ -40,6 +41,16 @@ const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, edit
   }, [initialStore]);
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
+    
+    if(name == 'storeName'){
+      const route = storeRoute(value)
+      setStore((prevStore) => ({
+        ...prevStore,
+        storeName: value,
+        uniqueName: route
+      }));
+      return
+    }
     setStore((prevStore) => ({
       ...prevStore,
       [name]: type === "checkbox" ? checked : value,
@@ -82,12 +93,6 @@ const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, edit
       command: `set store name to *`,
       callback: (name) => {
         updateFormData("storeName", name)
-      },
-    },
-    {
-      command: `set store unique name to *`,
-      callback: (name) => {
-        updateFormData("uniqueName", name)
       },
     },
     {
@@ -148,12 +153,11 @@ const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, edit
               onChange={handleChange} placeholder="enter your store name" className="input-field" />
             <p className="written text-wrap">Your store's name will be prominently displayed for all visitors to see.</p>
           </div>
-          <div className="input-text">
-            <input type="text" name="uniqueName"
-              value={store?.uniqueName}
-              onChange={handleChange} placeholder="enter your store unique name" className="input-field" />
-            <p className="written text-wrap">Craft a distinctive name for your store URL. Avoid spaces and uppercase letters for a clean, memorable web address.</p>
+          <div className="input-flex">
+           <p className="written">{store.uniqueName}</p>
+           <i class="fa-solid fa-circle-check" style={{color: "green",marginLeft: '10px', display: 'flex', alignItems: 'center'}}></i>
           </div>
+           <p className="written text-wrap">Your store unique name by which other can access your stores.</p>
           <div className="input-text">
             <input type="text" name="storeAddress"
               value={store?.storeAddress}
