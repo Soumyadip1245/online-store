@@ -4,8 +4,8 @@ import './Language.css';
 const languageFlags = {
     'English (United States) — English': 'https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg',
     'Hindi(India) — हिंदी': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png',
-    'French(France) — Français': 'https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg',
-    'German (Germany) — Deutsch': 'https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg'
+    'Bengali(India) — বাংলা': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png',
+    'Malyalam(India) — മലയാളം': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png'
 };
 
 const Language = () => {
@@ -62,14 +62,16 @@ const Language = () => {
                         <span className='lang-list-hin'></span>
                         Hindi(India) — हिंदी
                     </li>
-                    <li className='lang-list-item' onClick={() => handleLanguageSelect('French(France) — Français')}>
-                        <span className='lang-list-fre'></span>
-                        French(France) — Français
+                    <li className='lang-list-item' onClick={() => handleLanguageSelect('Bengali(India) — বাংলা')}>
+                        <span className='lang-list-hin'></span>
+                        Bengali(India) — বাংলা
                     </li>
-                    <li className='lang-list-item' onClick={() => handleLanguageSelect('German (Germany) — Deutsch')}>
-                        <span className='lang-list-ger'></span>
-                        German (Germany) — Deutsch
+                    
+                    <li className='lang-list-item' onClick={() => handleLanguageSelect('Malyalam(India) — മലയാളം')}>
+                        <span className='lang-list-hin'></span>
+                        Malyalam(India) — മലയാളം
                     </li>
+                    
                 </ul>
             )}
         </div>

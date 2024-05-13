@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import Login from "./components/login/Login"
 import ProtectedRoute from "./components/routing/PrivateRoute"
@@ -30,7 +30,8 @@ import Setting from "./components/setting/Setting"
 import './App.css'
 import Compare from "./components/compare/Compare"
 import VoiceRecognition from "./utils/voice-recognition/VoiceRecognition"
-import Header from "./components/Header"
+import Header from "./components/Header";
+
 const App = () => {
   const { loggedIn, checkStatus } = AuthLayout()
   const RoutesData = [
@@ -162,11 +163,15 @@ const App = () => {
       protected: false,
     },
   ]
+
+
   useEffect(() => {})
   return (
     <Provider store={store}>
       <StoreProvider>
         <BrowserRouter>
+       
+
           <Routes>
             <Route path="/" element={checkStatus ? <Loader full={true} /> : loggedIn ? <Navigate to="/dashboard" /> : <Login />} />
             {RoutesData.map((curr, key) => (
@@ -176,7 +181,7 @@ const App = () => {
                 element={
                   curr.protected ? (
                     <div className="main-background">
-                       <Header /> 
+                        <Header/>
                       <div className="gradient2"></div>
                       <div className="gradient1"></div>
                       <div className="page-divider">

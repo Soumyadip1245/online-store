@@ -14,7 +14,7 @@
 .login-form{
 
     padding: 3rem;
-    background-color: rgba(32, 32, 32, 0.5);
+    background-color: rgba(52, 52, 52,.15);
     border-radius: 0.75rem;
     max-width: 600px;
     width: 100%;
@@ -47,7 +47,7 @@
     margin-top: 1rem;
 }
 .login-submit{
-    background-color: #292d86;
+    background-color: #292d86 !important;
     width: 50%;
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -216,7 +216,7 @@ hr{
 }
 
 .custom-checkbox {
-    width: 20px;
+    /* width: 20px;
     height: 20px;
     border: 1px solid #999;
     border-radius: 4px;
@@ -224,16 +224,22 @@ hr{
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    background-color: white;
+    background-color: white; */
+    width: 22px;
+    display: flex;
+    background-color: var(--sidebar-hover);
+    border: 1px solid var(--button-background);
+    color: var(--color-text);
+    outline: none;
+    padding-left: 4px;
+    border-radius: 0.5rem;
+
   }
   
-  /* .custom-checkbox:checked {
-    background-color: black;
-    border-color: #4CAF50;
-  } */
+
   
   .checkbox-icon {
-    color: #4CAF50;
+    color: #7c7c7c;
   }
   
   .checkbox-label {

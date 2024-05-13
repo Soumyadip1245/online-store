@@ -21,6 +21,7 @@ import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition"
 import { speakMessage } from "../../utils/voice-recognition/Speak"
 import Logo from '../assests/INFINITY-removebg-preview.png'
 import { Layout, Row, Col, Form, Input, Button, Checkbox, Divider, Card, message } from 'antd';
+import Header from '../Header';
 
 const { Content } = Layout;
 const Login = () => {
@@ -131,6 +132,8 @@ const Login = () => {
   ]
 
   return (
+    <>
+    <Header hideHeaderRight={true}/>
     <div className="login-container">
       <div className="login-card">
         <div className="login-form">
@@ -191,6 +194,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 

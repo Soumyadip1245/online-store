@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Setting.css'
-import Language from './Language'
+import Language from './Language';
+import Brightness from './Brightness';
 const themes = [
     {
         name: 'purple',
@@ -106,6 +107,10 @@ const Setting = () => {
             <div className="card-design">
                 <h5 className="setting-heading">Select Language</h5>
                 <Language/>
+            </div>
+            <div className='card-design'>
+                <h5 className='setting-heading'> Set Brightness</h5>
+                <Brightness/>
             </div>
         </div>
     )
