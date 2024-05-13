@@ -225,14 +225,15 @@ hr{
     justify-content: center;
     cursor: pointer;
     background-color: white; */
-    width: 22px;
+    width: 24px; /* Set a fixed width */
     display: flex;
     background-color: var(--sidebar-hover);
     border: 1px solid var(--button-background);
     color: var(--color-text);
+    align-items: center;
     outline: none;
     padding-left: 4px;
-    border-radius: 0.5rem;
+    border-radius: 5px;
 
   }
   
@@ -240,11 +241,14 @@ hr{
   
   .checkbox-icon {
     color: #7c7c7c;
+    flex-shrink: 0; /* Prevent shrinking */
+
   }
   
   .checkbox-label {
     margin-left: 8px;
     color: #fff;
     font-size: 16px;
+    flex-shrink: 0;
   }
  

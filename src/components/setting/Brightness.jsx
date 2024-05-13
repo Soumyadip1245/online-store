@@ -1,29 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Brightness.css';
 
 const Brightness = () => {
-    
+  const [value, setValue] = useState(50);
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+    adjustBrightness(e.target.value);
+  };
+
+  const adjustBrightness = (value) => {
+    // Calculate brightness percentage
+    const brightnessPercentage = value / 100;
+
+    // Apply brightness filter to the document body
+    document.body.style.filter = `brightness(${brightnessPercentage})`;
+  };
+
+  const sliderStyle = {
+    background: `linear-gradient(to right, purple ${value}%, grey ${value}%)`,
+  };
+
   return (
-    <div>
-    <p className='bright-div'>Brightness Level</p>
-    <div className='bright-one'>
-        <div>
-            <div className='bright-two'>
-                <div className='bright-three'>
-                    <div className='bright-four'>
-                        <div className='bright-five'></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div className='bright-six'>
-                <button className='bright-button'>50%</button>
-            </div>
-        </div>
+    <div className='bright-control'>
+      <div className="slider-container">
+        <input
+          type="range"
+          className="slider"
+          min="0"
+          max="100"
+          value={value}
+          onChange={handleChange}
+          style={sliderStyle}
+        />
+      </div>
+      <div className="brightness-value">
+        <button className='bright-button'>{value} %</button>
+      </div>
     </div>
-    </div>
-  )
+  );
 }
 
-export default Brightness
+export default Brightness;
