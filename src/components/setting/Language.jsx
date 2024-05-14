@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef } from 'react'
 import './Language.css'
 import i18n from '../../utils/i18n';
 const languageFlags = {
-    'English (United States) — English': 'https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg',
+    'English (India) — English': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png',
     'Hindi(India) — हिंदी': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png',
     'Bengali(India) — বাংলা': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png',
     'Malyalam(India) — മലയാളം': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png'
 };
 
 const Language = () => {
-    const [selectedLanguage, setSelectedLanguage] = useState(localStorage.getItem('languageName') || 'English (United States) — English');
+    const [selectedLanguage, setSelectedLanguage] = useState(localStorage.getItem('languageName') || 'English (India) — English');
     const [selectedFlag, setSelectedFlag] = useState(languageFlags[selectedLanguage]);
     const [isLanguageListOpen, setIsLanguageListOpen] = useState(false);
     const languageBoxRef = useRef(null);
@@ -62,9 +62,9 @@ const Language = () => {
             </button>
             {isLanguageListOpen && (
                 <ul className='lang-list'>
-                    <li className='lang-list-item' onClick={() => handleLanguageSelect('English (United States) — English')}>
-                        <span className='lang-list-eng'></span>
-                        English (United States) — English
+                    <li className='lang-list-item' onClick={() => handleLanguageSelect('English (India) — English')}>
+                        <span className='lang-list-hin'></span>
+                        English (India) — English
                     </li>
                     <li className='lang-list-item' onClick={() => handleLanguageSelect('Hindi(India) — हिंदी')}>
                         <span className='lang-list-hin'></span>

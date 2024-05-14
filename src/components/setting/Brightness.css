@@ -4,13 +4,13 @@
     align-items: center;
     padding: 20px;
 }
+
 .slider-container {
     width: 300px;
-    position: relative;
-    
+    position: relative; 
   }
-  
-  .slider {
+
+  .sliderb {
     -webkit-appearance: none;
     appearance: none;
     width: 90%;
@@ -19,27 +19,27 @@
     outline: none;
   }
   
-  .slider::-webkit-slider-thumb {
+  .sliderb::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 20px;
     height: 20px;
-    background: #fff;
+    background: var(--button-background); /* Change background color to purple */
     border-radius: 50%;
-    border: 2px solid #7e57c2;
+    border: 2px solid var(--color-text); /* Change border color if needed */
     cursor: pointer;
     position: relative;
     z-index: 2;
   }
   
-  .slider::before {
- 
+  .sliderb::before {
     display: none;
   }
   
-  .slider::after {
- 
+  .sliderb::after {
+    
   }
+  
   
   .bright-button {
     text-align: left;
@@ -48,7 +48,7 @@
     padding-bottom: .25rem;
     padding-left: .75rem;
     padding-right: .75rem;
-    background-color: rgba(23, 27, 50, 1);
+    background-color: var(--sidebar-hover);
     border: 2px solid transparent; /* Transparent border to preserve button dimensions */
     border-radius: .25rem;
     cursor: text;
@@ -66,9 +66,8 @@
 }
 
 .bright-button:hover {
-    background-color: rgba(43, 47, 70, 1);
+    background-color: var(button-hover-background);
     color: rgba(200, 200, 200, 1);
-    border-color: rgba(43, 47, 70, 1); /* Adjust border color on hover */
 }
 
 .bright-button:focus {

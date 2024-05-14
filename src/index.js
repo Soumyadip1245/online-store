@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "react-query"
 import { ThemeProvider, createTheme } from "@mui/material"
 import Header from "./components/Header"
 import { BrowserRouter } from "react-router-dom"
+import Footer from "./components/footer/Footer"
 const storedThemeColor = localStorage.getItem("theme-color")
 const themeColor = storedThemeColor || "red-theme"
 document.body.classList.add(themeColor)
@@ -37,6 +38,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <I18nextProvider i18n={i18n}>
         <App />
+        
       </I18nextProvider>
     </QueryClientProvider>
   </ThemeProvider>

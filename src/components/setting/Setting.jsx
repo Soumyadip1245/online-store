@@ -3,6 +3,10 @@ import './Setting.css'
 import Language from './Language';
 import Brightness from './Brightness';
 import { useTranslation } from 'react-i18next'
+import i18n from '../../utils/i18n';
+
+
+
 
 const themes = [
     {
@@ -51,7 +55,7 @@ const Setting = () => {
     return (
         <div className="setting-container">
             <div className="card-design">
-                <h5 className="setting-heading">Theme</h5>
+                <h5 className="setting-heading">{t('settings.se1')}</h5>
                 <div className="theme-container">
                     {
                         themes.map(color =>
@@ -95,24 +99,24 @@ const Setting = () => {
                 </div>
             </div>
             <div className="card-design">
-                <h5 className="setting-heading">Enable Voice</h5>
+                <h5 className="setting-heading">{t('settings.se2')}</h5>
                 <div className="input-text">
                     <div className="toggle-card">
                         <input type="checkbox" id="toggle1" className="input-checkbox" checked={isVoiceEnabled}
                     onChange={handleToggle}/>
                 
                         <label htmlFor="toggle1" className="toggle-button"></label>
-                        <p style={{ color: 'var(--color-text)', fontWeight: 'bold' }}>Voice</p>
+                        <p style={{ color: 'var(--color-text)', fontWeight: 'bold' }}>{t('settings.se3')}</p>
                     </div>
-                    <p className="written text-wrap">Enable the option for activating the voice feature for the app.</p>
+                    <p className="written text-wrap">{t('settings.se4')}</p>
                 </div>
             </div>
             <div className="card-design height-auto">
-                <h5 className="setting-heading">Select Language</h5>
+                <h5 className="setting-heading">{t('settings.se5')}</h5>
                 <Language/>
             </div>
             <div className='card-design'>
-                <h5 className='setting-heading'> Set Brightness</h5>
+                <h5 className='setting-heading'>{t('settings.se6')}</h5>
                 <Brightness/>
             </div>
         </div>

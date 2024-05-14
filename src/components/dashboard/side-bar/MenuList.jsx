@@ -6,8 +6,13 @@ import { useSelector } from 'react-redux'
 import { GetUser, logoutUser } from '../../login/Auth'
 import Seller from '../../../models/seller'
 import { useQuery } from 'react-query'
+import i18n from '../../../utils/i18n'
+import { useTranslation } from "react-i18next";
+
 
 const MenuList = () => {
+    const { t } = useTranslation();
+
     const [loading, setLoading] = useState(true)
     const [staff, setStaff] = useState(false)
     const [face, setFace] = useState(false)
@@ -42,44 +47,44 @@ const MenuList = () => {
     console.log(isFormVisible)
     const menuItems = [
         {
-            name: "Dashboard",
+            name: "{t('sidebar.sidebar1')}",
             route: "/dashboard",
             icon: <i class="fa-solid fa-house"></i>,
             show: true
         },
         {
-            name: "Store",
+            name: "{t('sidebar.sidebar2')}",
             route: "/store-details",
             icon: <i class="fa-solid fa-cart-shopping"></i>,
             show: !isFormVisible && (roles.length > 0 ? roles.includes("Store") : true),
         },
         {
-            name: "Products",
+            name: "{t('sidebar.sidebar3')}",
             route: "/product-details",
             icon: <i class="fa-solid fa-utensils"></i>,
             show: !isFormVisible && (roles.length > 0 ? roles.includes("Products") : true),
         },
         {
-            name: "Orders",
+            name: "{t('sidebar.sidebar4')}",
             route: "/orders",
             icon: <i class="fa-solid fa-truck"></i>,
             show: !isFormVisible && (roles.length > 0 ? roles.includes("Orders") : true),
         },
         {
-            name: "Explore",
+            name: "{t('sidebar.sidebar5')}",
             route: "/explore",
             icon: <i class="fa-solid fa-code-compare"></i>,
             show: true,
         },
         {
-            name: "Rentals",
+            name: "{t('sidebar.sidebar6')}",
             route: "/rentals",
             icon: <i class="fa-solid fa-rectangle-list"></i>,
             show: !isFormVisible && (roles.length > 0 ? roles.includes("Rentals") : true),
         },
        
         {
-            name: "Access",
+            name: "{t('sidebar.sidebar7')}",
             route: "/access",
             icon: <i class="fa-solid fa-clipboard-user"></i>,
             show: !isFormVisible && (roles.length > 0 ? roles.includes("Access") : true),
