@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import './Setting.css'
 import Language from './Language';
 import Brightness from './Brightness';
+import { useTranslation } from 'react-i18next'
+
 const themes = [
     {
         name: 'purple',
@@ -25,6 +27,7 @@ const themes = [
     }
 ]
 const Setting = () => {
+    const {t} = useTranslation()
     const currentApplied = localStorage.getItem('theme-color') || 'red-theme'
     const [selectedColor, setSelectedColor] = useState(themes.find(color => color.className === currentApplied).name || 'red');
     const [isVoiceEnabled, setIsVoiceEnabled] = useState(localStorage.getItem("voice") === "true");
@@ -104,7 +107,7 @@ const Setting = () => {
                     <p className="written text-wrap">Enable the option for activating the voice feature for the app.</p>
                 </div>
             </div>
-            <div className="card-design">
+            <div className="card-design height-auto">
                 <h5 className="setting-heading">Select Language</h5>
                 <Language/>
             </div>

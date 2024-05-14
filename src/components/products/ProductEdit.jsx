@@ -89,13 +89,22 @@ const ProductEdit = ({ stepper, productSuccess }) => {
     }
   };
   const imageHandler = async (event) => {
-
+    try {
+      setLoading(true)
       const data = await original.uploadImage(event.target.files[0]);
-      console.log("Image FileId: ",data)
+      console.log("Image FileId: ", data)
       const imgLink = await original.downloadUrl(data)
-      console.log("Image Link: ",imgLink)
+      console.log("Image Link: ", imgLink)
       original.productImage = imgLink;
-   
+      setUploadSuccess(true)
+    }
+    catch (e) {
+
+    }
+    finally {
+      setLoading(false)
+    }
+
   };
   const back = () => {
     navigate('/product-details')
@@ -187,10 +196,11 @@ const ProductEdit = ({ stepper, productSuccess }) => {
                   value={product.productCategory}
                   onChange={(e) => setProduct({ ...product, productCategory: e.target.value })}
                 />
-                            <p className="written text-wrap">Select the appropriate category for your product.</p>
+                <p className="written text-wrap">Select the appropriate category for your product.</p>
 
               </div>
               <div className='input-text'>
+                <div style={{display: 'flex',alignItems: 'center'}}>
                 <input
                   name="fileInput"
                   onChange={imageHandler}
@@ -198,15 +208,16 @@ const ProductEdit = ({ stepper, productSuccess }) => {
                   accept="image/*"
                   className='imagedrop'
                 />
-                            <p className="written text-wrap">Choose image for your product.</p>
-
-                {loading && <div>Loading...</div>}
-                {uploadSuccess && <div>Upload Success!</div>}
-              </div>
-             <div>
-                <button type="button" className='btn-design' onClick={handleSubmit}>Save</button>
+                {loading && <i class="fa-regular fa-circle" style={{ color: 'blue', marginLeft: '5px' }}></i>}
+                {uploadSuccess && <i class="fa-regular fa-circle-check" style={{ color: 'green', marginLeft: '5px'  }}></i>}
                 </div>
-              
+                <p className="written text-wrap">Choose image for your product.</p>
+               
+              </div>
+              <div>
+                <button type="button" className='btn-design' onClick={handleSubmit}>Save</button>
+              </div>
+
             </div>
           </div>
         </form>

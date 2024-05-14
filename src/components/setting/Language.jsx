@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './Language.css';
-
+import React, { useState, useEffect, useRef } from 'react'
+import './Language.css'
+import i18n from '../../utils/i18n';
 const languageFlags = {
     'English (United States) — English': 'https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg',
     'Hindi(India) — हिंदी': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png',
@@ -9,14 +9,22 @@ const languageFlags = {
 };
 
 const Language = () => {
-    const [selectedLanguage, setSelectedLanguage] = useState('English (United States) — English');
-    const [selectedFlag, setSelectedFlag] = useState(languageFlags['English (United States) — English']);
+    const [selectedLanguage, setSelectedLanguage] = useState(localStorage.getItem('languageName') || 'English (United States) — English');
+    const [selectedFlag, setSelectedFlag] = useState(languageFlags[selectedLanguage]);
     const [isLanguageListOpen, setIsLanguageListOpen] = useState(false);
     const languageBoxRef = useRef(null);
 
     const handleLanguageSelect = (language) => {
         setSelectedLanguage(language);
         setSelectedFlag(languageFlags[language]);
+        let languageCode = 'en'
+        if (language == 'Hindi(India) — हिंदी') {
+            languageCode = 'hi'
+        }
+      
+        i18n.changeLanguage(languageCode)
+        localStorage.setItem('language', languageCode)
+        localStorage.setItem('languageName',language)
         setIsLanguageListOpen(false);
     };
 

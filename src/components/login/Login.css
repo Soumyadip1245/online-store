@@ -11,6 +11,9 @@
     padding-top: 5rem;
    
 }
+.colorChange{
+    color: rgba(252,236,97,1) !important;
+}
 .login-form{
 
     padding: 3rem;
@@ -185,7 +188,7 @@ hr{
     background-color: var(--header-border);
     border-width: 0px;
     width: 100%;
-    height: 1px;
+    height: 2px;
     margin: 0;
 }
 .icon-logo{
