@@ -11,6 +11,7 @@ import Access from "../../models/access";
 import { useQuery } from "react-query";
 import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition";
 import { speakMessage } from "../../utils/voice-recognition/Speak";
+import Opp from "./opportunity/opp";
 const AccessDetails = () => {
   const [seller, setSeller] = useState(new Seller());
   const user = useSelector((state) => state.auth.user);
@@ -40,7 +41,7 @@ const AccessDetails = () => {
 
   return (
     <>
-      <VoiceRecognition commands={commands} />
+      {/* <VoiceRecognition commands={commands} /> */}
 
       <Box>
         {isLoading && <Loader />}
@@ -51,7 +52,10 @@ const AccessDetails = () => {
             deleteAccess={deleteAccess}
           />
         )}
+        
       </Box>
+      <Opp/>
+      
     </>
   );
 };
