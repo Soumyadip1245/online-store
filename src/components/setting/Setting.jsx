@@ -35,6 +35,7 @@ const Setting = () => {
     const currentApplied = localStorage.getItem('theme-color') || 'red-theme'
     const [selectedColor, setSelectedColor] = useState(themes.find(color => color.className === currentApplied).name || 'red');
     const [isVoiceEnabled, setIsVoiceEnabled] = useState(localStorage.getItem("voice") === "true");
+    const [isJobsEnabled, setIsJobsEnabled] = useState(localStorage.getItem("jobs")==="true");
     
     const handleClick = (colorName, className) => {
         document.body.className = className;
@@ -44,10 +45,17 @@ const Setting = () => {
     useEffect(() => {
         localStorage.setItem("voice", isVoiceEnabled ? "true" : "false");
     }, [isVoiceEnabled]);
+    useEffect(() => {
+        localStorage.setItem("jobs", isJobsEnabled ? "true" : "false");
+    }, [isJobsEnabled]);
 
     const handleToggle = () => {
         setIsVoiceEnabled(!isVoiceEnabled);
     };
+    const handleJobToggle = () => {
+        setIsJobsEnabled(!isJobsEnabled);
+    };
+
 
     useEffect(() => {
         console.log(selectedColor)
@@ -111,6 +119,24 @@ const Setting = () => {
                     <p className="written text-wrap">{t('settings.se4')}</p>
                 </div>
             </div>
+
+
+            <div className="card-design">
+                <h5 className="setting-heading">{t('settings.se7')}</h5>
+                <div className="input-text">
+                    <div className="toggle-card">
+                        <input type="checkbox" id="toggle2" className="input-checkbox" checked={isJobsEnabled}
+                    onChange={handleJobToggle}/>
+                
+                        <label htmlFor="toggle2" className="toggle-button"></label>
+                        <p style={{ color: 'var(--color-text)', fontWeight: 'bold' }}>{t('settings.se8')}</p>
+                    </div>
+                    <p className="written text-wrap">{t('settings.se9')}</p>
+                </div>
+            </div>
+
+
+
             <div className="card-design height-auto">
                 <h5 className="setting-heading">{t('settings.se5')}</h5>
                 <Language/>

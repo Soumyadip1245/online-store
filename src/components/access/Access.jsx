@@ -12,7 +12,9 @@ import { useQuery } from "react-query";
 import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition";
 import { speakMessage } from "../../utils/voice-recognition/Speak";
 import Opp from "./opportunity/opp";
+import useLocalData from "../../utils/localSetting";
 const AccessDetails = () => {
+  const {activateJobs}=useLocalData();
   const [seller, setSeller] = useState(new Seller());
   const user = useSelector((state) => state.auth.user);
   const [loader, setLoader] = useState(true);
@@ -54,7 +56,8 @@ const AccessDetails = () => {
         )}
         
       </Box>
-      <Opp/>
+      {activateJobs && <Opp/>}
+      
       
     </>
   );
