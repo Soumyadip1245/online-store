@@ -21,6 +21,15 @@ const Language = () => {
         if (language == 'Hindi(India) — हिंदी') {
             languageCode = 'hi'
         }
+        else if(language== 'Bengali(India) — বাংলা'){
+            languageCode='bn'
+        }
+        else if(language == 'Malyalam(India) — മലയാളം'){
+            languageCode='ml'
+        }
+        else{
+            languageCode='en'
+        }
       
         i18n.changeLanguage(languageCode)
         localStorage.setItem('language', languageCode)

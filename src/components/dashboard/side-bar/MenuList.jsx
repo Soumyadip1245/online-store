@@ -47,44 +47,44 @@ const MenuList = () => {
     console.log(isFormVisible)
     const menuItems = [
         {
-            name: "{t('sidebar.sidebar1')}",
+            name: `${t('sidebar.sidebar1')}`,
             route: "/dashboard",
             icon: <i class="fa-solid fa-house"></i>,
             show: true
         },
         {
-            name: "{t('sidebar.sidebar2')}",
+            name: `${t('sidebar.sidebar2')}`,
             route: "/store-details",
             icon: <i class="fa-solid fa-cart-shopping"></i>,
             show: !isFormVisible && (roles.length > 0 ? roles.includes("Store") : true),
         },
         {
-            name: "{t('sidebar.sidebar3')}",
+            name: `${t('sidebar.sidebar3')}`,
             route: "/product-details",
             icon: <i class="fa-solid fa-utensils"></i>,
             show: !isFormVisible && (roles.length > 0 ? roles.includes("Products") : true),
         },
         {
-            name: "{t('sidebar.sidebar4')}",
+            name: `${t('sidebar.sidebar4')}`,
             route: "/orders",
             icon: <i class="fa-solid fa-truck"></i>,
             show: !isFormVisible && (roles.length > 0 ? roles.includes("Orders") : true),
         },
         {
-            name: "{t('sidebar.sidebar5')}",
+            name: `${t('sidebar.sidebar5')}`,
             route: "/explore",
             icon: <i class="fa-solid fa-code-compare"></i>,
             show: true,
         },
         {
-            name: "{t('sidebar.sidebar6')}",
+            name: `${t('sidebar.sidebar6')}`,
             route: "/rentals",
             icon: <i class="fa-solid fa-rectangle-list"></i>,
             show: !isFormVisible && (roles.length > 0 ? roles.includes("Rentals") : true),
         },
        
         {
-            name: "{t('sidebar.sidebar7')}",
+            name: `${t('sidebar.sidebar7')}`,
             route: "/access",
             icon: <i class="fa-solid fa-clipboard-user"></i>,
             show: !isFormVisible && (roles.length > 0 ? roles.includes("Access") : true),
