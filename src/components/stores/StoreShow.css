@@ -8,7 +8,9 @@
     color: white;
     font-weight: bold;
 }
-
+.input-flex{
+    display: flex;
+}
 .gstNumber {
     margin-top: 8px;
     color: var(--color-text);

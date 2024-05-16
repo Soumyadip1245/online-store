@@ -31,6 +31,7 @@ import './App.css'
 import Compare from "./components/compare/Compare"
 import VoiceRecognition from "./utils/voice-recognition/VoiceRecognition"
 import Header from "./components/Header";
+import Footer from "./components/footer/Footer"
 
 const App = () => {
   const { loggedIn, checkStatus } = AuthLayout()
@@ -181,7 +182,7 @@ const App = () => {
                 element={
                   curr.protected ? (
                     <div className="main-background">
-                        <Header/>
+                        <Header />
                       <div className="gradient2"></div>
                       <div className="gradient1"></div>
                       <div className="page-divider">
@@ -190,7 +191,8 @@ const App = () => {
                         <ProtectedRoute component={curr.element} />
                       </div>
                         </div>
-                     
+                        <hr />
+                     <Footer/>
                     </div>
                   ) : curr.generated ? (
                     <div style={{ flex: 1, overflow: "auto" }}>

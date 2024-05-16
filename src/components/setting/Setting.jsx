@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react'
 import './Setting.css'
 import Language from './Language';
 import Brightness from './Brightness';
+import { useTranslation } from 'react-i18next'
+import i18n from '../../utils/i18n';
+
+
+
+
 const themes = [
     {
         name: 'purple',
@@ -25,9 +31,11 @@ const themes = [
     }
 ]
 const Setting = () => {
+    const {t} = useTranslation()
     const currentApplied = localStorage.getItem('theme-color') || 'red-theme'
     const [selectedColor, setSelectedColor] = useState(themes.find(color => color.className === currentApplied).name || 'red');
     const [isVoiceEnabled, setIsVoiceEnabled] = useState(localStorage.getItem("voice") === "true");
+    const [isJobsEnabled, setIsJobsEnabled] = useState(localStorage.getItem("jobs")==="true");
     
     const handleClick = (colorName, className) => {
         document.body.className = className;
@@ -37,10 +45,17 @@ const Setting = () => {
     useEffect(() => {
         localStorage.setItem("voice", isVoiceEnabled ? "true" : "false");
     }, [isVoiceEnabled]);
+    useEffect(() => {
+        localStorage.setItem("jobs", isJobsEnabled ? "true" : "false");
+    }, [isJobsEnabled]);
 
     const handleToggle = () => {
         setIsVoiceEnabled(!isVoiceEnabled);
     };
+    const handleJobToggle = () => {
+        setIsJobsEnabled(!isJobsEnabled);
+    };
+
 
     useEffect(() => {
         console.log(selectedColor)
@@ -48,7 +63,7 @@ const Setting = () => {
     return (
         <div className="setting-container">
             <div className="card-design">
-                <h5 className="setting-heading">Theme</h5>
+                <h5 className="setting-heading">{t('settings.se1')}</h5>
                 <div className="theme-container">
                     {
                         themes.map(color =>
@@ -92,24 +107,42 @@ const Setting = () => {
                 </div>
             </div>
             <div className="card-design">
-                <h5 className="setting-heading">Enable Voice</h5>
+                <h5 className="setting-heading">{t('settings.se2')}</h5>
                 <div className="input-text">
                     <div className="toggle-card">
                         <input type="checkbox" id="toggle1" className="input-checkbox" checked={isVoiceEnabled}
                     onChange={handleToggle}/>
                 
                         <label htmlFor="toggle1" className="toggle-button"></label>
-                        <p style={{ color: 'var(--color-text)', fontWeight: 'bold' }}>Voice</p>
+                        <p style={{ color: 'var(--color-text)', fontWeight: 'bold' }}>{t('settings.se3')}</p>
                     </div>
-                    <p className="written text-wrap">Enable the option for activating the voice feature for the app.</p>
+                    <p className="written text-wrap">{t('settings.se4')}</p>
                 </div>
             </div>
+
+
             <div className="card-design">
-                <h5 className="setting-heading">Select Language</h5>
+                <h5 className="setting-heading">{t('settings.se7')}</h5>
+                <div className="input-text">
+                    <div className="toggle-card">
+                        <input type="checkbox" id="toggle2" className="input-checkbox" checked={isJobsEnabled}
+                    onChange={handleJobToggle}/>
+                
+                        <label htmlFor="toggle2" className="toggle-button"></label>
+                        <p style={{ color: 'var(--color-text)', fontWeight: 'bold' }}>{t('settings.se8')}</p>
+                    </div>
+                    <p className="written text-wrap">{t('settings.se9')}</p>
+                </div>
+            </div>
+
+
+
+            <div className="card-design height-auto">
+                <h5 className="setting-heading">{t('settings.se5')}</h5>
                 <Language/>
             </div>
             <div className='card-design'>
-                <h5 className='setting-heading'> Set Brightness</h5>
+                <h5 className='setting-heading'>{t('settings.se6')}</h5>
                 {/* <Brightness/> */}
             </div>
         </div>

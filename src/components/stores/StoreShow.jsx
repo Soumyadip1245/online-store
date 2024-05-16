@@ -152,7 +152,7 @@ const StoreShow = ({ store, editClick, seller: initialSeller, storeSeller }) => 
 
           </div>
           <div className="toggle-switch">
-            {!seller.istheSubscriptionAvailable && store.isVerified && (
+            {!seller.istheSubscriptionAvailable && (
               <label className="switch">
                 <input type="checkbox" checked={toggleState} onChange={handleToggleChange} />
                 <span className="slider"></span>

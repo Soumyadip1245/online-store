@@ -101,7 +101,7 @@ const Profile = ({ profileSuccess, stepper }) => {
                     value={seller.profile.address}
                     onChange={(e) => updateFormData("address", e.target.value)}
                   />
-                  <p className="written text-wrap">The address will be visible to all visitors accessing your store.</p>
+                  <p className="written text-wrap">{t('profile.heading2')}</p>
 
                 </div>
                 <div className="input-text">
@@ -113,7 +113,7 @@ const Profile = ({ profileSuccess, stepper }) => {
                     value={seller.profile.city}
                     onChange={(e) => updateFormData("city", e.target.value)}
                   />
-                  <p className="written text-wrap">The pincode will be visible to all visitors accessing your store.</p>
+                  <p className="written text-wrap">{t('profile.heading3')}</p>
 
                 </div>
                 <div className="input-text">
@@ -125,7 +125,7 @@ const Profile = ({ profileSuccess, stepper }) => {
                     value={seller.profile.state}
                     onChange={(e) => updateFormData("state", e.target.value)}
                   />
-                  <p className="written text-wrap">The state will be visible to all visitors accessing your store.</p>
+                  <p className="written text-wrap">{t('profile.heading4')}</p>
 
                 </div>
                 <div className="input-text">
@@ -137,7 +137,7 @@ const Profile = ({ profileSuccess, stepper }) => {
                     value={seller.profile.pincode}
                     onChange={(e) => updateFormData("pincode", e.target.value)}
                   />
-                  <p className="written text-wrap">The pincode will be visible to all visitors accessing your store.</p>
+                  <p className="written text-wrap">{t('profile.heading5')}</p>
 
                 </div>
                 <div>

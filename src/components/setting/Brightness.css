@@ -1,0 +1,76 @@
+
+.bright-control{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+}
+
+.slider-container {
+    width: 300px;
+    position: relative; 
+  }
+
+  .sliderb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 90%;
+    height: 5px;
+    background: transparent;
+    outline: none;
+  }
+  
+  .sliderb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--button-background); /* Change background color to purple */
+    border-radius: 50%;
+    border: 2px solid var(--color-text); /* Change border color if needed */
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .sliderb::before {
+    display: none;
+  }
+  
+  .sliderb::after {
+    
+  }
+  
+  
+  .bright-button {
+    text-align: left;
+    color: rgba(255, 255, 255, 1);
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    padding-left: .75rem;
+    padding-right: .75rem;
+    background-color: var(--sidebar-hover);
+    border: 2px solid transparent; /* Transparent border to preserve button dimensions */
+    border-radius: .25rem;
+    cursor: text;
+    width: 4.5rem;
+    background-image: none;
+    text-transform: none;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    margin: 0;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Added border-color transition */
+}
+
+.bright-button:hover {
+    background-color: var(button-hover-background);
+    color: rgba(200, 200, 200, 1);
+}
+
+.bright-button:focus {
+    outline: none;
+}

@@ -22,9 +22,14 @@ import { speakMessage } from "../../utils/voice-recognition/Speak"
 import Logo from '../assests/INFINITY-removebg-preview.png'
 import { Layout, Row, Col, Form, Input, Button, Checkbox, Divider, Card, message } from 'antd';
 import Header from '../Header';
+import Footer from '../footer/Footer';
+import i18n from "../../utils/i18n"
+import { useTranslation } from "react-i18next";
 
 const { Content } = Layout;
 const Login = () => {
+  const { t } = useTranslation();
+
   const [phone, setPhone] = useState("")
   const [otp, setOtp] = useState("")
   const [checkbox, setCheckbox] = useState(false)
@@ -138,51 +143,52 @@ const Login = () => {
       <div className="login-card">
         <div className="login-form">
           <div className="login-text">
-            <h2 className="login-heading">Login to your Account</h2>
-            <div className="login-hint">Choose any method of login to your account.</div>
+            <h2 className="login-heading">{t('login.l1')}</h2>
+            <div className="login-hint">{t('login.l2')}</div>
           </div>
 
           {!isOtpSent ? (
             <>
               <div>
-                <div className="field-heading">Phone Number</div>
+                <div className="field-heading">{t('login.l3')}</div>
                 <input
                   type="tel"
                   value={phone}
                   onChange={handlePhoneChange}
-                  className="input-field loginfield"
+                  className="input-field-loginfield"
                   placeholder="Enter your phone number"
+                  maxLength={13}
                 />
               </div>
               <div id="recaptcha-container" sx={{ mb: 2 }}></div>
+              
               <div style={{ marginTop: 16,    display: 'flex', color: '#fff',fontWeight: '700' }}>
-                {/* <Checkbox value={checkbox} style={{ color: 'rgba(255, 255, 255, 1)' }} onChange={handleCheckbox}>Are you staff?</Checkbox> */}
                 <div className="custom-checkbox" onClick={handleCheckboxChange}>
                   {isStaff && <div className="checkbox-icon">✔</div>}
                 </div>
-                <span className="checkbox-label">Are you staff?</span>
+                <span className="checkbox-label">{t('login.l4')}</span>
               </div>
-             
 
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button onClick={sendOtp} className="btn-design login-submit">Send OTP</button>
+                <button onClick={sendOtp} className="btn-design login-submit">{t('login.l5')}</button>
               </div>
             </>
           ) : (
             <>
               <div>
-                <div className="field-heading">Enter OTP</div>
+                <div className="field-heading">{t('login.l6')}</div>
                 <input
                   type="text"
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
-                  className="input-field loginfield"
+                  className="input-field-loginfield"
                   placeholder="Enter OTP"
+                  maxLength={6}
                 />
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button onClick={verifyOtp} className="btn-design login-submit">Verify OTP</button>
+                <button onClick={verifyOtp} className="btn-design login-submit">{t('login.l7')}</button>
               </div>
             </>
           )}
@@ -194,6 +200,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+
     </>
   )
 }

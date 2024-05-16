@@ -12,7 +12,7 @@
 .language-button {
     text-align: center;
     padding: 1rem 1rem;
-    background-color: rgba(23, 23, 40, 1);
+    background: var(--sidebar-hover);
     color: rgba(255, 255, 255, 1);
     border: none;
     border-radius: 0.5rem;
@@ -30,18 +30,18 @@
 }
 
 .language-button:hover {
-    box-shadow: 0 8px 12px -4px rgba(0, 0, 0, 0.2), 0 4px 8px -2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 12px -4px var(--sidebar-hover);
     transform: translateY(-2px);
 }
 
 .language-button::before {
-    content: "";
+    /* content: ""; */
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    background: var(--sidebar-hover);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -91,7 +91,7 @@
     transition-property: transform;
     transition-timing-function: cubic-bezier(.4, 0, .2, 1);
     transition-duration: .15s;
-    color: rgba(82, 82, 122, 1);
+    color: var(--color-text);
     font-size: 1.25rem;
     line-height: 1.75rem;
 }
@@ -107,13 +107,12 @@
     color: rgba(255, 255, 255, 1);
     padding-top: .75rem;
     padding-bottom: .75rem;
-    background-color: rgba(23, 23, 40, 1);
+    background-color: var(--sidebar-hover);
     border-radius: .375rem;
     overflow: auto;
     max-height: 15rem;
     margin-top: 1rem;
     z-index: 1;
-    position: absolute;
     list-style: none;
     margin: 0;
     margin-top: 0.25rem;
@@ -127,7 +126,7 @@
     padding-left: 1rem;
     color: rgba(255, 255, 255, 1);
     padding-top: .75rem;
-    padding-bottom: .75rem;
+    padding-bottom: 1rem;
     gap: 1rem;
     align-items: center;
     user-select: none;
@@ -135,79 +134,28 @@
     display: flex;
     position: relative;
 
-}
-
-.lang-list-eng {
-    background-position: center;
-    background-size: cover;
-    background-color: rgba(28, 44, 60, 1);
-    border-radius: .25rem;
-    overflow: hidden;
-    min-height: 2rem;
-    width: 2rem !important;
-    height: 1.5rem;
-    display: block;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAABJlJREFUaEPtmf1rW1UYx783b8vLmtsYbF26bmvarWu31I0xKxvLNlA2xuY/sCqCyIo6X1pbRWQ6lWk3ImNDHYgI3RgMRMaKL/iTK+wXK7glVE9orZSpMGvdTdLmpjdprpx7cm/T2MUfclK90AdK8tx7zvc5n/Ocm3OeWwEmN8Hk48cKwH+dwZUM/B8yYAWwCgD9NJPNA5ijS8h3+PB7f1V75J8Io9xD1A9dvI8CbDh06N1f9u5tR3//Yzh9+poRiKd/DBNcAeTrN7Dmy8+aKEDrwYOnSDjcBkma1YKo6kIsgbagfyq7bhG0r2WNttP6FYz6J9pt/w5Q2nGpHqoKweNG7sc4ak/2b9YADhx4h+zevQAQiTyOnp7BwiAEUL+396I+HEQiT6C3Z5DBCsD71Nfuqxqc7jOPGb3G2wRBYACPPvI26Xx4IxIJmU31IitMv3at+HuxX3q9WICl4ty5J3mPHwbA/v1vkZ07gxgYOIru7o+NQBcuPM3Nj4T93AAElxO5ydsQX+pmGdi3702ybdsGJBJpbkFKhQZwk5u2RfRCuRlF4NtvGMCePSfI1q2NSCbpEgIuXTqOrq7zRkDNP3qeraDi+3S1CfdoX9Sf9jkrEH4A3hooo3GsuX6VAeza9TrZtCmAVIoBVMOufMjxIbZYACULW8MDDKCz8zUSDNbh8uUXcOTIgDH+oaFXuPlUi7cZD/GOHa+SxkY/ZmYyvGMYel991MVPm2Ygm4V9cwvLwPbt/aSuTkQ6PacFGR4+iXD4DSNgpT4VuoIRbgCC24X8H3+i4YdhBhAKvUxqaz2QZYVbkFKhqxjmpk1/RtVEEmujIwygra2HeNyrMPL9KYQ6+lggFYjFzqAj1GfsX9HYGe2+vm3FogW/8GsUpX6oj+3gKmC0V4Ebx9q5AcBmBbI5eJ9/igG0tr5I1OIDEL9QhlI8fpa7qvEQNzcfJ9ksPV4zm5z8AOvXP8vN1zV5ExgATU3PkampJG/9RXrjD7GTLi+z1HpR9/mnbAk1Nj5DpqdTmJ0dhMezsOHw9EfxBa+xazpWvx/rbo8xgECgm9y9O8M1QKnY2Dq+BY0getHw3dcMYH5+nljo5mAiy+fzsFqtDCCXyxGr1Vw1/SKACX8rsSlZqErWFDkQHHbkHHYEp+MsAz+LLcSWz0PNKMaReVFhpu9c5V6DFRdyS7UrbHb6JvmPl5r6fV1nqeKvsMFqAHYrmqVxBjBeEyR2VYU6pyxdUep5KQ1SLl/3qjKLJ6MUqlivTCUrOB3ICgJaUhMMQJZl4nQ6TbF89EFmMhm4XC4GkE6nicvlMhWALMtwu90M4CfHWuJ2OKCmq1eR8ZwdepxOKwralF8ZwKi9gax2OqHOVq+o5wrgcWMmk8GW7G8FAFuArHa5zAUgy9iS+50BJBIJ4vV6eU5S1bWSySREUWQAkiQRURSrHpRnAEmS4PP5GMAtSz3x1ZgrA1IqiY78HQ2g5Zalfozn7CyX1oP5OxspQD2AEID7lyswpzhTAGIUgP57qabwyUl7WWToO6BUuePZsoyi0iArAJXOYKX9VzJQ6QxW2t/0GfgbsdLeSJdN7iEAAAAASUVORK5CYII=');
-    position: relative;
-    line-height: 1em;
-    background-repeat: no-repeat;
-
 
 }
+
+
 
 .lang-list-hin {
     background-position: center;
     background-size: cover;
-    background-color: rgba(28, 44, 60, 1);
-    border-radius: .25rem;
     overflow: hidden;
-    min-height: 2rem;
-    width: 2rem !important;
-    height: 1.5rem;
+    min-height: 1rem;
+    width: 1.5rem !important;
+    height: 1rem;
     display: block;
-    background-image: url('data:image/png;base64,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');
     position: relative;
+    background-image: url('https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png');
     line-height: 1em;
     background-repeat: no-repeat;
 
 
 }
 
-.lang-list-fre {
-    background-position: center;
-    background-size: cover;
-    background-color: rgba(28, 44, 60, 1);
-    border-radius: .25rem;
-    overflow: hidden;
-    min-height: 2rem;
-    width: 2rem !important;
-    height: 1.5rem;
-    display: block;
-    background-image: url('data:image/png;base64,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');
-    position: relative;
-    line-height: 1em;
-    background-repeat: no-repeat;
 
-
-}
-
-.lang-list-ger {
-    background-position: center;
-    background-size: cover;
-    background-color: rgba(28, 44, 60, 1);
-    border-radius: .25rem;
-    overflow: hidden;
-    min-height: 2rem;
-    width: 2rem !important;
-    height: 1.5rem;
-    display: block;
-    background-image: url('https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Flag_of_Germany.svg/1280px-Flag_of_Germany.svg.png');
-    position: relative;
-    line-height: 1em;
-    background-repeat: no-repeat;
-
-
-}
 
 
 

@@ -175,7 +175,6 @@
     outline: none;
     border-radius: 0.5rem;
     border: none;
-    /* placeholder-color: var(--text-gray-700); */
 }
 
 .input-field:focus {

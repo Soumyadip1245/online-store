@@ -41,8 +41,9 @@
 }
 .theme-container{
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
   margin-top: 1rem;
+  margin-bottom: 0;
 }
 .theme-text{
   margin-top: 1rem;
@@ -54,6 +55,7 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  width: 250px;
 }
 .border-applied{
   border: 2px solid var(--two-circle);
