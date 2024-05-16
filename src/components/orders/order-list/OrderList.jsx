@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled';
-import { Box, Chip, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, tableCellClasses, useTheme } from '@mui/material';
+import './OrderList.css'; // Import CSS file for styling
 import date from 'date-and-time';
 import OrderSummary from '../order-summary/OrderSummary';
+import styled from '@emotion/styled';
+import VoiceRecognition from '../../../utils/voice-recognition/VoiceRecognition';
+import { speakMessage } from '../../../utils/voice-recognition/Speak';
 
 const OrderList = ({ orders, openSummary, themeMode }) => {
   const [filter, setFilter] = useState('all');
   const [orderSummary, setOrders] = useState(null);
-  const theme = useTheme(); // Use useTheme hook to access theme
 
+  const dateFormat = (createdAt) => {
+    const now = new Date(createdAt);
+    return date.format(now, 'ddd, MMM DD YYYY');
+  }
   const PendingDot = styled('span')({
     display: 'inline-block',
     width: '10px',
@@ -41,32 +46,6 @@ const OrderList = ({ orders, openSummary, themeMode }) => {
     
   });
 
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: '#f0f0f0', // Updated to a light gray
-      color: theme.palette.common.black,
-      fontWeight: 'bold',
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-      color: theme.palette.common.black,
-    },
-  }));
-
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    '&:last-child td, &:last-child th': {
-      border: 0,
-    },
-  }));
-
-  const dateFormat = (createdAt) => {
-    const now = new Date(createdAt);
-    return date.format(now, 'ddd, MMM DD YYYY');
-  }
-
   const filterOrders = (status) => {
     return status === 'all' ? orders : orders.filter(order => {
       return (status === 'accepted' && order.isAccepted) ||
@@ -80,62 +59,51 @@ const OrderList = ({ orders, openSummary, themeMode }) => {
     setOrders(order);
     openSummary(order);
   }
+  const commands=[];
 
   return (
     <>
-      <Box mb={2}>
+          <VoiceRecognition commands={commands} />
+      <div className="filter-container">
         {['all', 'accepted', 'rejected', 'pending', 'paid'].map((status) => (
-          <Chip
+          <span
             key={status}
-            label={status.charAt(0).toUpperCase() + status.slice(1)}
-            color={filter === status ? 'primary' : 'default'}
+            className={`chip ${filter === status ? 'active' : ''}`}
             onClick={() => setFilter(status)}
-            clickable
-            variant={filter === status ? 'filled' : 'outlined'}
-            style={{
-              borderRadius: '20px',
-              marginRight: '5px',
-              // Conditional background color based on themeMode and filter status
-              backgroundColor: filter === status ? (themeMode === 'dark' ? '#f02e65' : '#1677ff') : '#e0e0e0',
-              color: filter === status ? '#fff' : '#000',
-              border: filter === status ? 'none' : '1px solid #bdbdbd',
-            }}
-          />
+          >
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </span>
         ))}
-      </Box>
+      </div>
 
-      <TableContainer component={Paper} style={{ backgroundColor: '#fff' }}>
-        <Table aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Order ID</StyledTableCell>
-              <StyledTableCell align="left">Date</StyledTableCell>
-              <StyledTableCell align="left">Customer</StyledTableCell>
-              <StyledTableCell align="left">Items</StyledTableCell>
-              <StyledTableCell align="left">Payment</StyledTableCell>
-              <StyledTableCell align="left">Status</StyledTableCell>
-              <StyledTableCell align="left">Amount</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
+      <div className="table-container">
+        <table className="custom-table">
+          <thead className='table-header'>
+            <tr>
+              <th>Order ID</th>
+              <th>Date</th>
+              <th>Customer</th>
+              <th>Items</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody className='table-body'>
             {filterOrders(filter).map((row) => (
-              <StyledTableRow key={row._id}>
-                <StyledTableCell component="th" scope="row">
-                  <OrderLink onClick={() => showSummary(row)}>
-                    {row.orderNumber}
-                  </OrderLink>
-                </StyledTableCell>
-                <StyledTableCell align="left">{dateFormat(row.createdAt)}</StyledTableCell>
-                <StyledTableCell align="left">{row.buyerName}</StyledTableCell>
-                <StyledTableCell align="left">{row.cartItems.length}</StyledTableCell>
-                <StyledTableCell align="left">{row.isPaid ? <><AcceptedDot />Paid</> : <><PendingDot />Pending</>}</StyledTableCell>
-                <StyledTableCell align="left">{row.isAccepted ? <><AcceptedDot />Accepted</> : row.isRejected ? <><RejectedDot />Rejected</> : <><PendingDot />Pending</>}</StyledTableCell>
-                <StyledTableCell align="left">₹ {row.totalAmount}</StyledTableCell>
-              </StyledTableRow>
+              <tr key={row._id}>
+                <td className="order-id" onClick={() => showSummary(row)}>{row.orderNumber}</td>
+                <td>{dateFormat(row.createdAt)}</td>
+                <td>{row.buyerName}</td>
+                <td>{row.cartItems.length}</td>
+                <td>{row.isPaid ? <><AcceptedDot />Paid</> : <><PendingDot />Pending</>}</td>
+                <td>{row.isAccepted ?  <><AcceptedDot />Accepted</> : row.isRejected ? <><RejectedDot />Rejected</> : <><PendingDot />Pending</>}</td>
+                <td>₹ {row.totalAmount}</td>
+              </tr>
             ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };

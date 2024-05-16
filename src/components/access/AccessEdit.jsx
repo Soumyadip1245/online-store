@@ -10,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
+import "./Access.css"
 import {
   AppBar,
   Box,
@@ -91,6 +92,19 @@ const AccessEdit = () => {
     navigate("/access");
   };
 
+  const handleRoleChange = (event, name) => {
+    const isChecked = event.target.checked;
+    let updatedRoles = [...access.roles];
+    if (isChecked) {
+      updatedRoles.push(name);
+    } else {
+      updatedRoles = updatedRoles.filter((role) => role !== name);
+    }
+    setAccess((prevAccess) => ({
+      ...prevAccess,
+      roles: updatedRoles,
+    }));
+  };
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -107,114 +121,93 @@ const AccessEdit = () => {
         ...prevAccess,
         isFace: isChecked,
       }));
-    }else {
+    } else {
       setAccess((prevAccess) => ({
         ...prevAccess,
         [name]: value,
       }));
     }
   };
-  const enroll= () =>{
+  const enroll = () => {
     const data = {
       "phoneNumber": access.mobile,
       "name": access.staffName
     }
-    
+
     enrollUser(data)
   }
 
   return (
     <>
-    {/* <VoiceRecognition commands={commands} /> */}
-     
-      {loader && <Loader />}
+      {loader && <div>Loading...</div>}
       {!loader && (
         <form onSubmit={handleSubmit}>
-          <Box m={2}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Typography variant="h6">Staff Details</Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Staff Name"
+          <div>
+            <h6>Staff Details</h6>
+          </div>
+          <div className="storedetails-container">
+            <div className="card-design">
+              <p className="store-name">Staff Details</p>
+              <div className="input-text">
+                <input
+                  type="text"
+                  placeholder="enter your staff name"
                   name="staffName"
+                  className="input-field"
                   value={access.staffName}
                   onChange={handleChange}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Staff Mobile"
+                <p className="written text-wrap">The staff name will be displayed for all visitors to see.</p>
+
+              </div>
+              <div className="input-text">
+                <input
+                  type="text"
+                  placeholder="enter your mobile number"
+                  className="input-field"
                   name="mobile"
                   value={access.mobile}
                   onChange={handleChange}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Staff Email"
+                <p className="written text-wrap">The mobile number will be visible only to the store owner.</p>
+
+              </div>
+              <div className="input-text">
+                <input
+                  type="email"
+                  placeholder="enter your email address"
                   name="email"
+                  className="input-field"
                   value={access.email}
                   onChange={handleChange}
                 />
-              </Grid>
-              {/* <Grid item xs={12}>
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox name="security" checked={access.isFace} onChange={handleChange} />
-                    }
-                    label="Enable Security"
-                  />
-                </FormGroup>
-              </Grid> */}
-              <Grid item xs={12}>
-                <FormControl fullWidth>
-                  <InputLabel id="roles-label">Roles</InputLabel>
-                  <Select
-                    labelId="roles-label"
-                    id="roles"
-                    name="roles"
-                    multiple
-                    value={access.roles}
-                    onChange={handleChange}
-                    input={<OutlinedInput label="Roles" />}
-                    renderValue={(selected) => (
-                      <div>
-                        {selected.map((value) => (
-                          <Chip key={value} label={value} />
-                        ))}
-                      </div>
-                    )}
-                  >
-                    {names.map((name) => (
-                      <MenuItem key={name} value={name}>
-                        {name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12}>
-                <Box sx={{display: 'flex'}}>
-                {/* {access.isFace && <Button sx={{mr: '1rem'}} type="button" onClick={enroll} variant="contained" color="primary">
-                  Enroll
-                </Button>} */}
-                <Button type="submit" variant="contained" color="primary">
-                  Save
-                </Button>
-                </Box>
-                
-              </Grid>
-            </Grid>
-          </Box>
+                <p className="written text-wrap">The email will be visible exclusively to the store owner.</p>
+
+              </div>
+              <div className="input-text">
+                {names.map((name) => (
+                  <label key={name} className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      label={name}
+                      className="input-field"
+                      checked={access.roles.includes(name)}
+                      onChange={(event) => handleRoleChange(event, name)}
+                    />
+                    {name}
+                  </label>
+
+                ))}
+
+                <p className="written text-wrap">Choose the roles for your staff members.</p>
+
+              </div>
+              <div>
+              <button className="btn-design" type="submit">Save</button>
+              </div>
+
+            </div>
+          </div>
         </form>
       )}
     </>

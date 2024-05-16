@@ -22,17 +22,9 @@ const ProductShow = ({ product: initialProduct, onAddToCart, onCheckbox, showChe
     navigate('/product-edit/' + product)
   }
 
-  // const commands = [
-  //   {
-  //     command: "add product",
-  //     callback: () => {
-  //     },
-  //   },
-
-  // ];
   return (
 
-    <div className="show-card">
+    <div className="show-card card-margin">
     <div className="show-flex">
       <div className="show-price">
         <div>
@@ -43,10 +35,10 @@ const ProductShow = ({ product: initialProduct, onAddToCart, onCheckbox, showChe
       </div>
       <div className="show-image">
         <div className="showimage">
-        <img src={product.imageUrl} alt="" />
+        <img src={product.productImage} alt="" />
         </div>
-        {!edit && <button onClick={handleCheckbox}>{isChecked ? "Added" : "Add"}</button>}
-       {edit && <button onClick={()=>editOpen(product._id)}>Edit</button>}
+        {!edit && <button className="btn-design" onClick={handleCheckbox}>{isChecked ? "Added" : "Add"}</button>}
+       {edit && <button className="btn-design" onClick={()=>editOpen(product._id)}>Edit</button>}
       </div>
     </div>
     {enableIndex && <div className="number-circle">{index + 1}</div>}

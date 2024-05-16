@@ -1,0 +1,24 @@
+{
+    "projectId": "65902cd617480a5e3dd4",
+    "projectName": "Project",
+    "functions": [
+        {
+            "$id": "661140e5e42e62943065",
+            "name": "scrapper",
+            "runtime": "node-18.0",
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "src/main.js",
+            "commands": "npm install",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "path": "functions/scrapper"
+        }
+    ]
+}

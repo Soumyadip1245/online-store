@@ -55,7 +55,7 @@ const ChatService = () => {
   };
 
   const messageInitiated = async () => {
-    const message = window.location.origin+"/1245chat/"+seller._id
+    const message = window.location.origin + "/1245chat/" + seller._id
     console.log(message)
     const q = query(collection(db, "messages"),
       where("sellerId", "==", seller._id),
@@ -65,17 +65,17 @@ const ChatService = () => {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const objs = querySnapshot.docs.map((doc) => ({ ...doc.data(), _id: doc.id }));
       const array = []
-      
+
       objs.map(curr => {
         array.push(Message.toCls(curr))
       })
       setMessages(array);
-     
+
     });
     console.log("Chat bot is activated");
   };
   const commands = [
-    
+
     {
       command: "send message *",
       callback: (message) => {
@@ -86,35 +86,34 @@ const ChatService = () => {
     {
       command: "send message",
       callback: () => {
-      sendMessage()
-      speakMessage("Message sent")
+        sendMessage()
+        speakMessage("Message sent")
       },
     },
     {
       command: "check latest",
       callback: () => {
-        if(messages[messages.length - 1].isStaff){
+        if (messages[messages.length - 1].isStaff) {
           speakMessage(`Staff latest message is: ${messages[messages.length - 1].text}`)
         }
-        else{
+        else {
           speakMessage("No message from staff yet")
         }
       },
     },
-   
-  
+
+
   ]
   if (isLoading) {
     return <Loader />;
   }
 
   return (
-   <>
+    <>
 
-   <VoiceRecognition commands={commands}/>
-    <section class="msger" >
-      {console.warn(messages)}
-      {messages.length > 0 ? (
+      <VoiceRecognition commands={commands} />
+      <section class="msger" >
+
         <>
           <main class="msger-chat" style={{ maxHeight: '200px', overflow: 'auto' }}>
             {messages.map((item, index) => (
@@ -127,20 +126,16 @@ const ChatService = () => {
           </main>
 
         </>
-      ) : (
-        <div style={{ height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Empty />
-        </div>
-      )}
-      <Input
-        value={typemessage}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Type a message..."
-        onPressEnter={sendMessage}
-        suffix={<Button onClick={sendMessage}>Send</Button>}
-      />
-    </section>
-   </>
+
+
+      </section>
+      <div className="send-message">
+      <input type="text"  value={typemessage}   onChange={(e) => setMessage(e.target.value)}className="input-field" placeholder='Type message' />
+      <div className="message-btnn" onClick={sendMessage}>
+      <i class="fa-solid fa-paper-plane"></i>
+      </div>
+      </div>
+    </>
   );
 
 }

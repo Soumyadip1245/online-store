@@ -41,26 +41,25 @@ const ProductList = ({ products, showChecked, onCheckbox, edit, voice, seller, s
   return (
     <>
       {!voice && <VoiceRecognition commands={commands} />}
-      <Box m={2}>
-        {!showChecked && <Typography mb={2} variant="body1" >
+      <Box mt={2}>
+        {!showChecked && <Typography mb={2} variant="body1" style={{color: 'white'}} >
           <a
             onClick={onAddNewProductClick}
-            style={{ color: "blue", cursor: "pointer" }}
+            style={{ color: "var(--color-text)", fontWeight:'bold' }}
           >
             Click
           </a>{" "}
+          
           here to add new products
         </Typography>}
-        <Grid container spacing={2}>
           {products.map((curr, key) => {
             return (
-              <Grid item xs={6}>
+              <div className=".compare-container">
                 <ProductShow index={key} product={curr} edit={edit} key={key} seller={seller} store={store} onCheckbox={onCheckbox} showChecked={showChecked} enableIndex = {enableIndex} />
-              </Grid>
+              </div>
             );
           })}
 
-        </Grid>
 
       </Box>
     </>

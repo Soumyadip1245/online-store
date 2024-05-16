@@ -3,6 +3,7 @@ import { nanoid } from "nanoid"
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { initializeApp } from "firebase/app"
 import { getAuth, GoogleAuthProvider } from "firebase/auth"
+import { Client, Storage, ID } from "appwrite"
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_CONFIG_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_CONFIG_AUTH_DOMAIN,
@@ -26,7 +27,10 @@ const appStore = initializeApp(storeConfig, "store")
 const db = getFirestore(app)
 const auth = getAuth(app)
 const authStore = getAuth(appStore)
-const storage = getStorage(app)
+const storage1 = getStorage(app)
+const client = new Client().setEndpoint(process.env.REACT_APP_APPWRITE_ENDPOINT).setProject(process.env.REACT_APP_APPWRITE_PROJECT)
+
+const storage = new Storage(client)
 export const Table = {
   STORE: "store",
   SELLER: "seller",
@@ -75,6 +79,11 @@ class FirebaseService {
   limit(number) {
     return limit(number)
   }
+  getInvoice(fileId) {
+    if (!fileId) return null
+    const result = storage.getFileDownload(process.env.REACT_APP_APPWRITE_STORAGE, fileId)
+    return result
+  }
   async select(table, ...wheres) {
     const q = query(collection(db, table), ...wheres)
     const snap = await getDocs(q)
@@ -83,22 +92,23 @@ class FirebaseService {
   }
   async uploadFile(file) {
     const uniqueName = nanoid() + "-" + file.name
-    const storageRef = ref(storage, `projectfiles/${uniqueName}`)
+    const storageRef = ref(storage1, `projectfiles/${uniqueName}`)
     await uploadBytes(storageRef, file)
     return uniqueName
   }
+
   async uploadPDF(file, orderNumber) {
+    console.log(orderNumber)
     const uniqueName = orderNumber
-    const storageRef = ref(storage, `projectfiles/${uniqueName}`)
-    const meta = { contentType: "application/pdf" }
     const buffer = Uint8Array.from(atob(file), (c) => c.charCodeAt(0))
-    const fileBlob = new Blob([buffer], { type: "application/pdf" })
-    await uploadBytes(storageRef, fileBlob, meta)
+    const fileBlob = new File([buffer], uniqueName, { type: "application/pdf" })
+    const result = await storage.createFile(process.env.REACT_APP_APPWRITE_STORAGE, uniqueName, fileBlob)
+
     return uniqueName
   }
   imageUrl(fileId) {
     if (!fileId) return null
-    const fileRef = ref(storage, `projectfiles/${fileId}`)
+    const fileRef = ref(storage1, `projectfiles/${fileId}`)
     return getDownloadURL(fileRef)
   }
   async realSelect(table, ...wheres) {

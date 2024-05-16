@@ -1,6 +1,6 @@
 .tool {
     font-family: 'Arial', sans-serif;
-    background-color: rgba(52, 58, 64, 0.5);
+    background-color: var(--sidebar-hover);
     color: white;
     display: flex;
     flex-direction: column;
@@ -11,16 +11,23 @@
     backdrop-filter: blur(5px);
     margin-top: 1rem;
 }
-
+.scrapper-product{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
 .toolmain {
     width: 50%;
     max-width: 400px;
-    background-color: #080533;
+    background-color: var(--gradient1);
     padding: 20px;
 }
 
 .toolservice {
-    background-color: #080533;
+    background-color: var(--gradient1);
     border-radius: 50%;
     margin-bottom: 20px;
     padding: 20px;

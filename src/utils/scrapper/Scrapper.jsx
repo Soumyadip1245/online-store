@@ -48,7 +48,7 @@ const Scrapper = ({ sendProduct }) => {
 
         // 1. .tool class load
         // 2. Scroll
-       
+
         // 3. Below code will run
         const payload = { keyword: search };
         for (const server of servers) {
@@ -68,7 +68,7 @@ const Scrapper = ({ sendProduct }) => {
                     setItems(response.data);
                     await new Promise(resolve => setTimeout(resolve, 500));
 
-                     // Hide the .tool class elements as soon as data is found
+                    // Hide the .tool class elements as soon as data is found
                     // 4. 2 sec of hold
                     // 5. .tool class should hide
                     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -84,7 +84,7 @@ const Scrapper = ({ sendProduct }) => {
 
                     console.log(`No data from ${server.name}`);
 
-                    
+
                 }
             } catch (error) {
                 setServers(prevServers => prevServers.map(srv => srv.name === server.name ? { ...srv, status: ServerStatus.NO_DATA } : srv));
@@ -132,55 +132,64 @@ const Scrapper = ({ sendProduct }) => {
 
     return (
         <>
+            <div className="storedetails-container">
+                <div className='card-design'>
+                    <p className='store-name'>Instant Products</p>
+                    <div className='input-text'>
+                        <input
+                            type="text"
+                            placeholder='enter your product name'
+                            className='input-field'
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                        <p className="written text-wrap">Search for the product name through our providers. If found, view the product details and add it directly to your inventory.</p>
+                    </div>
+                    <div>
+                        <button className="btn-design" onClick={fetchRender}>Search</button>
+                    </div>
+                    {toolVisible && (
+                        <div className="tool">
+                            {servers.map(server => (
 
-            <h2 className='banner-header'>Want Some Suggestion Adding Products!!</h2>
-            <Input
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search Product"
-                onPressEnter={fetchRender}
-                suffix={<Button onClick={fetchRender}>Send</Button>}
-            />
-            {toolVisible && (
-                <div className="tool">
-                    {servers.map(server => (
+                                <div className="toolmain">
+                                    <div className="toolservice toolchecking">
+                                        <ServerIcon status={server.status} />
+                                        <div className="toolservice-text">
+                                            <h1>{server.name.charAt(0).toUpperCase() + server.name.slice(1)}</h1>
+                                            <ServerText status={server.status} />
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div className="toolmain">
-                            <div className="toolservice toolchecking">
-                                <ServerIcon status={server.status} />
-                                <div className="toolservice-text">
-                                    <h1>{server.name.charAt(0).toUpperCase() + server.name.slice(1)}</h1>
-                                    <ServerText status={server.status} />
+
+                            ))}
+                        </div>
+                    )}
+                    <div className="scrapper-product">
+                        {items.map((curr, index) => (
+                            <div className="show-card">
+                                <div className="show-flex">
+                                    <div className="show-price">
+                                        <div>
+                                            <p className='showname'>{curr.name.length > 20 ? curr.name.substring(0, 20) + '....' : curr.name}</p>
+                                                <img src={AmazonLogo} style={{ width: "15%", marginTop: '1rem' }} />
+                                        </div>
+                                        <p className='showprice'>₹ {curr.price}</p>
+                                    </div>
+                                    <div className="show-image">
+                                        <div className="showimage">
+                                            <img src={curr.image} alt="" />
+                                        </div>
+                                        <button className="btn-design" onClick={() => addProduct(curr)} >Add</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-
-                    ))}
+                        ))}
+                    </div>
                 </div>
-            )}
-            <Grid className='toolproduct' container spacing={2}>
-                {items.map((curr, index) => (
-                    <Grid item xs={3} key={index}>
-                        <Card style={{ marginBottom: '20px', marginTop: '20px', boxShadow: 'box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;' }}>
-                            <CardContent style={{ padding: 0 }}>
-                                <div style={{ backgroundColor: '#fff', height: '200px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
-                                    <img src={curr.image} alt={curr.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
-                                </div>
-                                <CardContent style={{ padding: '20px' }}>
-                                    <Typography variant="body1">{curr.name.length > 20 ? curr.name.substring(0, 20) + '....' : curr.name}</Typography>
-                                    <Typography variant="body1">₹ {curr.price}</Typography>
-                                    <Button variant="contained" color="primary" onClick={() => addProduct(curr)}>Add</Button>
-                                    <div sx={{ display: 'flex' }}>
-                                        <p style={{ margin: "1rem 0 5px 0", color: "black", fontSize: "10px" }}>Powered By</p>
-                                        <img src={AmazonLogo} style={{ width: "28%" }} />
-                                    </div>
-                                </CardContent>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                ))}
-            </Grid>
+            </div>
+
         </>
     );
 };

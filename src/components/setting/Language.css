@@ -1,0 +1,173 @@
+.language-sub {
+    font-weight: 500;
+}
+
+.language-box {
+    max-width: 25rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.language-button {
+    text-align: center;
+    padding: 1rem 1rem;
+    background: var(--sidebar-hover);
+    color: rgba(255, 255, 255, 1);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    width: 100%;
+    position: relative;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    margin: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.language-button:hover {
+    box-shadow: 0 8px 12px -4px var(--sidebar-hover);
+    transform: translateY(-2px);
+}
+
+.language-button::before {
+    /* content: ""; */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--sidebar-hover);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.language-button:hover::before {
+    opacity: 1;
+}
+
+.first-lang {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    gap: 1rem;
+    align-items: center;
+    display: flex;
+}
+
+.first-lang-one {
+    background-position: center;
+    background-size: cover;
+    background-color: rgba(28, 44, 60, 1);
+    border-radius: .25rem;
+    overflow: hidden;
+    min-width: 2rem;
+    width: 2rem !important;
+    height: 1.5rem;
+    display: block;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAABJlJREFUaEPtmf1rW1UYx783b8vLmtsYbF26bmvarWu31I0xKxvLNlA2xuY/sCqCyIo6X1pbRWQ6lWk3ImNDHYgI3RgMRMaKL/iTK+wXK7glVE9orZSpMGvdTdLmpjdprpx7cm/T2MUfclK90AdK8tx7zvc5n/Ocm3OeWwEmN8Hk48cKwH+dwZUM/B8yYAWwCgD9NJPNA5ijS8h3+PB7f1V75J8Io9xD1A9dvI8CbDh06N1f9u5tR3//Yzh9+poRiKd/DBNcAeTrN7Dmy8+aKEDrwYOnSDjcBkma1YKo6kIsgbagfyq7bhG0r2WNttP6FYz6J9pt/w5Q2nGpHqoKweNG7sc4ak/2b9YADhx4h+zevQAQiTyOnp7BwiAEUL+396I+HEQiT6C3Z5DBCsD71Nfuqxqc7jOPGb3G2wRBYACPPvI26Xx4IxIJmU31IitMv3at+HuxX3q9WICl4ty5J3mPHwbA/v1vkZ07gxgYOIru7o+NQBcuPM3Nj4T93AAElxO5ydsQX+pmGdi3702ybdsGJBJpbkFKhQZwk5u2RfRCuRlF4NtvGMCePSfI1q2NSCbpEgIuXTqOrq7zRkDNP3qeraDi+3S1CfdoX9Sf9jkrEH4A3hooo3GsuX6VAeza9TrZtCmAVIoBVMOufMjxIbZYACULW8MDDKCz8zUSDNbh8uUXcOTIgDH+oaFXuPlUi7cZD/GOHa+SxkY/ZmYyvGMYel991MVPm2Ygm4V9cwvLwPbt/aSuTkQ6PacFGR4+iXD4DSNgpT4VuoIRbgCC24X8H3+i4YdhBhAKvUxqaz2QZYVbkFKhqxjmpk1/RtVEEmujIwygra2HeNyrMPL9KYQ6+lggFYjFzqAj1GfsX9HYGe2+vm3FogW/8GsUpX6oj+3gKmC0V4Ebx9q5AcBmBbI5eJ9/igG0tr5I1OIDEL9QhlI8fpa7qvEQNzcfJ9ksPV4zm5z8AOvXP8vN1zV5ExgATU3PkampJG/9RXrjD7GTLi+z1HpR9/mnbAk1Nj5DpqdTmJ0dhMezsOHw9EfxBa+xazpWvx/rbo8xgECgm9y9O8M1QKnY2Dq+BY0getHw3dcMYH5+nljo5mAiy+fzsFqtDCCXyxGr1Vw1/SKACX8rsSlZqErWFDkQHHbkHHYEp+MsAz+LLcSWz0PNKMaReVFhpu9c5V6DFRdyS7UrbHb6JvmPl5r6fV1nqeKvsMFqAHYrmqVxBjBeEyR2VYU6pyxdUep5KQ1SLl/3qjKLJ6MUqlivTCUrOB3ICgJaUhMMQJZl4nQ6TbF89EFmMhm4XC4GkE6nicvlMhWALMtwu90M4CfHWuJ2OKCmq1eR8ZwdepxOKwralF8ZwKi9gax2OqHOVq+o5wrgcWMmk8GW7G8FAFuArHa5zAUgy9iS+50BJBIJ4vV6eU5S1bWSySREUWQAkiQRURSrHpRnAEmS4PP5GMAtSz3x1ZgrA1IqiY78HQ2g5Zalfozn7CyX1oP5OxspQD2AEID7lyswpzhTAGIUgP57qabwyUl7WWToO6BUuePZsoyi0iArAJXOYKX9VzJQ6QxW2t/0GfgbsdLeSJdN7iEAAAAASUVORK5CYII=');
+    position: relative;
+    line-height: 1em;
+    background-repeat: no-repeat;
+}
+
+.up-arrow {
+    padding-right: .5rem;
+    right: 0;
+    align-items: center;
+    display: flex;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.up-arrow-one {
+    transform: translate(0, 0) rotate(0) skew(0) skewY(0) scaleX(1) scaleY(1) !important;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: .15s;
+    color: var(--color-text);
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+
+
+.lang-list {
+    right: 0;
+    left: 0;
+    --scrollbar-thumb: rgba(91, 107, 123, 1) !important;
+    --scrollbar-track: rgba(23, 23, 40, 1) !important;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb, initial) var(--scrollbar-track, initial);
+    color: rgba(255, 255, 255, 1);
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    background-color: var(--sidebar-hover);
+    border-radius: .375rem;
+    overflow: auto;
+    max-height: 15rem;
+    margin-top: 1rem;
+    z-index: 1;
+    list-style: none;
+    margin: 0;
+    margin-top: 0.25rem;
+    padding: 0;
+
+
+}
+
+.lang-list-item {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    color: rgba(255, 255, 255, 1);
+    padding-top: .75rem;
+    padding-bottom: 1rem;
+    gap: 1rem;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    display: flex;
+    position: relative;
+
+
+}
+
+
+
+.lang-list-hin {
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+    min-height: 1rem;
+    width: 1.5rem !important;
+    height: 1rem;
+    display: block;
+    position: relative;
+    background-image: url('https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png');
+    line-height: 1em;
+    background-repeat: no-repeat;
+
+
+}
+
+
+
+
+
+/* Responsive styles */
+@media screen and (max-width: 480px) {
+    .container {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .inside-box {
+        margin-left: 0;
+    }
+}

@@ -23,6 +23,9 @@ import Product from '../../models/product';
 import Loader from '../../utils/loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition"
+import { speakMessage } from "../../utils/voice-recognition/Speak"
+
 const ProductDetails = () => {
   const [seller, setSeller] = useState(new Seller());
   const [store, setStore] = useState(new Store());
@@ -35,6 +38,7 @@ const ProductDetails = () => {
     const storeData = await store.getStoreBySeller(userData._id)
     return await Product.getAllProductsByStore(storeData._id);
   };
+  const commands=[];
   const {data,isLoading} = useQuery("products",fetchData,{enabled: !!user})
   useEffect(() => {
     if (data) {
@@ -46,15 +50,18 @@ const ProductDetails = () => {
   }
   return (
     <>
-   
-      <Box>
+    <VoiceRecognition commands={commands} />
+   <div className="productdetails-container" style={{display: 'flex',flexDirection: 'column', justifyContent: 'center',alignItems: 'center'}}>
+   <div className='card-design'>
         {!isLoading &&  < ProductList products={products}  edit={true} /> }
        
-        </Box>
+        </div >
+   </div>
+   </>
+     
 
 
 
-    </>
   )
 }
 

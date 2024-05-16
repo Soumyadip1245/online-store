@@ -1,0 +1,46 @@
+.dashboard-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboard-heading{
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+}
+.dashboard-chat{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+    height: 100%;
+}
+.dashboard-chat i{
+    color: var(--color-text);
+    font-size: 4rem;
+}
+.dashboard-counter{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+.counter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.counter-icon{
+    color: var(--color-text);
+    font-size: 2rem;
+}
+.counter-value{
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    margin: 5px 0;
+}
+.counter p{
+    color: var(--color-text);
+}

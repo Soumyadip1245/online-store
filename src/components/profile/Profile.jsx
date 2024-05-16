@@ -1,19 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Typography,
-  Card,
-  CardContent,
-  TextField,
-  Button,
-  Grid,
-  Box,
-  Badge,
-  CircularProgress,
-  AppBar,
-  Toolbar,
-  IconButton,
-} from "@mui/material";
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+// import {localData} from '../../utils/localSetting'
 import Seller from "../../models/seller";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -23,24 +9,28 @@ import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition";
 import { speakMessage } from "../../utils/voice-recognition/Speak";
 import { useQuery } from "react-query";
 import { message } from "antd";
+import voiceCommands from "../commands/profileCommand";
+import { useTranslation } from "react-i18next";
+import i18n from "../../utils/i18n";
+import useLocalData from "../../utils/localSetting";
 const Profile = ({ profileSuccess, stepper }) => {
   const [seller, setSeller] = useState(new Seller());
   const [originalSeller, setOriginal] = useState(new Seller());
-  const [loading, setLoading] = useState(false);
-  const [loader, setLoader] = useState(true);
 
+  const { t } = useTranslation();
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
+  const {activateVoice} = useLocalData()
   const fetchData = async () => {
     return await GetUser(user);
   };
-  const {data,isLoading} = useQuery("profile",fetchData,{enabled: !!user})
+  const { data, isLoading } = useQuery("profile", fetchData, { enabled: !!user })
 
-  useEffect(()=>{
-    if(data) setSeller(data)
-  },[data])
+  useEffect(() => {
+    if (data) setSeller(data)
+  }, [data])
   const handleSubmit = async (event) => {
-    
+
     originalSeller._id = seller._id;
     // event.preventDefault();
 
@@ -55,9 +45,9 @@ const Profile = ({ profileSuccess, stepper }) => {
     stepper ? profileSuccess() : navigate('/dashboard')
 
   }
-  if(isLoading) return <Loader/>
+  if (isLoading) return <Loader />
   const updateFormData = (fieldName, value) => {
-    
+
     setSeller((prevSeller) => {
       if (fieldName === 'sellerName') {
         return {
@@ -78,136 +68,93 @@ const Profile = ({ profileSuccess, stepper }) => {
       }
     });
   };
-
-  const commands = [
-    {
-      command: "set seller name to *",
-      callback: (sellerName) => {
-        speakMessage(`Setting seller name to ${sellerName}`);
-        updateFormData("sellerName", sellerName);
-      },
-    },
-    {
-      command: "set address to *",
-      callback: (address) => {
-        speakMessage(`Setting address to ${address}`);
-        updateFormData("address", address);
-      },
-    },
-    {
-      command: "set city to *",
-      callback: (city) => {
-        speakMessage(`Setting city to ${city}`);
-        updateFormData("city", city);
-      },
-    },
-    {
-      command: "set state to *",
-      callback: (state) => {
-        speakMessage(`Setting state to ${state}`);
-        updateFormData("state", state);
-      },
-    },
-    {
-      command: "set pincode to *",
-      callback: (pincode) => {
-        speakMessage(`Setting pincode to ${pincode}`);
-        updateFormData("pincode", pincode);
-      },
-    },
-    {
-      command: "save profile",
-      callback: () => {
-        handleSubmit()
-      },
-    },
-  ];
+  const commands = voiceCommands(speakMessage, updateFormData, handleSubmit);
   return (
     <>
-      <VoiceRecognition commands={commands} />
-     
-      {!isLoading &&
-        <Box m={2}>
-          <form style={{ marginTop: "20px" }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="sellerName"
-                  label="Seller Name"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  value={
-                    seller.sellerName || ''
-                  }
-                  onChange={(e) => updateFormData("sellerName", e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="address"
-                  label="Address"
-                  variant="outlined"
-                  fullWidth
-                  value={
-                    seller.profile.address || ''
-                  }
-                  onChange={(e) => updateFormData("address", e.target.value)}
+     {activateVoice && <VoiceRecognition commands={commands} />}
 
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="city"
-                  label="City"
-                  variant="outlined"
-                  fullWidth
-                  value={
-                    seller.profile.city || ''
-                  }
-                  onChange={(e) => updateFormData("city", e.target.value)}
+      {!isLoading && (
+        <div>
+          <form>
+            <div className="storedetails-container">
 
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="state"
-                  label="State"
-                  variant="outlined"
-                  fullWidth
-                  value={
-                    seller.profile.state || ''
-                  }
-                  onChange={(e) => updateFormData("state", e.target.value)}
+              <div className="card-design">
+                <p className="store-name">Profile</p>
+                <div className="input-text">
+                  <input
+                    type="text"
+                    placeholder="enter your seller name"
+                    className="input-field"
+                    name="sellerName"
+                    value={seller.sellerName}
+                    onChange={(e) => updateFormData("sellerName", e.target.value)}
+                  />
+                  <p className="written text-wrap">{t('profile.heading1')}</p>
+                  {/* <button className="btn-design" type="button" onClick={()=>i18n.changeLanguage('hi')}>Language</button> */}
+                </div>
+                <div className="input-text">
+                  <input
+                    type="text"
+                    placeholder="enter your address"
+                    className="input-field"
+                    name="address"
+                    value={seller.profile.address}
+                    onChange={(e) => updateFormData("address", e.target.value)}
+                  />
+                  <p className="written text-wrap">{t('profile.heading2')}</p>
 
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="pincode"
-                  label="Pincode"
-                  variant="outlined"
-                  fullWidth
-                  value={
-                    seller.profile.pincode
-                  }
-                  onChange={(e) => updateFormData("pincode", e.target.value)}
+                </div>
+                <div className="input-text">
+                  <input
+                    type="text"
+                    placeholder="enter your city"
+                    className="input-field"
+                    name="city"
+                    value={seller.profile.city}
+                    onChange={(e) => updateFormData("city", e.target.value)}
+                  />
+                  <p className="written text-wrap">{t('profile.heading3')}</p>
 
-                />
-              </Grid>
-            </Grid>
+                </div>
+                <div className="input-text">
+                  <input
+                    type="text"
+                    name="state"
+                    placeholder="enter your state"
+                    className="input-field"
+                    value={seller.profile.state}
+                    onChange={(e) => updateFormData("state", e.target.value)}
+                  />
+                  <p className="written text-wrap">{t('profile.heading4')}</p>
 
-            <Button
-              type="button"
-              variant="contained"
-              color="primary"
-              onClick={handleSubmit}
-              style={{ marginTop: "20px" }}
-            >
-              Submit
-            </Button>
+                </div>
+                <div className="input-text">
+                  <input
+                    type="text"
+                    name="pincode"
+                    placeholder="enter your pincode"
+                    className="input-field"
+                    value={seller.profile.pincode}
+                    onChange={(e) => updateFormData("pincode", e.target.value)}
+                  />
+                  <p className="written text-wrap">{t('profile.heading5')}</p>
+
+                </div>
+                <div>
+                <button
+                  type="button"
+                  className="btn-design"
+                  onClick={handleSubmit}
+                >
+                  Submit
+                </button>
+                </div>
+              </div>
+            </div>
           </form>
-        </Box>}
+        </div>
+
+      )}
     </>
   );
 };

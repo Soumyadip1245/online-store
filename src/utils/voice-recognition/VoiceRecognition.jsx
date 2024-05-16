@@ -1,43 +1,61 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './VoiceRecognition.css';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import MicIcon from '@mui/icons-material/Mic';
-import MicOff from '@mui/icons-material/MicOff';
+
 const VoiceRecognition = ({ commands }) => {
+  const [isListening, setIsListening] = useState(false);
   const {
     transcript,
-    listening,
-  } = useSpeechRecognition( {commands} );
-
+    resetTranscript
+  } = useSpeechRecognition({ commands });
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.keyCode === 32 && event.target.tagName !== "INPUT") {
-        event.preventDefault();
-        if (!listening) {
-          SpeechRecognition.startListening({ language: "en-IN" });
-        } else {
-          SpeechRecognition.stopListening();
-        }
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
+    if (isListening) {
+      SpeechRecognition.startListening({ language: 'en-IN' });
+    } else {
+      SpeechRecognition.stopListening();
+    }
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      SpeechRecognition.abortListening();
     };
-  }, [listening]);
+  }, [isListening]);
 
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 32 && event.target.tagName !== 'INPUT') {
+      event.preventDefault();
+      setIsListening(true);
+    }
+  };
 
+  const handleKeyUp = (event) => {
+    if (event.keyCode === 32) {
+      event.preventDefault();
+      setIsListening(false);
+      resetTranscript();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keyup', handleKeyUp);
+    };
+  }, []);
 
   return (
     <div className="voice-recognition-container">
-      {/* {listening && <p>{transcript}</p>} */}
-    {listening && <div className="floating-microphone"><MicIcon/></div>}
-    {!listening && <div className="floating-microphone"><MicOff/></div>}
-  </div>
-  
+
+      {isListening && <p className='transcript'>{transcript}</p>}
+      {isListening ? (
+        <i className="fa-solid fa-microphone"></i>
+      ) : (
+        <i className="fa-solid fa-microphone-slash"></i>
+      )}
+    </div>
   );
 };
 

@@ -5,6 +5,7 @@ import { deepOrange } from "@mui/material/colors";
 import { Delete , Edit } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 // import { DeleteIcon,EditIcon } from "@mui/icons-material";
+import './Access.css'
 const AccessShow = ({ access: initialAccess, deleteAccess }) => {
   const navigate = useNavigate()
   const [accessOriginal, setAccess] = useState(new Access());
@@ -17,24 +18,15 @@ const AccessShow = ({ access: initialAccess, deleteAccess }) => {
   const deleteButton = () =>{
     deleteAccess(accessOriginal)
   }
-  return <Box mb={2}>
-    <Card sx={{border: '1px solid lightgrey', display: 'flex',justifyContent: 'space-between'}} >
-  <CardContent style={{ display: 'flex', alignItems: 'center' }}>
-    <Avatar sx={{ bgcolor: deepOrange[500] }} >{accessOriginal.staffName.slice(0,1)}</Avatar>
-    <Typography variant="h6" style={{ marginLeft: '10px' }}>
-      {accessOriginal.staffName}
-    </Typography>
-  </CardContent>
-  <CardActions>
-    <IconButton onClick={editButton}>
-      <Edit/>
-    </IconButton>
-    <IconButton onClick={deleteButton}>
-      <Delete />
-    </IconButton>
-  </CardActions>
-</Card>
-  </Box>
+  return <div >
+    <div className="card-design card-flex">
+    <p className="written">{accessOriginal.staffName}</p>
+    <div className="button-flex">
+    <i class="fa-solid fa-pen-to-square" onClick={editButton}></i>
+    <i class="fa-solid fa-trash" onClick={deleteButton}></i>
+    </div>
+    </div>
+  </div>
 };
 
 export default AccessShow;

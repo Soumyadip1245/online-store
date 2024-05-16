@@ -1,15 +1,16 @@
 import React from "react";
 import './sidebar12.css'
+import Logo from '../../assests/INFINITY-removebg-preview.png'
 import {Layout} from "antd";
-import Logo from "./Logo";
 import MenuList from "./MenuList";
-const {Header,Sider} = Layout
+import AppInfo from "../AppInfo";
 const Sidebar = () => {
   return (
-      <Sider className='sidebar'>
-        <Logo/>
-        <MenuList/>
-      </Sider>
+    <div className="sidebar-content">
+      <MenuList/>
+      <AppInfo />
+    </div>
+     
   );
 };
 export default Sidebar;
