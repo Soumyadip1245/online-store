@@ -141,10 +141,6 @@ const Setting = () => {
                 <h5 className="setting-heading">{t('settings.se5')}</h5>
                 <Language/>
             </div>
-            <div className='card-design'>
-                <h5 className='setting-heading'>{t('settings.se6')}</h5>
-                {/* <Brightness/> */}
-            </div>
         </div>
     )
 }

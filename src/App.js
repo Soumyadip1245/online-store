@@ -32,6 +32,7 @@ import Compare from "./components/compare/Compare"
 import VoiceRecognition from "./utils/voice-recognition/VoiceRecognition"
 import Header from "./components/Header";
 import Footer from "./components/footer/Footer"
+import Opportunity from "./components/opportunity/Opportunity"
 
 const App = () => {
   const { loggedIn, checkStatus } = AuthLayout()
@@ -175,6 +176,7 @@ const App = () => {
 
           <Routes>
             <Route path="/" element={checkStatus ? <Loader full={true} /> : loggedIn ? <Navigate to="/dashboard" /> : <Login />} />
+            <Route path="/opportunity" element={<Opportunity/>}/>
             {RoutesData.map((curr, key) => (
               <Route
                 key={key}
