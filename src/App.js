@@ -32,7 +32,7 @@ import Compare from "./components/compare/Compare"
 import VoiceRecognition from "./utils/voice-recognition/VoiceRecognition"
 import Header from "./components/Header";
 import Footer from "./components/footer/Footer"
-import Opportunity from "./components/opportunity/Opportunity"
+import Opportunity from "./components/opportunityjobs/Opportunity"
 
 const App = () => {
   const { loggedIn, checkStatus } = AuthLayout()
