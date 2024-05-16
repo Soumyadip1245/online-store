@@ -110,7 +110,7 @@ const Setting = () => {
             </div>
             <div className='card-design'>
                 <h5 className='setting-heading'> Set Brightness</h5>
-                <Brightness/>
+                {/* <Brightness/> */}
             </div>
         </div>
     )

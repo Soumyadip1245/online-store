@@ -225,7 +225,7 @@ hr{
     justify-content: center;
     cursor: pointer;
     background-color: white; */
-    width: 24px; /* Set a fixed width */
+    width: 22px; /* Set a fixed width */
     display: flex;
     background-color: var(--sidebar-hover);
     border: 1px solid var(--button-background);
