@@ -12,6 +12,7 @@ class Seller {
   mobile = new Mobile();
   imageUrl = null;
   paymentDetails = new PaymentDetails();
+  opportunityId = null
   createdAt = nowiso();
   updatedAt = nowiso();
   paidTill = null;
@@ -26,6 +27,7 @@ class Seller {
     cls.createdAt = obj.createdAt;
     cls.updatedAt = obj.updatedAt;
     cls.paidTill = obj?.paidTill;
+    cls.opportunityId = obj?.opportunityId 
     return cls;
   }
   static toObj(cls) {
@@ -37,6 +39,7 @@ class Seller {
       obj.paymentDetails = PaymentDetails.toObj(cls.paymentDetails);
       obj.createdAt = cls.createdAt ?? "";
       obj.updatedAt = cls.updatedAt ?? "";
+      obj.opportunityId = cls.opportunityId ?? null
       obj.paidTill = cls?.paidTill ?? null;
     }
     return obj;
@@ -117,6 +120,11 @@ class Seller {
   async updatePayment() {
     await this.updatePartial({
       paymentDetails: PaymentDetails.toObj(this.paymentDetails),
+    });
+  }
+  async updateOpportunity() {
+    await this.updatePartial({
+      opportunityId: this.opportunityId
     });
   }
   async updateRental() {

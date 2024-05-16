@@ -1,13 +1,18 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import './Opportunity.css'
 import Headerjob from './headerfooter/Headerjob';
 import Footerjob from './headerfooter/Footerjob';
-
+import { useQuery } from 'react-query';
+import axios from 'axios'
 const Opportunity = () => {
 
-  const [showEmpDetails1, setShowEmpDetails1] = useState(false);
+    const [showEmpDetails1, setShowEmpDetails1] = useState(false);
     const [showEmpDetails2, setShowEmpDetails2] = useState(false);
-
+    const [opportunity, setOpportunity] = useState([])
+    const [empDetails, setEmpDetails] = useState({
+        name: '',
+        phoneNumber: ''
+    });
     const handleApplyNowClick1 = () => {
         setShowEmpDetails1(true);
     };
@@ -16,80 +21,81 @@ const Opportunity = () => {
         setShowEmpDetails2(true);
     };
 
-    const handleSubmitClick1 = () => {
-        setShowEmpDetails1(false);
+    const handleSubmitClick1 = async (opportunity) => {
+        console.log(empDetails)
+        if(!empDetails.name && !empDetails.phoneNumber) return
+        const response = await axios.post("/fetchDatabase/applyPosition", {
+            name: empDetails.name,
+            phoneNumber: empDetails.phoneNumber,
+            opportunityId: opportunity.opportunityId,
+            storeName: opportunity.storeName
+        })
+        console.log(response)
+        if(response.status == 200){
+            setShowEmpDetails1(false);
+        }
     };
 
     const handleSubmitClick2 = () => {
         setShowEmpDetails2(false);
     };
-
-  return (
-    <div className='job-container'>
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setEmpDetails({
+            ...empDetails,
+            [name]: value
+        });
+    };
+    const getAll = async () => {
+        const response = await axios.get("/fetchDatabase/getOpportunity")
+        if (response.status == 200) {
+            setOpportunity(response.data.message)
+        }
+    }
+    const { data } = useQuery("opportunityStaff", getAll)
+    return (
+        <div className='job-container'>
             <Headerjob />
             <h5 className='heading-job'>Job Opportunities</h5>
-            <div className='job-head'>
-                <div className='job-card'>
-                    {showEmpDetails1 ? (
-                        <div className='emp-details'>
+            {opportunity.map((opportunity) => (
+                <div className='job-head'>
+                    <div className='job-card'>
+                        {showEmpDetails1 ? (
+                            <div className='emp-details'>
                             <div className='input-text-job'>
                                 <p className='written text-wrap'>Employee Name</p>
-                                <input type="text" className='input-field-job' placeholder='enter your name' />
+                                <input type="text" className='input-field-job' name="name"value={empDetails.name}
+                onChange={handleInputChange} placeholder='enter your name' />
                             </div>
                             <div className='input-text-job'>
                                 <p className='written text-wrap'>Mobile Number</p>
-                                <input type="text" className='input-field-job' placeholder='enter your mobile number' />
+                                <input type="text" className='input-field-job' name="phoneNumber" value={empDetails.phoneNumber}
+                onChange={handleInputChange} placeholder='enter your mobile number' />
                             </div>
-                            <button className='btn-job' onClick={handleSubmitClick1}>Submit</button>
+                            <button className='btn-job' onClick={() => handleSubmitClick1(opportunity)}>Submit</button>
                         </div>
-                    ) : (
-                        <div className='job-apply'>
-                            <div className='store-name'>Store Name</div>
-                            <div className='two-combine'>
-                                <div className='job-details-po'>Position: Manager</div>
-                                <div className='job-details-time'>Timing: 9-5</div>
+                        ) : (
+                            <div className='job-apply'>
+                                <div className='store-name'>{opportunity.storeName}</div>
+                                <div className='two-combine'>
+                                    <div className='job-details-po'>Position: {opportunity.position}</div>
+                                    <div className='job-details-time'>Timing: {opportunity.timings}</div>
+                                </div>
+                                <div className='two-combine'>
+                                    <div className='job-details-po'>Location: {opportunity.location}</div>
+                                </div>
+                                <div className='job-details'>Description: {opportunity.description}</div>
+                                <button className='btn-job' onClick={handleApplyNowClick1}>Apply Now</button>
                             </div>
-                            <div className='two-combine'>
-                                <div className='job-details-po'>Location: Gurgaon</div>
-                            </div>
-                            <div className='job-details'>Description: The job is to monitor sales.</div>
-                            <button className='btn-job' onClick={handleApplyNowClick1}>Apply Now</button>
-                        </div>
-                    )}
+                        )}
+                    </div>
+                    
                 </div>
-                <div className='job-card'>
-                    {showEmpDetails2 ? (
-                        <div className='emp-details'>
-                            <div className='input-text-job'>
-                                <p className='written text-wrap'>Employee Name</p>
-                                <input type="text" className='input-field-job' placeholder='enter your name' />
-                            </div>
-                            <div className='input-text-job'>
-                                <p className='written text-wrap'>Mobile Number</p>
-                                <input type="text" className='input-field-job' placeholder='enter your mobile number' />
-                            </div>
-                            <button className='btn-job' onClick={handleSubmitClick2}>Submit</button>
-                        </div>
-                    ) : (
-                        <div className='job-apply'>
-                            <div className='store-name'>Store Name</div>
-                            <div className='two-combine'>
-                                <div className='job-details-po'>Position: Manager</div>
-                                <div className='job-details-time'>Timing: 9-5</div>
-                            </div>
-                            <div className='two-combine'>
-                                <div className='job-details-po'>Location: Gurgaon</div>
-                            </div>
-                            <div className='job-details'>Description: The job is to monitor sales.</div>
-                            <button className='btn-job' onClick={handleApplyNowClick2}>Apply Now</button>
-                        </div>
-                    )}
-                </div>
-            </div>
+            ))}
             <hr className='hr-line' />
             <Footerjob />
         </div>
-  )
+    )
 }
 
 export default Opportunity
