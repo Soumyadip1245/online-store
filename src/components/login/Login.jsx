@@ -25,11 +25,12 @@ import Header from '../Header';
 import Footer from '../footer/Footer';
 import i18n from "../../utils/i18n"
 import { useTranslation } from "react-i18next";
-
+import useLocalData from "../../utils/localSetting"
+import voiceCommands from "../commands/loginCommand"
 const { Content } = Layout;
 const Login = () => {
   const { t } = useTranslation();
-
+  const {activateVoice} = useLocalData()
   const [phone, setPhone] = useState("")
   const [otp, setOtp] = useState("")
   const [checkbox, setCheckbox] = useState(false)
@@ -101,105 +102,93 @@ const Login = () => {
   const setValue = (value) => {
     setOtp(value)
   }
-  const commands = [
-    {
-      command: "google login",
-      callback: () => {
-        speakMessage("Google login")
-        google()
-      },
-    },
-    {
-      command: "phone number is *",
-      callback: (number) => {
-        speakMessage("Phone number entered is " + number)
-        setPhone("+91" + number)
-      },
-    },
-    {
-      command: "send otp",
-      callback: () => {
-        sendOtp()
-      },
-    },
-    {
-      command: "otp is *",
-      callback: (number) => {
-        setOtp(number)
-      },
-    },
-    {
-      command: "verify otp",
-      callback: () => {
-        verifyOtp()
-      },
-    },
-  ]
+ 
 
+  useEffect(() => {
+    const welcomeMessageSpoken = sessionStorage.getItem("welcomeMessageSpoken");
+    if (!welcomeMessageSpoken) {
+      speakMessage("Welcome to online stores. If you want to know options regarding voice, press the escape button.");
+      sessionStorage.setItem("welcomeMessageSpoken", "true");
+    }
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        speakMessage("To interact with the voice system, say commands like 'phone number is,' 'send OTP,' 'OTP is,' 'verify OTP,' and 'Google login.' Simply press the spacebar on your keyboard, which works as a push-to-talk button.")
+      }
+    };
+  
+    document.addEventListener("keydown", handleEscape);
+  
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+  const commands = voiceCommands(speakMessage, sendOtp, verifyOtp, setPhone, setOtp, google);
   return (
     <>
-    <Header hideHeaderRight={true}/>
-    <div className="login-container">
-      <div className="login-card">
-        <div className="login-form">
-          <div className="login-text">
-            <h2 className="login-heading">{t('login.l1')}</h2>
-            <div className="login-hint">{t('login.l2')}</div>
-          </div>
+      {activateVoice && <VoiceRecognition commands={commands} />}
 
-          {!isOtpSent ? (
-            <>
-              <div>
-                <div className="field-heading">{t('login.l3')}</div>
-                <input
-                  type="tel"
-                  value={phone}
-                  onChange={handlePhoneChange}
-                  className="input-field-loginfield"
-                  placeholder="Enter your phone number"
-                  maxLength={13}
-                />
-              </div>
-              <div id="recaptcha-container" sx={{ mb: 2 }}></div>
-              
-              <div style={{ marginTop: 16,    display: 'flex', color: '#fff',fontWeight: '700' }}>
-                <div className="custom-checkbox" onClick={handleCheckboxChange}>
-                  {isStaff && <div className="checkbox-icon">✔</div>}
+      <Header hideHeaderRight={true} />
+      <div className="login-container">
+        <div className="login-card">
+          <div className="login-form">
+            <div className="login-text">
+              <h2 className="login-heading">{t('login.l1')}</h2>
+              <div className="login-hint">{t('login.l2')}</div>
+            </div>
+
+            {!isOtpSent ? (
+              <>
+                <div>
+                  <div className="field-heading">{t('login.l3')}</div>
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={handlePhoneChange}
+                    className="input-field-loginfield"
+                    placeholder="Enter your phone number"
+                    maxLength={13}
+                  />
                 </div>
-                <span className="checkbox-label">{t('login.l4')}</span>
-              </div>
+                <div id="recaptcha-container" sx={{ mb: 2 }}></div>
 
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button onClick={sendOtp} className="btn-design login-submit">{t('login.l5')}</button>
-              </div>
-            </>
-          ) : (
-            <>
-              <div>
-                <div className="field-heading">{t('login.l6')}</div>
-                <input
-                  type="text"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  className="input-field-loginfield"
-                  placeholder="Enter OTP"
-                  maxLength={6}
-                />
-              </div>
+                <div style={{ marginTop: 16, display: 'flex', color: '#fff', fontWeight: '700' }}>
+                  <div className="custom-checkbox" onClick={handleCheckboxChange}>
+                    {isStaff && <div className="checkbox-icon">✔</div>}
+                  </div>
+                  <span className="checkbox-label">{t('login.l4')}</span>
+                </div>
 
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button onClick={verifyOtp} className="btn-design login-submit">{t('login.l7')}</button>
-              </div>
-            </>
-          )}
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <button onClick={sendOtp} className="btn-design login-submit">{t('login.l5')}</button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  <div className="field-heading">{t('login.l6')}</div>
+                  <input
+                    type="text"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    className="input-field-loginfield"
+                    placeholder="Enter OTP"
+                    maxLength={6}
+                  />
+                </div>
 
-          <div className="login-hint">
-            You can also login with
-            <a onClick={googleLogin} style={{ color: "rgba(130, 136, 254, 1)", cursor: 'pointer' }}>  Google login</a>.
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <button onClick={verifyOtp} className="btn-design login-submit">{t('login.l7')}</button>
+                </div>
+              </>
+            )}
+
+            <div className="login-hint">
+              You can also login with
+              <a onClick={googleLogin} style={{ color: "rgba(130, 136, 254, 1)", cursor: 'pointer' }}>  Google login</a>.
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
     </>
   )
