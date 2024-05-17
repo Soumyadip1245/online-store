@@ -8,7 +8,7 @@ const Headerjob = () => {
                 <span className='logo-foot-job'>
                     <i className="fa-solid fa-truck-ramp-box logo-color-job "></i>
                 </span>
-                <span className='logo-name-job'>Online-Stores</span>
+                <span className='logo-name-job'>Digital Drift</span>
             </div>
 
         </div>

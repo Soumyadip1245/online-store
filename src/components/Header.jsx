@@ -64,7 +64,7 @@ const Header = (props) => {
                 <span className='logo-foot'>
                     <i className={`fa-solid fa-truck-ramp-box logo-color ${props.hideHeaderRight ? 'custom-logo-color' : ''}`}></i>
                 </span>
-                <span className='logo-name'>Online-Stores</span>
+                <span className='logo-name'>Digital Drift</span>
             </div>
 
             {!props.hideHeaderRight && (
