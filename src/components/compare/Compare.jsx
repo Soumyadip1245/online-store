@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import Store from '../../models/store'
 import VoiceRecognition from '../../utils/voice-recognition/VoiceRecognition'
 import { speakMessage } from '../../utils/voice-recognition/Speak';
+import { rootUrl } from '../../utils/backendUrl'
 const services = [
     { id: 1, name: 'Amazon', logo: AmazonLogo, code: 1 },
     { id: 2, name: 'Shopping', logo: ShoppingLogo, code: 2 },
@@ -41,7 +42,7 @@ const Compare = () => {
         setText("Hitting our server for your query");
 
         try {
-            const response = await axios.post("/fetchData", {
+            const response = await axios.post(`${rootUrl}/fetchData`, {
                 fetcher: fetcher,
                 query: search
             });

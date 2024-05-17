@@ -1,0 +1,1 @@
+export const rootUrl = process.env.NODE_ENV === "production" ? "https://online-stores-compare-backend.vercel.app" : ""

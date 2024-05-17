@@ -7,6 +7,7 @@ import Seller from '../../../models/seller';
 import { useQuery } from 'react-query';
 import { GetUser } from '../../login/Auth';
 import Access from '../../../models/access';
+import { rootUrl } from '../../../utils/backendUrl';
 const Opp = () => {
     const [showForm, setShowForm] = useState(false);
     const [showJobOpening, setShowJobOpening] = useState(true);
@@ -45,22 +46,22 @@ const Opp = () => {
         setShowJobOpening(false);
     };
     const createOpportunity = async (formData) => {
-        const response = await axios.post("/fetchDatabase/postOpportunity", formData)
+        const response = await axios.post(`${rootUrl}/fetchDatabase/postOpportunity`, formData)
         const text = response.data.message;
         const regex = /Opportunity posted with id : (\w+)/;
         const match = text.match(regex);
         return match[1]
     }
     const getStaff = async () => {
-        const response = await axios.post("/fetchDatabase/getStaff", { "opportunityId": seller.opportunityId })
+        const response = await axios.post(`${rootUrl}/fetchDatabase/getStaff`, { "opportunityId": seller.opportunityId })
         setStaff(response.data.message)
     }
     const getOpportunity = async () => {
-        const response = await axios.post("/fetchDatabase/getOpportunitybyId", { "opportunityId": seller.opportunityId })
+        const response = await axios.post(`${rootUrl}/fetchDatabase/getOpportunitybyId`, { "opportunityId": seller.opportunityId })
         setOpportunity(response.data.message)
     }
     const deleteOpportunity = async () => {
-        const response = await axios.delete("/fetchDatabase/deleteOpportunity", { "opportunityId": seller.opportunityId })
+        const response = await axios.delete(`${rootUrl}/fetchDatabase/deleteOpportunity`, { "opportunityId": seller.opportunityId })
         if (response.status == 200) {
             setOpportunity(null)
             setStaff([])
