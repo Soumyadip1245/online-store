@@ -49,7 +49,7 @@ const StoreProduct = ({ product }) => {
       </div>
       <div className="show-image">
         <div className="showimage">
-        <img src={product.imageUrl} alt="" />
+        <img src={product.productImage} alt="" />
         </div>
         <button className='storelinkcoloredbutton' onClick={handleAddToCart}>{cart.some(obj => obj.id == product._id) ? "Added" : "Add"}</button>
      
