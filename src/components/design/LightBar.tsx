@@ -150,8 +150,8 @@ function ParticlesCanvas() {
 
     imageOverride = [
       {
-        image: "/dice.svg",
-        sizeRange: [20, 40] as [number, number],
+        image: "/images/santa.png",
+        sizeRange: [20, 20] as [number, number],
       }
 
 
