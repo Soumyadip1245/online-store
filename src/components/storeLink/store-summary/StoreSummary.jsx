@@ -1,7 +1,6 @@
-import {Box, Button, IconButton,  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, } from '@mui/material'
+import { Avatar, Box, Button, FormControlLabel, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, Paper, Radio, RadioGroup, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, TextareaAutosize, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useStore } from '../store-context/StoreProvider'
-
 import { createOrder, prepareOrder } from './OrderPlace';
 import Order from '../../../models/order';
 import { pay } from '../../../utils/razorpay';
@@ -143,9 +142,9 @@ const StoreSummary = () => {
                   <TableCell align="right" sx={{ color: 'white' }}>Rs. {curr.productPrice}</TableCell>
                   <TableCell align="right" sx={{ color: 'white' }}>
                     <div >
-                      <IconButton sx={{ color: 'white' }} onClick={() => decreement(curr)}><Remove /></IconButton>
+                      <IconButton sx={{ color: 'white' }} onClick={() => decreement(curr)}><i class="fa-solid fa-minus"></i></IconButton>
                       {curr.quantity}
-                      <IconButton sx={{ color: 'white' }} onClick={() => increement(curr)}><Add /></IconButton>
+                      <IconButton sx={{ color: 'white' }} onClick={() => increement(curr)}><i class="fa-solid fa-plus"></i></IconButton>
                     </div>
                   </TableCell>
                   <TableCell align="right" sx={{ color: 'white' }}>Rs. {curr.quantity * curr.productPrice}</TableCell>

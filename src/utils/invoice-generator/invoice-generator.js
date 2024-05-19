@@ -1,6 +1,5 @@
 import pdfMake from 'pdfmake/build/pdfmake';
-// import { TDocumentDefinitions } from 'pdfmake/interfaces';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import date from 'date-and-time';
 import Order from '../../models/order';
 pdfMake.vfs = pdfFonts.pdfMake.vfs
