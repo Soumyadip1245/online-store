@@ -1,0 +1,19 @@
+.voice-recognition-container{
+  position: fixed;
+  color: white;
+  bottom: 5rem;
+  right: 5rem;
+  font-size: 1rem;
+
+}
+.transcript{
+  right: 0;
+  left: 0;
+  position: fixed;
+  background-color: black;
+  width: 25%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1rem;
+  padding: 1rem;
+}

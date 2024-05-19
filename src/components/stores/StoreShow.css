@@ -1,0 +1,184 @@
+.store-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.store-name {
+    color: white;
+    font-weight: bold;
+}
+.input-flex{
+    display: flex;
+}
+.gstNumber {
+    margin-top: 8px;
+    color: var(--color-text);
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.flex-card {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.toggle-button {
+    border: #fff;
+}
+
+.btn-design {
+    color: white;
+    border: none;
+    background-color: var(--button-background);
+    border-radius: 13px;
+    padding: 12px 2rem;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.store-image {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.store-image img {
+    object-fit: contain;
+}
+
+.written {
+    color: var(--color-text);
+}
+
+.card-text {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 1rem;
+}
+
+.storedetails-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-text {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.text-wrap {
+    width: 50%;
+    margin: 1rem 0;
+}
+
+.toggle-card {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    background-color: var(--sidebar-hover);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    gap: 20px;
+}
+
+.input-checkbox {
+    display: none;
+}
+
+.toggle-button {
+    width: 40px;
+    height: 20px;
+    background-color: var(--color-text);
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.input-checkbox:checked+.toggle-button {
+    background-color: var(--toggle-color);
+}
+
+.toggle-button::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+}
+
+.input-checkbox:checked+.toggle-button::after {
+    transform: translateX(20px);
+}
+
+.toggle-switch {
+    display: inline-block;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-text);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.input-dropdown {
+    color: var(--color-text);
+
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #fff;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: var(--button-hover-background);
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(16px);
+    -ms-transform: translateX(16px);
+    transform: translateX(16px);
+}

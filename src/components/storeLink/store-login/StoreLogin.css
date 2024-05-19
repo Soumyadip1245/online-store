@@ -1,0 +1,9 @@
+
+.layer {
+    background-image: url('../../assests/waves-pink.svg');
+}
+@media (max-width: 1000px){
+    .google-button{
+        margin-top: 2rem;
+    }
+}

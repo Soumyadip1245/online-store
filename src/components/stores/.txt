@@ -1,0 +1,96 @@
+ <form >
+        <Box m={2}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Typography variant="h6">Store Details</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                label="Store Name"
+                name="storeName"
+                value={store?.storeName}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                label="Store Link Unique Name"
+                name="uniqueName"
+                value={store?.uniqueName}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                label="Address"
+                name="storeAddress"
+                value={store?.storeAddress}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                label="GST Number"
+                name="gstNumber"
+                value={store?.gstNumber}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={store.isPaynow}
+                    onChange={handleChange}
+                    name="isPaynow"
+                  />
+                }
+                label="Pay Now"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+
+                    checked={store.isPaylater}
+                    onChange={handleChange}
+                    name="isPaylater"
+                  />
+                }
+                label="Pay Later"
+              />
+            </Grid>
+
+            {
+              <Grid item xs={12} sm={6}>
+                <input
+                  name="fileInput"
+                  onChange={imageHandler}
+                  type="file"
+                  accept="image/*"
+                />
+                {loading && (
+                  <CircularProgress size={20} style={{ marginLeft: "8px" }} />
+                )}
+                {uploadSuccess && (
+                  <CheckCircleIcon
+                    style={{ color: green[500], marginLeft: "8px" }}
+                  />
+                )}
+              </Grid>
+            }
+            <Grid item xs={12}>
+              <Button type="button" onClick={handleSubmit} variant="contained" color="primary">
+                {edit ? "Edit" : "Save"}
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </form>

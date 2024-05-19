@@ -1,0 +1,149 @@
+.container.storelink {
+    margin: 0;
+    background-color: #131315;
+}
+
+.container.storelink {
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar.storelink {
+    width: 250px;
+    background-color: #1c1c21;
+    color: #fff;
+    padding-top: 20px;
+    min-height: 100vh;
+    border-right: 2px solid #2c2c30;
+    font-weight: bold;
+}
+
+.sidebar.storelink h2 {
+    padding: 10px;
+    text-align: center;
+}
+
+.sidebar.storelink ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 2rem;
+}
+
+.sidebar.storelink li {
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: background-color 0.4s;
+}
+
+/* .sidebar.storelink li:hover {
+    background-color: #f02e65;
+} */
+
+/* Add space and padding */
+.sidebar.storelink li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.main-content.storelink {
+    flex: 1;
+    padding: 20px;
+}
+
+.movie-container.storelink {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+}
+.main-content.storelink h1{
+    color: white;
+}
+.storelink-theme {
+    background-color: #1c1c21;
+    color: #fff;
+    border: 2px solid #2c2c30;
+    /* box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px; */
+    /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
+}
+
+.movie-card.storelink p {
+    /* margin-top: 10px; */
+    font-size: 14px;
+}
+.storelinkcoloredbutton{
+    background-color: #f02e65 !important;
+    color: white;
+}
+.category-badge.storelink {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #f02e65; /* Netflix red */
+    color: #fff;
+    padding: 2px 20px; /* Adjust padding as needed */
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+}
+.sidebar.storelink ul li.active {
+    background-color: #f02e65; /* Active color */
+  }
+  
+.category-badge.storelink::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 100%;
+    border-top: 20px solid transparent; /* Adjust height as needed */
+    border-bottom: 20px solid transparent; /* Adjust height as needed */
+    border-left: 20px solid #f02e65; /* Netflix red */
+}
+.flex-container.storelink p{
+    font-weight: bold;
+}
+.price.storelink {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.flex-container.storelink {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    margin-top: 5px;
+}
+
+.icon-button.storelink {
+    background-color: #f02e65; /* Netflix red */
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.icon-button.storelink:hover {
+    background-color: #ff0f23;
+}
+.image-card.storelink {
+    background-color: white;
+    width: 100%;
+    height: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image-card.storelink img {
+    width: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+}

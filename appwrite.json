@@ -1,0 +1,132 @@
+{
+    "projectId": "65902cd617480a5e3dd4",
+    "projectName": "Project",
+    "functions": [
+        {
+            "$id": "6590ee9c1b4b79b5b37b",
+            "name": "projectTest",
+            "runtime": "node-16.0",
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "src/main.js",
+            "commands": "npm install",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "path": "functions/projectTest"
+        },
+        {
+            "$id": "659d24451959c708c491",
+            "name": "razorpayOrder",
+            "runtime": "node-16.0",
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "src/main.js",
+            "commands": "npm install",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "path": "functions/razorpayOrder"
+        },
+        {
+            "$id": "65a22c013da1d20eb6a8",
+            "name": "sendMail",
+            "runtime": "node-16.0",
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "src/main.js",
+            "commands": "npm install",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "path": "functions/sendMail"
+        },
+        {
+            "$id": "65e55ddb4d4c22c737e1",
+            "name": "amazonFetcher",
+            "runtime": "node-16.0",
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "src/main.js",
+            "commands": "npm install",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "path": "functions/amazonFetcher"
+        },
+        {
+            "$id": "65e567aa9262362d263c",
+            "name": "scapperData",
+            "runtime": "node-18.0",
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "src/main.js",
+            "commands": "npm install",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "path": "functions/scapperData"
+        },
+        {
+            "$id": "65e5836671560d4e110f",
+            "name": "amazon-scrapper",
+            "runtime": "node-18.0",
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "src/main.js",
+            "commands": "npm install",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "path": "functions/amazon-scrapper"
+        },
+        {
+            "$id": "661140e5e42e62943065",
+            "name": "scrapper",
+            "runtime": "node-18.0",
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "src/main.js",
+            "commands": "npm install",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "path": "functions/scrapper"
+        }
+    ]
+}
