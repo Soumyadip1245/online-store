@@ -27,9 +27,7 @@
     padding-right: 4rem;
 
 }
-.footer-head{
-    
-}
+
 .footer-in{
     display: inline-block;
     padding-bottom: 1rem;
@@ -144,7 +142,7 @@
 }
 
 .custom-color {
-    background-color: #161617;
+    background-color: transparent;
     border-bottom: none;
 
 }

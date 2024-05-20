@@ -1,5 +1,6 @@
 import FirebaseService, { Table } from "../utils/firebase";
 import { nowiso } from "../utils/utils";
+import Product from "./product";
 import Seller from "./seller";
 const fb = new FirebaseService();
 const table = Table.STORE;
@@ -17,6 +18,7 @@ class Store {
   uniqueName = ''
   isPaynow = false
   isPaylater = false
+  products = []
   seller = new Seller();
   createdAt = nowiso();
   updatedAt = nowiso();
@@ -71,7 +73,7 @@ class Store {
     const store = Store.toCls(obj)
     store.imageUrl = await fb.imageUrl(store.storeImage)
     store.seller = await Seller.getById(store.sellerId)
-    
+    store.products = await Product.getAllProductsByActiveStore(store._id)
     return store
   }
   static async getById(storeId) {

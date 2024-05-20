@@ -4,8 +4,10 @@ import StoreLogin from '../storeLink/store-login/StoreLogin';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { storeLogin } from '../../store/storeSlice';
+import GeneratedShow from '../storeLink/store-show/GeneratedShow';
+import StoreLink from '../storeLink/StoreLink';
 
-const StoreRoute = ({ component: Component, ...rest }) => {
+const StoreRoute = () => {
     const { loggedIn, checkStatus, user } = StoreLayout();
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -25,7 +27,7 @@ const StoreRoute = ({ component: Component, ...rest }) => {
     return (
         <>
             {loggedIn ?
-                <Component {...rest} /> : <StoreLogin />}
+                <StoreLink /> : <StoreLogin />}
         </>
     )
 }

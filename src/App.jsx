@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import Login from "./components/login/Login"
 import ProtectedRoute from "./components/routing/PrivateRoute"
@@ -128,18 +128,7 @@ const RoutesData = [
     element: AccessEdit,
     generated: false,
   },
-  {
-    path: "/store/:unique",
-    element: StoreLink,
-    generated: true,
-    protected: false,
-  },
-  {
-    path: "/store/:unique",
-    element: StoreLink,
-    generated: true,
-    protected: false,
-  },
+
   {
     path: "/:unique/store-confirm",
     element: StoreConfirmation,
@@ -155,46 +144,54 @@ const RoutesData = [
 ]
 const App = () => {
   const { loggedIn, checkStatus } = AuthLayout()
+  const location = window.location.host
+  const host = location.split(".")
+  const [subdomain, setSubdomain] = useState(false)
+  useEffect(() => {
+    const location = window.location.host
+    const host = location.split(".")
+    if (!(host[0] === 'localhost:5173' || host[0] === 'digital-drift')) {
+      setSubdomain(true)
+    }
+  }, [])
   return (
     <Provider store={store}>
       <StoreProvider>
         <BrowserRouter>
-       
+
 
           <Routes>
-            <Route path="/" element={checkStatus ? <Loader full={true} /> : loggedIn ? <Navigate to="/dashboard" /> : <Login />} />
-            <Route path="/opportunity" element={<Opportunity/>}/>
-            <Route path="/design" element={<LightBar/>}/>
-            {RoutesData.map((curr, key) => (
+           {!subdomain && <Route path="/" element={checkStatus ? <Loader full={true} /> : loggedIn ? <Navigate to="/dashboard" /> : <Login />} />}
+            <Route path="/opportunity" element={<Opportunity />} />
+            <Route path="/design" element={<LightBar />} />
+            {!subdomain && RoutesData.map((curr, key) => (
               <Route
                 key={key}
                 path={curr.path}
                 element={
-                  curr.protected ? (
+                   curr.protected ? (
                     <div className="main-background">
-                        <Header />
+                      <Header />
                       <div className="gradient2"></div>
                       <div className="gradient1"></div>
                       <div className="page-divider">
-                      {loggedIn && <Sidebar />}
-                      <div style={{ flex: 1, overflow: "auto" }}>
-                        <ProtectedRoute component={curr.element} />
-                      </div>
+                        {loggedIn && <Sidebar />}
+                        <div style={{ flex: 1, overflow: "auto" }}>
+                          <ProtectedRoute component={curr.element} />
                         </div>
-                        <hr />
-                     <Footer/>
+                      </div>
+                      <hr />
+                      <Footer />
                     </div>
-                  ) : curr.generated ? (
-                    <div style={{ flex: 1, overflow: "auto" }}>
-                    <StoreRoute component={curr.element} />
-                  </div>
-                    
                   ) : (
                     <curr.element />
                   )
                 }
               />
             ))}
+            {subdomain &&
+                <Route path="/" element={<StoreRoute /> } />
+            }
           </Routes>
         </BrowserRouter>
       </StoreProvider>
