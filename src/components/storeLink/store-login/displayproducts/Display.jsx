@@ -1,6 +1,24 @@
 import React, { useEffect } from 'react'
+import { useStore } from '../../store-context/StoreProvider';
+import { CartItem } from '../../store-context/storeService';
 
 const Display = ({ products }) => {
+    const { cart, setCart } = useStore();
+    const handleAddToCart = (product) => {
+        console.log(product)
+        if (cart.some(obj => obj.id == product._id)) {
+          const n = cart.filter((item) => item.id !== product._id)
+          setCart(n);
+          return
+        }
+        const c = new CartItem()
+        c.id = product._id
+        c.productCategory = product.productCategory
+        c.productImage = product.productImage
+        c.productName = product.productName
+        c.productPrice = product.productPrice
+        setCart([...cart, c])
+      };
     return (
         <>
             <div className="display-grid">
@@ -19,6 +37,7 @@ const Display = ({ products }) => {
                                     <div className="showimage">
                                         <img src={curr.productImage} alt="" />
                                     </div>
+                                    <button className='storelinkcoloredbutton' onClick={()=>handleAddToCart(curr)}>{cart.some(obj => obj.id == curr._id) ? "Added" : "Add"}</button>
 
                                 </div>
                             </div>

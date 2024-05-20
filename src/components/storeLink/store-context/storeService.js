@@ -24,11 +24,10 @@ export class StoreInfo{
     async setData(user,unique){
         const data = await Store.getStoreByunique(unique)
         const sellerData = await Seller.getById(data.sellerId)
-        const productData = await Product.getAllProductsByActiveStore(data._id)
+        const productData = data.products
         const buyer = new Buyer()
         buyer.profile.email.value = user.email
         const buyerData = await buyer.getBuyerByEmailId()
-        console.warn(buyerData)
         const generatedStore = new GeneratedStore()
         generatedStore.store = data
         generatedStore.seller = sellerData

@@ -1,10 +1,10 @@
 import React from 'react'
 import "../Opportunity.css";
 
-const Footerjob = () => {
+const Footerjob = ({hideHeaderRight}) => {
     return (
         <div>
-          <div className='footer-job'>
+          <div className={`footer-job ${hideHeaderRight ? 'custom-color': '' }`}>
                 <div className='footer-one-job'>
                     <div className='footer-head-job'>
                         <div className='footer-in-job'>

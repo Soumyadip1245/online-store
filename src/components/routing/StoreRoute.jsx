@@ -27,7 +27,7 @@ const StoreRoute = () => {
     return (
         <>
             {loggedIn ?
-                <StoreLink /> : <StoreLogin />}
+                <StoreLogin value={true}/> : <StoreLogin  value={false}/>}
         </>
     )
 }
