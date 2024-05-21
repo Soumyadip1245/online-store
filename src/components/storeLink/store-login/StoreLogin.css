@@ -95,3 +95,12 @@
     border: 1px solid rgba(124, 124, 124, 0.2) !important;
     background-color: transparent !important;
 }
+.storelinkcoloredbutton{
+    background-color: rgba(41,45,134,1) !important;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    padding: 0.75rem 2rem;
+}
