@@ -12,7 +12,7 @@ import StoreContent from './content/StoreContent'
 import StoreOrders from '../store-orders/StoreOrders'
 import StoreSummary from '../store-summary/StoreSummary'
 import StoreClosed from '../store-closed/StoreClosed'
-const StoreLogin = ({ value }) => {
+const StoreLogin = ({ value,hide }) => {
   const [products, setProducts] = useState([])
   const [store, setStore] = useState(new StoreInfo())
   const [info, setInfo] = useState(new Store())
@@ -34,7 +34,7 @@ const StoreLogin = ({ value }) => {
         setGeneratedStore(data)
       }
     }
-    data()
+    if(!hide) data()
   }, [value, user])
   useEffect(() => {
     const fetchStore = async () => {
@@ -43,22 +43,24 @@ const StoreLogin = ({ value }) => {
       setInfo(data)
       setProducts(data.products)
     }
-    fetchStore()
+    if(!hide) fetchStore()
+     
   }, [])
   return (
     <div className="subdomain-container gray-theme">
       <Header hideHeaderRight={!value} setShow={setShow} />
       <LightBar />
       <h1 className="subdomain-heading">Digital Drift gives your business boost🚀</h1>
-      {!info.isEnabled && <StoreClosed />}
       { show == 'store' && <StoreContent
         products={searchQuery}
         value={value}
         query={query}
+        info = {info}
+        hide={hide}
         setQuery={setQuery}
         google={google} />}
-      {info.isEnabled && show == 'orders' && <StoreOrders />}
-      {info.isEnabled && show == 'cart' && <StoreSummary />}
+      {!hide && info.isEnabled && show == 'orders' && <StoreOrders />}
+      { !hide && info.isEnabled && show == 'cart' && <StoreSummary />}
       <Footer hideHeaderRight={true} />
     </div>
   )

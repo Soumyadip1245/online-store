@@ -12,6 +12,7 @@ import Seller from "../../models/seller";
 import StoreContent from "../storeLink/store-login/content/StoreContent.jsx";
 import Header from "../storeLink/store-login/header/Header.jsx";
 import Footerjob from "../opportunityjobs/headerfooter/Footerjob.jsx";
+import StoreLogin from "../storeLink/store-login/StoreLogin.jsx";
 
 const StoreShow = ({ store, editClick, seller: initialSeller, storeSeller }) => {
   const fetchStoreAndProducts = async () => {
@@ -156,13 +157,7 @@ const StoreShow = ({ store, editClick, seller: initialSeller, storeSeller }) => 
             </div>
 
             <div className="toggle1">
-              <div className="subdomain-container gray-theme">
-                <Header hideHeaderRight={true}/>
-                <LightBar />
-                <h1 className="subdomain-heading">Digital Drift gives your business boost🚀</h1>
-                <StoreContent show={true} />
-                <Footerjob />
-              </div>
+              <StoreLogin hide={true}/>
 
             </div>
             
