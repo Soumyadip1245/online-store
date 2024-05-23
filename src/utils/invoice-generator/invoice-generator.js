@@ -1,8 +1,9 @@
 import pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
 import date from 'date-and-time';
 import Order from '../../models/order';
-pdfMake.vfs = pdfFonts.pdfMake.vfs
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 const dateFormat = (createdAt) => {
     const nowe = new Date(createdAt);
     return date.format(nowe, 'DD MMM hh:mm A');
