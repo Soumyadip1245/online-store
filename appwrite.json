@@ -127,6 +127,24 @@
                 ".npm"
             ],
             "path": "functions/scrapper"
+        },
+        {
+            "$id": "664c573ca5312a6d8c20",
+            "name": "backend-scrapper",
+            "runtime": "node-18.0",
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "src/main.js",
+            "commands": "npm install",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "path": "functions/backend-scrapper"
         }
     ]
 }

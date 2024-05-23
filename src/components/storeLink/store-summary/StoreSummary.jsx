@@ -1,4 +1,3 @@
-import { Avatar, Box, Button, FormControlLabel, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, Paper, Radio, RadioGroup, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, TextareaAutosize, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useStore } from '../store-context/StoreProvider'
 import { createOrder, prepareOrder } from './OrderPlace';
@@ -6,11 +5,13 @@ import Order from '../../../models/order';
 import { pay } from '../../../utils/razorpay';
 import { generateInvoice } from '../../../utils/invoice-generator/invoice-generator';
 import { useNavigate, useParams } from 'react-router-dom';
+import './StoreSummary.css'
 const StoreSummary = () => {
-  const {unique} = useParams()
+  const { unique } = useParams()
   const { cart, setCart, generatedStore } = useStore()
   const [order, setOrder] = useState(new Order())
   const totalAmount = cart.reduce((total, curr) => total + curr.quantity * curr.productPrice, 0);
+  const totalQuantity = cart.reduce((total, curr) => total + curr.quantity, 0)
   const [ofStage, setOfstage] = useState(1)
   const [paymentOption, setPayment] = useState('')
   const [formData, setFormData] = useState({
@@ -29,6 +30,9 @@ const StoreSummary = () => {
     const index = cart.findIndex((i) => i.id == curr.id)
     updated[index].quantity = curr.quantity
     setCart(updated)
+  }
+  const remove = (curr) => {
+    setCart(cart.filter((i) => i.id != curr.id))
   }
   const decreement = (curr) => {
     if (curr.quantity == 1) {
@@ -64,12 +68,12 @@ const StoreSummary = () => {
 
     setOrder(data)
     if (!data.isPaynow) {
-      generateInvoice(data,generatedStore)
+      generateInvoice(data, generatedStore)
       navigate(`/${unique}/store-confirm`)
       return
     }
     await paymentOrder(data)
-    
+
   };
   useEffect(() => {
 
@@ -78,7 +82,7 @@ const StoreSummary = () => {
   const paymentOrder = async (data) => {
     const handlePaymentSuccess = async () => {
       await createOrder(data)
-      generateInvoice(data,generatedStore)
+      generateInvoice(data, generatedStore)
       navigate(`/${unique}/store-confirm`)
     };
 
@@ -114,165 +118,175 @@ const StoreSummary = () => {
       [name]: value,
     });
   };
+  const handlePaymentOptionChange = (option) => {
+    setFormData({
+      ...formData,
+      paymentOption: option,
+    });
+  };
   return (
     <>
-      {ofStage == 1 && <Box m='1rem 2rem' sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-        {cart.length > 0 && <Button variant='contained' sx={{ background: '#f02e65', alignSelf: 'flex-end', width: 'fit-content', mb: '2rem' }} onClick={checkout}>Checkout</Button>}
-        <TableContainer>
-          <Table sx={{ fontSize: '2rem' }} >
-            <TableHead>
-              <TableRow className='table-rows'>
-                <TableCell sx={{ fontWeight: 'bold', color: 'white' }}>Product Name</TableCell>
-                <TableCell align="right" sx={{ fontWeight: 'bold', color: 'white' }}>Category</TableCell>
-                <TableCell align="right" sx={{ fontWeight: 'bold', color: 'white' }}>Price</TableCell>
-                <TableCell align="right" sx={{ fontWeight: 'bold', color: 'white' }}>Quantity</TableCell>
-                <TableCell align="right" sx={{ fontWeight: 'bold', color: 'white' }}>Total</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {cart.map((curr) => (
-                <TableRow
-                  key={curr._id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 }, padding: '5rem' }}
-                >
-                  <TableCell scope="row" sx={{ color: 'white' }}>
-                    {curr.productName.length > 20 ? curr.productName.substring(0, 20) + '....' : curr.productName}
-                  </TableCell>
-                  <TableCell align="right" sx={{ color: 'white' }}>{curr.productCategory}</TableCell>
-                  <TableCell align="right" sx={{ color: 'white' }}>Rs. {curr.productPrice}</TableCell>
-                  <TableCell align="right" sx={{ color: 'white' }}>
-                    <div >
-                      <IconButton sx={{ color: 'white' }} onClick={() => decreement(curr)}><i class="fa-solid fa-minus"></i></IconButton>
-                      {curr.quantity}
-                      <IconButton sx={{ color: 'white' }} onClick={() => increement(curr)}><i class="fa-solid fa-plus"></i></IconButton>
-                    </div>
-                  </TableCell>
-                  <TableCell align="right" sx={{ color: 'white' }}>Rs. {curr.quantity * curr.productPrice}</TableCell>
-                </TableRow>
+      {ofStage == 1 && <>
+        <h1 className="summary-heading" style={{ textAlign: 'center' }}>Cart Items</h1>
+        <div className='summary-container'>
+          <div className="summary-cart">
+            <h1 className='summary-heading'>Cart</h1>
+            <div className="summary-cartitems">
+              {cart.map(curr => (<div class="summary-products">
+                <div class="summary-show">
+                  <img src={curr.productImage} alt="Product Image" />
+                </div>
+                <div class="products1-summary">
+                  <p class="product1-name">{curr.productName.length > 15 ? curr.productName.slice(0, 15) + "...." : curr.productName}</p>
+                  <p class="product1-price">₹ {curr.productPrice}</p>
+                  <div class="quantity-container">
+                    <button class="decrement-btn" onClick={() => decreement(curr)}><i class="fa-solid fa-minus" ></i></button>
+                    <input type="text" class="quantity-input" value={curr.quantity} readonly />
+                    <button class="increment-btn" onClick={() => increement(curr)}><i class="fa-solid fa-plus"></i></button>
+                  </div>
+                  <a class="remove-link" onClick={() => remove(curr)}>Remove</a>
+                </div>
+              </div>))}
 
-              ))}
-              <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 }, padding: '5rem' }}>
-                <TableCell colSpan={4} sx={{ color: 'white', fontWeight: 'bold' }}>Total</TableCell>
-                <TableCell align="right" sx={{ color: 'white', fontWeight: 'bold' }}>Rs. {totalAmount}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>}
+
+            </div>
+          </div>
+          <div className="summary-details">
+            <h1 className='summary-heading'>Order Summary</h1>
+            <div className="summary-pricing">
+              <div className="price-flex">
+                <p>Store Name</p>
+                <p>Mobile Shop</p>
+              </div>
+              <div className="price-flex">
+                <p>Item Quantity</p>
+                <p>{totalQuantity}</p>
+              </div>
+              <div className="price-flex">
+                <p>Shipment Charges</p>
+                <p>FREE</p>
+              </div>
+              <div className="price-flex">
+                <p>Coupon Applied</p>
+                <p>No</p>
+              </div>
+              <hr className='hr-background' />
+              <div className="price-flex">
+                <p>Total Amount</p>
+                <p>₹ {totalAmount}</p>
+              </div>
+              <hr className='hr-background' />
+              <button className="storelinkcoloredbutton full-width" onClick={checkout}>Proceed</button>
+              <p className='gateway-summary'>Payments by Razorpay gateway</p>
+            </div>
+          </div>
+        </div>
+      </>
+      }
 
       {ofStage == 2 &&
-        <div className="summary-container">
-          {/* <div className="checkout-container"> */}
-          <form className="checkout-form">
-            <h2>Checkout Details</h2>
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input type="text" id="name" name="buyerName" required="" onChange={handleChange} />
+        <div className="details-container">
+          <h1 className="summary-heading">Checkout Details</h1>
+          <div className="card-design">
+            <form>
+              <div className="input-text ">
+                <input
+                  type="text"
+                  placeholder="Enter Name"
+                  className="input-field  full-input "
+                  name="buyerName"
+                  onChange={handleChange} />
+                <p className="written text-wrap">Enter the full name that will appear on the invoice. This should be the name of the buyer who is making the purchase.</p>
               </div>
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input type="email" id="email" name="email" defaultValue={generatedStore.buyer.profile.email.value} disabled={true} onChange={handleChange} />
+              <div className="input-text ">
+                <input
+                  type="text"
+                  placeholder="Enter Email"
+                  className="input-field  full-input"
+                  defaultValue={generatedStore.buyer.profile.email.value}
+                  name="email"
+                  disabled={true} onChange={handleChange} />
+                <p className="written text-wrap">Email ID of the customer. This email address will be used for sending order confirmations and updates.</p>
               </div>
-            </div>
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="mobile">Code</label>
+              <div className="input-text ">
                 <input
                   type="tel"
-                  defaultValue={+91}
-                  id="mobile"
-                  name="-"
-                  disabled={true}
-                />
+                  placeholder="Enter Mobile"
+                  className="input-field  full-input"
+                  name="buyerMobile"
+                  onChange={handleChange} />
+                <p className="written text-wrap">Enter your mobile number for further communication. We may contact you for order verification or delivery updates.</p>
               </div>
-              <div className="form-group">
-                <label htmlFor="mobile">Mobile Number</label>
-                <input type="tel" id="mobile" name="buyerMobile" required="" onChange={handleChange} />
+              <div className="input-text ">
+                <input
+                  type="text"
+                  placeholder="Flat Number"
+                  className="input-field  full-input"
+                  name="flatNumber"
+                  onChange={handleChange} />
+                <p className="written text-wrap">Provide your flat number or apartment number for delivering the items to your doorstep.</p>
               </div>
-            </div>
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="flat">Flat Number</label>
-                <input type="text" id="flat" name="flatNumber" required="" onChange={handleChange} />
+              <div className="input-text ">
+                <input
+                  type="text"
+                  placeholder="City"
+                  className="input-field  full-input"
+                  name="city"
+                  onChange={handleChange} />
+                <p className="written text-wrap">Enter the city where the delivery will take place. This helps us ensure timely delivery of your order.</p>
               </div>
-              <div className="form-group">
-                <label htmlFor="city">City</label>
-                <input type="text" id="city" name="city" required="" onChange={handleChange} />
+              <div className="input-text ">
+                <input
+                  type="text"
+                  placeholder="Address"
+                  className="input-field  full-input"
+                  name="address"
+                  onChange={handleChange} />
+                <p className="written text-wrap">Enter your complete address including street name and number. This is essential for accurate delivery of your items.</p>
               </div>
-            </div>
-            <div className="form-row full-width">
-              <div className="form-group">
-                <label htmlFor="address">Pincode</label>
-                <input type="text" id="address" name="pincode" onChange={handleChange} required="" />
+              <div className="input-text  ">
+                <input
+                  type="text"
+                  placeholder="Landmark"
+                  className="input-field  full-input"
+                  name="landmark"
+                  onChange={handleChange} />
+                <p className="written text-wrap">Provide a nearby landmark to help our delivery personnel locate your address easily.</p>
               </div>
-            </div>
-            <div className="form-row full-width">
-              <div className="form-group">
-                <label htmlFor="address">Address</label>
-                <input type="text" id="address" name="address" onChange={handleChange} required="" />
-              </div>
-            </div>
-            <div className="form-row full-width">
-              <div className="form-group">
-                <label htmlFor="landmark">Landmark</label>
-                <input type="text" id="landmark" name="landmark" required="" onChange={handleChange} />
-              </div>
-            </div>
-            <div className="form-row full-width">
-              <div className="form-group">
-                <label htmlFor="instructions">Special Instructions</label>
+              <div className="input-text  ">
                 <textarea
-                  id="instructions"
+                  type="text"
+                  placeholder="Special Instructions"
+                  className="input-field  full-input"
                   name="instructions"
                   rows={5}
-                  defaultValue={""}
-                  onChange={handleChange}
-                />
+                  onChange={handleChange} />
+                <p className="written text-wrap">Any special instructions for delivery? Let us know if there's anything specific our delivery personnel should be aware of.</p>
               </div>
-            </div>
-            {/* New Landmark Field */}
+              <div className="checkout-option">
+                {generatedStore.store.isPaynow && (
+                  <div
+                    className={`option ${formData.paymentOption === 'payNow' ? 'selected' : ''}`}
+                    onClick={() => handlePaymentOptionChange('payNow')}
+                  >
+                    <i className={`fa-regular fa-circle-check ${formData.paymentOption === 'payNow' ? 'selected' : ''}`} style={{ color: formData.paymentOption === 'payNow' ? 'green' : 'grey' }}></i>
+                    Pay Now
+                  </div>
+                )}
+                {generatedStore.store.isPaylater && (
+                  <div
+                    className={`option ${formData.paymentOption === 'payLater' ? 'selected' : ''}`}
+                    onClick={() => handlePaymentOptionChange('payLater')}
+                  >
+                    <i className={`fa-regular fa-circle-check ${formData.paymentOption === 'payLater' ? 'selected' : ''}`} style={{ color: formData.paymentOption === 'payLater' ? 'green' : 'grey' }}></i>
+                    Pay Later
+                  </div>
+                )}
+              </div>
+              <button className="btn-design full-width" onClick={processOrder}>Proceed</button>
+            </form>
 
-            <div className="payment-method">
-              <div className="payment-options">
-                {generatedStore.store.isPaynow && <label className="payment-option razorpay-option">
-                  <input
-                    type="radio"
-                    name="paymentOption"
-                    value="payNow"
-                    id="payRazorpay"
-                    onChange={handleChange}
-                  />
-                  <span className="payment-text">Pay Now</span>
-                  <img
-                    src="https://d6xcmfyh68wv8.cloudfront.net/newsroom-content/uploads/2022/07/Razorpay_payments.png"
-                    alt="Razorpay Logo"
-                    className="payment-logo"
-                  />
-                  <span className="checkmark" />
-                </label>}
-                {generatedStore.store.isPaylater && <label className="payment-option pay-later-option">
-                  <input
-                    type="radio"
-                    name="paymentOption"
-                    value="payLater"
-                    id="payLater"
-                    onChange={handleChange}
-                  />
-                  <span className="payment-text">Pay Later</span>
-                  <img
-                    src="https://img.freepik.com/free-vector/hand-drawn-hand-holding-banknotes-drawing-illustration_23-2150909254.jpg"
-                    alt="Pay Later"
-                    className="payment-logo"
-                  />
-                  <span className="checkmark" />
-                </label>}
-              </div>
-            </div>
-            <button type="button" className="submit-btn" onClick={processOrder}>
-              Place Order
-            </button>
-          </form>
+          </div>
         </div>
       }
     </>

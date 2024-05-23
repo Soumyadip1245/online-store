@@ -91,7 +91,7 @@ const Compare = () => {
             <VoiceRecognition commands={commands} />
             <div className="compare-container">
                 <div className="card-design">
-                    <p className="store-name">Explore Products</p>
+                    <h5 className="store-name">Explore Products</h5>
                     <p className="written text-wrap">Explore 1000s of products from the below services.</p>
                     <div className="services-container">
                         {services.map((service) => (

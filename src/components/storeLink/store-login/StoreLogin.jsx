@@ -11,9 +11,11 @@ import { StoreInfo } from '../store-context/storeService'
 import StoreContent from './content/StoreContent'
 import StoreOrders from '../store-orders/StoreOrders'
 import StoreSummary from '../store-summary/StoreSummary'
+import StoreClosed from '../store-closed/StoreClosed'
 const StoreLogin = ({ value }) => {
   const [products, setProducts] = useState([])
   const [store, setStore] = useState(new StoreInfo())
+  const [info, setInfo] = useState(new Store())
   const [query, setQuery] = useState("")
   const [show, setShow] = useState("store")
   const { generatedStore, setGeneratedStore } = useStore()
@@ -26,36 +28,37 @@ const StoreLogin = ({ value }) => {
   useEffect(() => {
     const data = async () => {
       if (value) {
-        console.log(user)
         const host = window.location.host.split(".")[0]
         const data = await store.setData(user, host)
-        console.log(data)
+        
         setGeneratedStore(data)
       }
     }
     data()
-  }, [value,user])
+  }, [value, user])
   useEffect(() => {
     const fetchStore = async () => {
       const host = window.location.host.split(".")[0]
       const data = await Store.getStoreByunique(host)
+      setInfo(data)
       setProducts(data.products)
     }
     fetchStore()
   }, [])
   return (
-    <div className="subdomain-container">
+    <div className="subdomain-container gray-theme">
       <Header hideHeaderRight={!value} setShow={setShow} />
       <LightBar />
       <h1 className="subdomain-heading">Digital Drift gives your business boost🚀</h1>
-      {show == 'store' && <StoreContent
+      {!info.isEnabled && <StoreClosed />}
+      { show == 'store' && <StoreContent
         products={searchQuery}
         value={value}
         query={query}
         setQuery={setQuery}
         google={google} />}
-      {show == 'orders' && <StoreOrders />}
-      {show == 'cart' && <StoreSummary />}
+      {info.isEnabled && show == 'orders' && <StoreOrders />}
+      {info.isEnabled && show == 'cart' && <StoreSummary />}
       <Footer hideHeaderRight={true} />
     </div>
   )

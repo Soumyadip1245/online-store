@@ -36,9 +36,14 @@ const StoreOrders = () => {
 
   return (
     <>
+    <h1 className="summary-heading" style={{textAlign:'center'}}>Orders</h1>
+    <div style={{padding: '2rem'}}>
+      
       {!isLoading && !summary && <OrderList orders={orders} openSummary={openSummary} isStore={true} themeMode="dark"/>}
       {!isLoading && summary && <OrderSummary order={dataOrder} summaryBack={summaryBack}  updateOrderStatus={updateOrderStatus} isStore={true}/>}
+    </div>
     </>
+   
   )
 }
 

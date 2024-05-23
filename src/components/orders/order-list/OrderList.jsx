@@ -61,7 +61,6 @@ const OrderList = ({ orders, openSummary, themeMode }) => {
 
   return (
     <>
-          <VoiceRecognition commands={commands} />
       <div className="filter-container">
         {['all', 'accepted', 'rejected', 'pending', 'paid'].map((status) => (
           <span

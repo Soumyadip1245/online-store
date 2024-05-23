@@ -126,9 +126,41 @@
 }
 
 .toggle-switch {
-    display: inline-block;
+    width: 400px; 
+  height: 180px; 
+  overflow: hidden; 
+  border: 1px solid var(--card-border);
+  position: relative;
 }
-
+.status-badge {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    right: 5px;
+    top: 2px;
+    font-size: 15px; 
+    color: white; 
+  }
+  
+  .red-dot {
+    width: 8px;
+    height: 8px; 
+    background-color: red;
+    border-radius: 50%; 
+    margin-right: 8px;
+  }
+  
+.toggle1{
+    width: 1612px; 
+    height: 1248px; 
+    transform: scale(0.25); 
+    transform-origin: top left; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
 .switch {
     position: relative;
     display: inline-block;

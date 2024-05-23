@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { LightBar } from '../design/LightBar.tsx'
 import "./StoreShow.css";
 import Product from "../../models/product";
 import ProductList from "../products/ProductList";
@@ -7,8 +7,11 @@ import Loader from "../../utils/loader/Loader";
 import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition";
 import { speakMessage } from "../../utils/voice-recognition/Speak";
 import { useQuery } from "react-query";
-import {  message } from "antd";
+import { message } from "antd";
 import Seller from "../../models/seller";
+import StoreContent from "../storeLink/store-login/content/StoreContent.jsx";
+import Header from "../storeLink/store-login/header/Header.jsx";
+import Footerjob from "../opportunityjobs/headerfooter/Footerjob.jsx";
 
 const StoreShow = ({ store, editClick, seller: initialSeller, storeSeller }) => {
   const fetchStoreAndProducts = async () => {
@@ -124,6 +127,7 @@ const StoreShow = ({ store, editClick, seller: initialSeller, storeSeller }) => 
     },
 
   ];
+  const storeUrl = `http://${store.uniqueName}.${window.location.host}`;
   return (
     <>
 
@@ -137,14 +141,34 @@ const StoreShow = ({ store, editClick, seller: initialSeller, storeSeller }) => 
             <button className="btn-design" onClick={onEdit} style={{ marginTop: '1rem' }}>Edit</button>
 
           </div>
-          <div className="toggle-switch">
+            <div>
             {!seller.istheSubscriptionAvailable && (
-              <label className="switch">
+              <label className="switch" >
                 <input type="checkbox" checked={toggleState} onChange={handleToggleChange} />
                 <span className="slider"></span>
               </label>
             )}
+         <a href={storeUrl} target="_blank" rel="noopener noreferrer">
+         <div className="toggle-switch">
+            <div className="status-badge">
+              <span className="red-dot"></span>
+              {store.isEnabled ? "Live": "Closed"}
+            </div>
+
+            <div className="toggle1">
+              <div className="subdomain-container gray-theme">
+                <Header hideHeaderRight={true}/>
+                <LightBar />
+                <h1 className="subdomain-heading">Digital Drift gives your business boost🚀</h1>
+                <StoreContent show={true} />
+                <Footerjob />
+              </div>
+
+            </div>
+            
           </div>
+         </a>
+            </div>
 
         </div>
         <div className="card-design">

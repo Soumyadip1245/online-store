@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useStore } from '../../store-context/StoreProvider';
 import { CartItem } from '../../store-context/storeService';
 
-const Display = ({ products }) => {
+const Display = ({ products,value }) => {
     const { cart, setCart } = useStore();
     const handleAddToCart = (product) => {
         console.log(product)
@@ -37,7 +37,7 @@ const Display = ({ products }) => {
                                     <div className="showimage">
                                         <img src={curr.productImage} alt="" />
                                     </div>
-                                    <button className='storelinkcoloredbutton' onClick={()=>handleAddToCart(curr)}>{cart.some(obj => obj.id == curr._id) ? "Added" : "Add"}</button>
+                                    {value && <button className='storelinkcoloredbutton' onClick={()=>handleAddToCart(curr)}>{cart.some(obj => obj.id == curr._id) ? "Added" : "Add"}</button>}
 
                                 </div>
                             </div>

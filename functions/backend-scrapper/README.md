@@ -1,4 +1,4 @@
-# sendMail
+# backend-scrapper
 
 ## 🧰 Usage
 
@@ -35,7 +35,7 @@ Sample `200` Response:
 
 | Setting           | Value         |
 |-------------------|---------------|
-| Runtime           | Node (16.0)   |
+| Runtime           | Node (18.0)   |
 | Entrypoint        | `src/main.js` |
 | Build Commands    | `npm install` |
 | Permissions       | `any`         |

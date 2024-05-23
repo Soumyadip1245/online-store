@@ -1,7 +1,7 @@
 import React from 'react'
 import Display from '../displayproducts/Display'
 
-const StoreContent = ({products,value,query,setQuery,google}) => {
+const StoreContent = ({products,value,query,setQuery,google,show}) => {
   return (
    <>
    <div className="subdomain-searchbar">
@@ -14,15 +14,15 @@ const StoreContent = ({products,value,query,setQuery,google}) => {
         />
         <i class="fa-solid fa-magnifying-glass"></i>
       </div>
-      {!value && <p className='display-login'>Login to purchase items. <a onClick={google}>Google Login</a></p>}
-      <div className="subdomain-products">
+      {!show && !value && <p className='display-login'>Login to purchase items. <a onClick={google}>Google Login</a></p>}
+      {!show && <div className="subdomain-products">
         {products.length == 0 ? <div className="backend-containeri">
           <div className="backend-loader"></div>
           <div className="backend-loader delay1"></div>
           <div className="backend-loader delay2"></div>
           <div className="backend-loader delay4"></div>
         </div> : <Display products={products} value={value} />}
-      </div>
+      </div>}
    </>
   )
 }
