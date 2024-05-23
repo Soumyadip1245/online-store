@@ -149,7 +149,7 @@ const App = () => {
   useEffect(() => {
     const location = window.location.host
     const host = location.split(".")
-    if (!(host[0] === 'localhost:5173' || host[0] === 'digital-drift')) {
+    if (!(host[0] === 'localhost:5173' || host[1]==='cosmossecure')) {
       setSubdomain(true)
     }
   }, [])
