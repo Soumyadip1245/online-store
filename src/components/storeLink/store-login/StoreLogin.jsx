@@ -42,6 +42,7 @@ console.log(host)
       const data = await Store.getStoreByunique(host)
       setInfo(data)
       setProducts(data.products)
+      console.log(data.products)
     }
     if(!hide) fetchStore()
      

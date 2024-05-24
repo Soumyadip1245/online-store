@@ -9,6 +9,7 @@ import { useQuery } from "react-query";
 import { message } from "antd";
 import './PaymentDetails.css'
 import VoiceRecognition from "../../../utils/voice-recognition/VoiceRecognition";
+import { notifySuccess } from "../../../utils/notification/Notification";
 const PaymentDetails = ({ paymentSuccess, stepper }) => {
   const [seller, setSeller] = useState(new Seller());
   const [loading, setLoading] = useState(false);
@@ -40,7 +41,7 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
     // const data = await seller.uploadImage(response.data);
     console.log(data)
     await originalSeller.updatePayment();
-    message.success("Details updated")
+    notifySuccess("Details updated")
     if (stepper) {
       paymentSuccess(seller);
     }
