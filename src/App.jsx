@@ -149,7 +149,9 @@ const App = () => {
   useEffect(() => {
     const location = window.location.host
     const host = location.split(".")
-    if (!(host[0] === 'localhost:5173' || host[0] === 'digital-drift' || host[0] === 'cosmossecure')) {
+    const pathName = window.location.pathname;
+    const store = pathName.split('/').filter(Boolean)[0];
+    if (!((host[0] === 'localhost:5173' || host[0] === 'cosmossecure') && store != 'store')) {
       setSubdomain(true)
     }
   }, [])
@@ -189,7 +191,10 @@ const App = () => {
               />
             ))}
             {subdomain &&
+                <>
                 <Route path="/" element={<StoreRoute /> } />
+                <Route path="/store/:unique" element={<StoreRoute /> } />
+                </>
             }
           </Routes>
         </BrowserRouter>

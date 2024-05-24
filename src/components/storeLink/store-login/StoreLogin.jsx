@@ -12,6 +12,7 @@ import StoreContent from './content/StoreContent'
 import StoreOrders from '../store-orders/StoreOrders'
 import StoreSummary from '../store-summary/StoreSummary'
 import StoreClosed from '../store-closed/StoreClosed'
+import { useParams } from 'react-router-dom'
 const StoreLogin = ({ value,hide }) => {
   const [products, setProducts] = useState([])
   const [store, setStore] = useState(new StoreInfo())
@@ -24,11 +25,11 @@ const StoreLogin = ({ value,hide }) => {
     googleLoginForstore()
   }
   const searchQuery = products.filter(product => product.productName.toLowerCase().includes(query.toLowerCase()))
-
+const host =  useParams().unique  || window.location.host.split(".")[0] 
+console.log(host)
   useEffect(() => {
     const data = async () => {
       if (value) {
-        const host = window.location.host.split(".")[0]
         const data = await store.setData(user, host)
         
         setGeneratedStore(data)
@@ -38,7 +39,6 @@ const StoreLogin = ({ value,hide }) => {
   }, [value, user])
   useEffect(() => {
     const fetchStore = async () => {
-      const host = window.location.host.split(".")[0]
       const data = await Store.getStoreByunique(host)
       setInfo(data)
       setProducts(data.products)
