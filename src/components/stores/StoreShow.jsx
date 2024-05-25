@@ -149,7 +149,14 @@ const StoreShow = ({ store, editClick, seller: initialSeller, storeSeller }) => 
                 <span className="slider"></span>
               </label>
             )}
-         <a href={storeUrl} target="_blank" rel="noopener noreferrer">
+         
+            </div>
+
+        </div>
+        <div className="card-design ">
+        <h5 className="store-name">Store Preview</h5>
+          <div className="grid-card">
+          <a href={storeUrl} target="_blank" rel="noopener noreferrer">
          <div className="toggle-switch">
             <div className="status-badge">
               <span className="red-dot"></span>
@@ -163,14 +170,25 @@ const StoreShow = ({ store, editClick, seller: initialSeller, storeSeller }) => 
             
           </div>
          </a>
+         <div className="left-domains">
+          <div className="link-flex">
+         <a href={`${window.location.host} + "/store/"+ ${store.uniqueName}`} target="_blank" rel="noopener noreferrer"><p className="written custom-a">{window.location.host + "/store/"+store.uniqueName}</p></a>
+         <i class="fa-solid fa-square-check green-dark"></i>
+          </div>
+            <div className="link-flex">
+            <a href={`${window.location.host} + "/store/"+${store.uniqueName}`} target="_blank" rel="noopener noreferrer"><p className="written custom-a">{store.uniqueName + "." +window.location.host}</p></a>
+            {store.isSubdomain?<i class="fa-solid fa-square-check green-dark"></i>:<i class="fa-solid fa-triangle-exclamation yellow-dark"></i>}
             </div>
-
+            <p className="written" style={{marginTop: '1rem'}}>If you want to get the above custom subdomain than submit a request to get it done.</p>
+         </div>
+          </div>
+        
         </div>
         <div className="card-design">
           <h5 className="store-name">Store URL</h5>
           <div className="card-text">
             <div>
-              <p className="written">Copy the url below so that your buyers can access your store, products and place orders. You can either share url or share the QR image.</p>
+             <p className="written ">Copy the url below so that your buyers can access your store, products and place orders. You can either share url or share the QR image.</p>
 
               <button className="btn-design" onClick={handleCopyClick} style={{ marginTop: '1rem' }}>Copy</button>
 

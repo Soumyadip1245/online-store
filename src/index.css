@@ -233,3 +233,6 @@ span.MuiStepLabel-label.Mui-disabled.MuiStepLabel-alternativeLabel.css-1hv8oq8-M
 h5{
     font-size: 1.2rem;
 }
+a{
+    text-decoration: none;
+}

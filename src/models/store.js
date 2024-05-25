@@ -14,6 +14,7 @@ class Store {
   sellerId = ''
   gstNumber = ''
   number = 0
+  isSubdomain = false
   isEnabled = false
   uniqueName = ''
   isPaynow = false
@@ -34,6 +35,7 @@ class Store {
     cls.storeName = obj.storeName;
     cls.storeImage = obj.storeImage;
     cls.sellerId = obj.sellerId;
+    cls.isSubdomain = obj.isSubdomain;
     cls.storeAddress = obj.storeAddress
     cls.createdAt = obj.createdAt;
     cls.updatedAt = obj.updatedAt;
@@ -52,6 +54,7 @@ class Store {
       obj.createdAt = cls.createdAt ?? "";
       obj.updatedAt = cls.updatedAt ?? "";
       obj.gstNumber = cls?.gstNumber ?? ""
+      obj.isSubdomain = cls?.isSubdomain ?? false
       obj.number = cls.number ?? 0
       obj.storeAddress = cls.storeAddress ?? ""
       obj.isVerified = cls.isVerified ?? false

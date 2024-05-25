@@ -214,3 +214,36 @@ input:checked+.slider:before {
     -ms-transform: translateX(16px);
     transform: translateX(16px);
 }
+.grid-card{
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
+    gap: 1rem;
+    color: white;
+    margin-top: 2rem;
+}
+.left-domains{
+    display: flex;
+    flex-direction: column;
+}
+.custom-a{
+    margin-top: 1rem;
+    cursor: pointer;
+    color: white;
+    font-weight: 400;
+    margin-top: 0 ;
+}
+.link-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 1rem;
+}
+.yellow-dark{
+    color: #ffd130;
+    font-size: 25px;
+}
+.green-dark{
+    color: green;
+    font-size: 25px;
+}
