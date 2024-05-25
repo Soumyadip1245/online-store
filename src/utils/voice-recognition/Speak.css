@@ -1,0 +1,10 @@
+.speaker{
+    position: fixed;
+    border: 0;
+    color: white;
+    bottom: 5rem;
+    font-size: 1rem;
+    right: 2rem;
+    cursor: pointer;
+    z-index: 1;
+}

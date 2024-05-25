@@ -29,6 +29,7 @@ import Header from "./components/Header";
 import Footer from "./components/footer/Footer"
 import Opportunity from "./components/opportunityjobs/Opportunity"
 import { LightBar } from "./components/design/LightBar.tsx"
+import { useSpeak } from "./utils/voice-recognition/SpeakContext.jsx"
 const RoutesData = [
   {
     path: "/dashboard",
@@ -146,6 +147,7 @@ const App = () => {
   const location = window.location.host
   const host = location.split(".")
   const [subdomain, setSubdomain] = useState(false)
+  const { isSpeakingEnabled, toggleSpeak, speakMessage } = useSpeak();
   useEffect(() => {
     const location = window.location.host
     const host = location.split(".")

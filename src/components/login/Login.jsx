@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react"
-import { phoneLogin, googleLogin} from "./Auth"
+import { phoneLogin, googleLogin } from "./Auth"
 import "./Login.css"
 import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition"
-import { speakMessage } from "../../utils/voice-recognition/Speak"
-import {message } from 'antd';
+import {  useSpeak } from "../../utils/voice-recognition/SpeakContext.jsx"
 import Header from '../Header';
 import { useTranslation } from "react-i18next";
 import useLocalData from "../../utils/localSetting"
 import voiceCommands from "../commands/loginCommand"
+import { notifyError, notifySuccess, notifyWarning } from "../../utils/notification/Notification"
 const Login = () => {
   const { t } = useTranslation();
-  const {activateVoice} = useLocalData()
+  const { activateVoice } = useLocalData()
   const [phone, setPhone] = useState("")
   const [otp, setOtp] = useState("")
+  const {speakMessage} = useSpeak()
   const [checkbox, setCheckbox] = useState(false)
   const [confirmation, setConfirmation] = useState(null)
   const [isAvailable, setAvailable] = useState(false)
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [isStaff, setIsStaff] = useState(false);
-
 
   const handlePhoneChange = (e) => {
     const value = e.target.value;
@@ -31,7 +31,7 @@ const Login = () => {
 
   const sendOtp = async () => {
     if (phone.length < 13) { // Phone number with country code should be at least 13 characters
-      message.warning("Please enter a valid phone number with country code.");
+      notifyWarning("Please enter a valid phone number with country code.");
       return;
     }
 
@@ -40,23 +40,24 @@ const Login = () => {
       if (confirmationResult) {
         setConfirmation(confirmationResult);
         setIsOtpSent(true);
-        message.success("OTP sent successfully.");
+        notifySuccess("OTP sent successfully.");
+        speakMessage("OTP sent")
       } else {
-        message.warning("Trouble sending OTP. Please try again.");
+        notifyWarning("Trouble sending OTP. Please try again.");
       }
     } catch (error) {
       console.error("Error sending OTP:", error); // Log the error for debugging
-      message.error("An error occurred while sending OTP. Please try again later.");
+      notifyError("An error occurred while sending OTP. Please try again later.");
     }
   };
-
+ 
   const google = async () => {
     const data = await googleLogin()
 
     if (data) {
-      message.success("LoggedIn successfully")
+      notifySuccess("LoggedIn successfully")
     } else {
-      message.warning("Something went wrong from google authentication")
+      notifyWarning("Something went wrong from google authentication")
     }
   }
   const handleCheckbox = (e) => {
@@ -74,30 +75,25 @@ const Login = () => {
   const verifyOtp = async () => {
     try {
       await confirmation.confirm(otp)
-      message.success("OTP Verified")
+      notifySuccess("OTP Verified")
     } catch (error) {
-      message.warning("Wrong OTP")
+      notifyError("Wrong OTP")
     }
   }
   const setValue = (value) => {
     setOtp(value)
   }
- 
+
 
   useEffect(() => {
-    const welcomeMessageSpoken = sessionStorage.getItem("welcomeMessageSpoken");
-    if (!welcomeMessageSpoken) {
-      speakMessage("Welcome to online stores. If you want to know options regarding voice, press the escape button.");
-      sessionStorage.setItem("welcomeMessageSpoken", "true");
-    }
     const handleEscape = (e) => {
       if (e.key === "Escape") {
         speakMessage("To interact with the voice system, say commands like 'phone number is,' 'send OTP,' 'OTP is,' 'verify OTP,' and 'Google login.' Simply press the spacebar on your keyboard, which works as a push-to-talk button.")
       }
     };
-  
+
     document.addEventListener("keydown", handleEscape);
-  
+
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
@@ -105,7 +101,7 @@ const Login = () => {
   const commands = voiceCommands(speakMessage, sendOtp, verifyOtp, setPhone, setOtp, google);
   return (
     <>
-      {/* {activateVoice && <VoiceRecognition commands={commands} />} */}
+      {activateVoice && <VoiceRecognition commands={commands} />}
 
       <Header hideHeaderRight={true} />
       <div className="login-container">

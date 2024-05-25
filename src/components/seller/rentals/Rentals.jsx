@@ -7,7 +7,7 @@ import Seller from '../../../models/seller';
 import Rental from '../../../models/rental';
 import { pay } from '../../../utils/razorpay';
 import Loader from '../../../utils/loader/Loader';
-import { speakMessage } from '../../../utils/voice-recognition/Speak';
+import { useSpeak } from '../../../utils/voice-recognition/SpeakContext.jsx';
 import "./Rentals.css";
 import { useMutation, useQuery } from 'react-query';
 import { message } from 'antd';
@@ -17,6 +17,7 @@ const Rentals = () => {
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const [loader, setLoader] = useState(true)
+  const {speakMessage} = useSpeak()
 
   const fetchData = async () => {
     const userData = await GetUser(user);

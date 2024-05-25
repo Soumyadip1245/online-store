@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Store from "../../models/store";
 import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition";
-import { message } from 'antd';
 import { storeRoute } from "../../utils/store-name";
-const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, editGetting, stepper, edit }) => {
+import './StoreShow.css';
+import { storeCommands } from "../commands/storeCommands";
+import useLocalData from "../../utils/localSetting";
+import { notifyError, notifySuccess } from "../../utils/notification/Notification";
+const StoreShow = ({ store: initialStore, onSubmitSuccess, storeSuccess, editGetting, stepper, edit }) => {
   const [originalStore, setOriginal] = useState(new Store())
   const [loading, setLoading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [image, setImage] = useState(null)
+  const { activateVoice } = useLocalData()
   const [store, setStore] = useState({
     storeName: initialStore.storeName || "",
     uniqueName: initialStore.uniqueName || "",
@@ -17,14 +21,15 @@ const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, edit
     isPaylater: initialStore.isPaylater || false,
     storeImage: initialStore.storeImage || ""
   });
-  useEffect(() => {
 
+  useEffect(() => {
     setOriginal(initialStore);
   }, [initialStore]);
+
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-    
-    if(name == 'storeName'){
+
+    if (name === 'storeName') {
       const route = storeRoute(value)
       setStore((prevStore) => ({
         ...prevStore,
@@ -38,13 +43,14 @@ const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, edit
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-  const updateFormData = (fieldName, value) => {
 
+  const updateFormData = (fieldName, value) => {
     setStore((prevStore) => ({
       ...prevStore,
       [fieldName]: value,
     }));
   };
+
   const handleSubmit = async () => {
     originalStore.storeImage = image || store.storeImage
     originalStore.storeName = store.storeName
@@ -53,77 +59,39 @@ const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, edit
     originalStore.isPaylater = store.isPaylater
     originalStore.isPaynow = store.isPaynow
     originalStore.uniqueName = store.uniqueName
-    await originalStore.updateStore();
-    message.success("Store details saved successfully");
-    stepper ? storeSuccess() : edit ? editGetting() : onSubmitSuccess()
+
+    try {
+      await originalStore.updateStore();
+      notifySuccess("Store details saved successfully");
+      if (stepper) {
+        storeSuccess();
+      } else {
+        edit ? editGetting() : onSubmitSuccess();
+      }
+    } catch (error) {
+      notifyError("Not able to save store details");
+    }
   };
+
   const imageHandler = async (event) => {
     try {
       setLoading(true);
       const data = await originalStore.uploadImage(event.target.files[0]);
-      setImage(data)
+      setImage(data);
       setUploadSuccess(true);
-      message.success("Image uploaded")
+      notifySuccess("Image uploaded");
     } catch (error) {
       console.error("Error uploading image:", error);
+      notifyError("Not able to upload image");
     } finally {
       setLoading(false);
     }
   };
-  const commands = [
-    {
-      command: `set store name to *`,
-      callback: (name) => {
-        updateFormData("storeName", name)
-      },
-    },
-    {
-      command: `set store address to *`,
-      callback: (name) => {
-        updateFormData("storeAddress", name)
-      },
-    },
-    {
-      command: `set gst number to *`,
-      callback: (name) => {
-        updateFormData("gstNumber", name)
-      },
-    },
-    {
-      command: "Enable Pay now for store",
-      callback: () => {
-        updateFormData("isPaynow", true)
-      },
-    },
-    {
-      command: "Enable Pay later for store",
-      callback: () => {
-        updateFormData("isPaylater", true)
-      },
-    },
-    {
-      command: "Disable Pay now for store",
-      callback: () => {
-        updateFormData("isPaynow", false)
-      },
-    },
-    {
-      command: "Disable Pay later for store",
-      callback: () => {
-        updateFormData("isPaylater", false)
-      },
-    },
-    {
-      command: "Save Details",
-      callback: () => {
-        handleSubmit()
-      },
-    },
 
-  ];
+  const commands = storeCommands(updateFormData, handleSubmit);
   return (
     <>
-      <VoiceRecognition commands={commands} />
+      {activateVoice && <VoiceRecognition commands={commands} />}
       <h4>Store Details</h4>
       <div className="storedetails-container">
 
@@ -135,11 +103,11 @@ const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, edit
               onChange={handleChange} placeholder="enter your store name" className="input-field" />
             <p className="written text-wrap">Your store's name will be prominently displayed for all visitors to see.</p>
           </div>
-          <div className="input-flex">
-           <p className="written">{store.uniqueName}</p>
-           <i class="fa-solid fa-circle-check" style={{color: "green",marginLeft: '10px', display: 'flex', alignItems: 'center'}}></i>
-          </div>
-           <p className="written text-wrap">Your store unique name by which other can access your stores.</p>
+          {store.storeName && <div className="input-flex">
+            <p className="written">{store.uniqueName}</p>
+            <i class="fa-solid fa-circle-check" style={{ color: "green", marginLeft: '10px', display: 'flex', alignItems: 'center' }}></i>
+          </div>}
+          <p className="written text-wrap">Your store unique name by which other can access your stores.</p>
           <div className="input-text">
             <input type="text" name="storeAddress"
               value={store?.storeAddress}
@@ -183,4 +151,4 @@ const StoreDetails = ({ store: initialStore, onSubmitSuccess, storeSuccess, edit
   );
 };
 
-export default StoreDetails;
+export default StoreShow;

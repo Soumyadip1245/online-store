@@ -5,7 +5,7 @@ import Product from "../../models/product";
 import ProductList from "../products/ProductList";
 import Loader from "../../utils/loader/Loader";
 import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition";
-import { speakMessage } from "../../utils/voice-recognition/Speak";
+import {  useSpeak } from "../../utils/voice-recognition/SpeakContext.jsx";
 import { useQuery } from "react-query";
 import { message } from "antd";
 import Seller from "../../models/seller";
@@ -26,6 +26,8 @@ const StoreShow = ({ store, editClick, seller: initialSeller, storeSeller }) => 
   const [enable, setEnable] = useState(false);
   const [edit, setEdit] = useState(false)
   const [seller, setSeller] = useState(new Seller())
+  const {speakMessage} = useSpeak()
+
   useEffect(() => {
     setSeller(Seller.toCls(seller))
   }, [initialSeller])

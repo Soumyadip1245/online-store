@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import Store from '../../models/store'
 import VoiceRecognition from '../../utils/voice-recognition/VoiceRecognition'
 import { rootUrl } from '../../utils/backendUrl'
+import { notifyError, notifySuccess } from '../../utils/notification/Notification'
 const services = [
     { id: 1, name: 'Amazon', logo: AmazonLogo, code: 1 },
     { id: 2, name: 'Shopping', logo: ShoppingLogo, code: 2 },
@@ -69,8 +70,10 @@ const Compare = () => {
             oproduct.productImage = data.image
             oproduct.storeId = storedata._id
             await oproduct.create()
+            notifySuccess("Product added to your store successfully")
         }
         catch (e) {
+            notifyError("Not able to add the product to your store")
             console.log(e.message)
         }
     }

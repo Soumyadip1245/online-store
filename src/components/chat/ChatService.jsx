@@ -9,7 +9,7 @@ import { getFirestore, collection, where, orderBy, query, onSnapshot } from "fir
 import { initializeApp } from 'firebase/app';
 import './ChatService.css'
 import VoiceRecognition from '../../utils/voice-recognition/VoiceRecognition';
-import { speakMessage } from '../../utils/voice-recognition/Speak';
+import {  useSpeak } from '../../utils/voice-recognition/SpeakContext.jsx';
 const app = initializeApp({
   apiKey: import.meta.env.VITE_APP_FIREBASE_CONFIG_API_KEY,
   authDomain: import.meta.env.VITE_APP_FIREBASE_CONFIG_AUTH_DOMAIN,
@@ -26,7 +26,7 @@ const ChatService = () => {
   const [seller, setSeller] = useState(new Seller());
   const [messages, setMessages] = useState([]);
   const user = useSelector((state) => state.auth.user);
-
+  const {speakMessage} = useSpeak()
   const fetchData = async () => {
     return await GetUser(user);
   };

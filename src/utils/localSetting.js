@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
 
 const useLocalData = () => {
-    const [language, setLanguage] = useState(localStorage.getItem("language"));
-    const [activateVoice, setActivateVoice] = useState(localStorage.getItem("voice") === "true");
-    const [activateJobs, setActivateJobs] = useState(localStorage.getItem("jobs") === "true");
+    const getStoredItem = (key, defaultValue) => {
+        const storedValue = localStorage.getItem(key);
+        return storedValue !== null ? storedValue : defaultValue;
+    };
 
+    const [language, setLanguage] = useState(getStoredItem("language", "en"));
+    const [activateVoice, setActivateVoice] = useState(getStoredItem("voice", "true") === "true");
+    const [activateJobs, setActivateJobs] = useState(getStoredItem("jobs", "true") === "true");
 
     useEffect(() => {
-        const storedLanguage = localStorage.getItem("language");
-        const storedActivateVoice = localStorage.getItem("voice") === "true";
-        const storedActivateJobs = localStorage.getItem("jobs") === "true";
-
+        const storedLanguage = getStoredItem("language", "en");
+        const storedActivateVoice = getStoredItem("voice", "true") === "true";
+        const storedActivateJobs = getStoredItem("jobs", "true") === "true";
 
         if (language !== storedLanguage) {
             setLanguage(storedLanguage);

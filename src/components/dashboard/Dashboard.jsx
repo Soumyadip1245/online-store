@@ -11,15 +11,18 @@ import { useQuery } from "react-query"
 import ChatService from "../chat/ChatService"
 import Stepper from './stepper/Stepper'
 import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition"
-import { speakMessage } from "../../utils/voice-recognition/Speak"
+import { useSpeak } from "../../utils/voice-recognition/SpeakContext.jsx"
+import useLocalData from "../../utils/localSetting"
 
 const Dashboard = () => {
   const [showChat, setShow] = useState(false)
   const [seller, setSeller] = useState(new Seller())
-  const [graph, setGraph] = useState(null)
   const [loader, setLoader] = useState(true)
   const [loaderSeller, setLoaderSeller] = useState(false)
   const user = useSelector((state) => state.auth.user)
+  const {activateVoice} = useLocalData()
+  const {speakMessage} = useSpeak()
+
   const fetchUser = async () => {
 
     return await createandGetUser(user)
@@ -36,7 +39,7 @@ const Dashboard = () => {
     setSeller(data)
   }
 
-  
+
   const getDashboard = async () => {
 
     const orders = await Order.getAllOrdersSeller(data._id);
@@ -96,7 +99,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <VoiceRecognition commands={commands} />
+      {activateVoice && <VoiceRecognition commands={commands} />}
       {!user.isStaff && (!seller.sellerName || !seller.paymentDetails.accountNumber) && (
         <Stepper stepperToggle={stepperLoad} />
       )}
@@ -145,13 +148,13 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="card-design" style={{flex: 1}}>
+            <div className="card-design" style={{ flex: 1 }}>
               <h5 className="dashboard-heading">Need Help</h5>
-             {showChat && <ChatService />}
-             {!showChat && <div className="dashboard-chat">
-              <i class="fa-solid fa-comment-slash"></i></div>}
-              {!showChat && <div style={{margin: '2rem auto'}}>
-                <button className="btn-design" onClick={()=>setShow(true)}>Start</button>
+              {showChat && <ChatService />}
+              {!showChat && <div className="dashboard-chat">
+                <i class="fa-solid fa-comment-slash"></i></div>}
+              {!showChat && <div style={{ margin: '2rem auto' }}>
+                <button className="btn-design" onClick={() => setShow(true)}>Start</button>
               </div>}
             </div>
           </div>

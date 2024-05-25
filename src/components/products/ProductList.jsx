@@ -3,10 +3,12 @@ import ProductShow from "./ProductShow";
 
 import { useNavigate } from "react-router-dom";
 import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition";
-import { speakMessage } from "../../utils/voice-recognition/Speak";
+import {  useSpeak } from "../../utils/voice-recognition/SpeakContext.jsx";
 
 const ProductList = ({ products, showChecked, onCheckbox, edit, voice, seller, store,enableIndex }) => {
   const navigate = useNavigate();
+  const {speakMessage} = useSpeak()
+
   const onAddNewProductClick = () => {
     navigate("/product-edit");
   };

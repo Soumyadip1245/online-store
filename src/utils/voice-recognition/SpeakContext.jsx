@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import './Speak.css';
 
 const SpeakContext = createContext();
 
@@ -8,7 +9,7 @@ export const SpeakProvider = ({ children }) => {
     const [isSpeakingEnabled, setIsSpeakingEnabled] = useState(localStorage.getItem("speak") !== "false");
 
     useEffect(() => {
-        localStorage.setItem("speak", isSpeakingEnabled);
+        localStorage.setItem("speak", isSpeakingEnabled ? "true" : "false");
     }, [isSpeakingEnabled]);
 
     const toggleSpeak = () => {
@@ -16,7 +17,7 @@ export const SpeakProvider = ({ children }) => {
     };
 
     const speakMessage = (message) => {
-        if (isSpeakingEnabled) {
+        if (localStorage.getItem("speak") === "true") {
             const speechSynthesis = window.speechSynthesis;
             const utterance = new SpeechSynthesisUtterance(message);
             speechSynthesis.speak(utterance);
@@ -25,6 +26,9 @@ export const SpeakProvider = ({ children }) => {
 
     return (
         <SpeakContext.Provider value={{ isSpeakingEnabled, toggleSpeak, speakMessage }}>
+            <div className="speaker" onClick={toggleSpeak}>
+                {isSpeakingEnabled ? <i className="fa-solid fa-volume-low"></i> : <i className="fa-solid fa-volume-xmark"></i>}
+            </div>
             {children}
         </SpeakContext.Provider>
     );
