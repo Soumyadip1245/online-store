@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+
+  web:
+
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+
+    ports:
+      - 5173:5173
+
+    develop:
+      watch:
+        - path: ./package.json
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: .
+          target: /app
+          action: sync
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  api:
+
+      build:
+        context: ./backend
+      # specify the file name (optional)
+        dockerfile: Dockerfile.backend
+
+      ports:
+        - 8080:8080
+
+      develop:
+        watch:
+          - path: ./backend/package.json
+            action: rebuild
+          - path: ./backend/package-lock.json
+            action: rebuild
+          - path: ./backend
+            target: /app
+            action: sync
+      volumes:
+      - ./backend:/app
+      - /app/node_modules
