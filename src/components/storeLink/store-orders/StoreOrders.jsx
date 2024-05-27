@@ -32,11 +32,37 @@ const StoreOrders = () => {
       const updateOrderStatus = (updatedOrder) => {
         setOrders(prevOrders => prevOrders.map(order => order._id === updatedOrder._id ? updatedOrder : order));
       };
+      const handleBackClick = () => {
+        window.location.href = '/'; 
+      };
     if(isLoading) return <p>We are fetching your orders</p>
 
   return (
     <>
+    <div>
+    <button 
+          onClick={handleBackClick} 
+          style={{
+            position: 'absolute', 
+            marginLeft:'1rem',
+            padding: '0.5rem', 
+            fontSize: '1.5rem', 
+            cursor: 'pointer', 
+            background: '#29292e', 
+            border: 'none', 
+            color: '#000', 
+            display: 'flex',
+            alignItems: 'center',
+            borderRadius:'10px',
+          
+            
+          }}
+        >
+          <i className="fa-solid fa-arrow-left" style={{ color: '#7c7c7c' }}></i>
+        </button>
     <h1 className="summary-heading" style={{textAlign:'center'}}>Orders</h1>
+    </div>
+
     <div style={{padding: '2rem'}}>
       
       {!isLoading && !summary && <OrderList orders={orders} openSummary={openSummary} isStore={true} themeMode="dark"/>}

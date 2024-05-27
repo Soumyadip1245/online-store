@@ -160,3 +160,41 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.order-confirmed{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.unique-container {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  /* justify-content: center;
+  align-items: center; */
+  height: 100vh;
+  max-width: 600px;
+  background-color: transparent;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.unique-confirmation-image {
+  width: 500px; 
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.unique-heading {
+  color: #7c7c7c;
+  margin: 0;
+}
+
+.unique-paragraph {
+  font-size: 18px;
+  color: #333;
+}
