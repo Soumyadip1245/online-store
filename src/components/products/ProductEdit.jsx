@@ -8,7 +8,7 @@ import Product from '../../models/product';
 import axios from 'axios';
 import Loader from '../../utils/loader/Loader';
 import VoiceRecognition from '../../utils/voice-recognition/VoiceRecognition';
-import {  useSpeak } from '../../utils/voice-recognition/SpeakContext.jsx';
+import { useSpeak } from '../../utils/voice-recognition/SpeakContext.jsx';
 import { notifySuccess, notifyError } from '../../utils/notification/Notification';
 import { productCommands } from '../commands/productCommands';
 import useLocalData from '../../utils/localSetting';
@@ -25,7 +25,7 @@ const ProductEdit = ({ stepper, productSuccess }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { activateVoice } = useLocalData()
-  const {speakMessage} = useSpeak()
+  const { speakMessage } = useSpeak()
 
   useEffect(() => {
     if (user != null) {
@@ -68,6 +68,13 @@ const ProductEdit = ({ stepper, productSuccess }) => {
 
     try {
       await original.create();
+      const details = `
+    उत्पाद विवरण सफलतापूर्वक अपडेट किया गया।
+    उत्पाद का नाम: ${original.productName}.
+    कीमत: ${original.productPrice}.
+    श्रेणी: ${original.productCategory}.
+  `;
+      speakMessage(details);
       notifySuccess("Details Created");
       stepper ? productSuccess() : navigate("/product-details");
     } catch (error) {

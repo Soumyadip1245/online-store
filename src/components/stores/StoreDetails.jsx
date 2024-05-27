@@ -6,12 +6,14 @@ import './StoreShow.css';
 import { storeCommands } from "../commands/storeCommands";
 import useLocalData from "../../utils/localSetting";
 import { notifyError, notifySuccess } from "../../utils/notification/Notification";
+import { useSpeak } from "../../utils/voice-recognition/SpeakContext";
 const StoreShow = ({ store: initialStore, onSubmitSuccess, storeSuccess, editGetting, stepper, edit }) => {
   const [originalStore, setOriginal] = useState(new Store())
   const [loading, setLoading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [image, setImage] = useState(null)
   const { activateVoice } = useLocalData()
+  const {speakMessage} = useSpeak()
   const [store, setStore] = useState({
     storeName: initialStore.storeName || "",
     uniqueName: initialStore.uniqueName || "",
@@ -62,6 +64,15 @@ const StoreShow = ({ store: initialStore, onSubmitSuccess, storeSuccess, editGet
 
     try {
       await originalStore.updateStore();
+      const details = `
+        प्रोफाइल विवरण सफलतापूर्वक अपडेट किया गया।
+        स्टोर का नाम: ${store.storeName}.
+        पता: ${store.storeAddress}.
+        जीएसटी नंबर: ${store.gstNumber ? store.gstNumber : 'नहीं है'}.
+        अभी भुगतान करें: ${store.isPaynow ? 'हां' : 'नहीं'}.
+        बाद में भुगतान करें: ${store.isPaylater ? 'हां' : 'नहीं'}.
+      `;
+      speakMessage(details);
       notifySuccess("Store details saved successfully");
       if (stepper) {
         storeSuccess();

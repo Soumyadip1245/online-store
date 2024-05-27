@@ -69,7 +69,7 @@ const StoreSummary = () => {
     setOrder(data)
     if (!data.isPaynow) {
       generateInvoice(data, generatedStore)
-      navigate(`/${unique}/store-confirm`)
+      // navigate(`/${unique}/store-confirm`)
       return
     }
     await paymentOrder(data)
@@ -83,7 +83,7 @@ const StoreSummary = () => {
     const handlePaymentSuccess = async () => {
       await createOrder(data)
       generateInvoice(data, generatedStore)
-      navigate(`/${unique}/store-confirm`)
+      // navigate(`/${unique}/store-confirm`)
     };
 
     const handlePaymentFailure = () => {
@@ -283,7 +283,7 @@ const StoreSummary = () => {
                   </div>
                 )}
               </div>
-              <button className="btn-design full-width" onClick={processOrder}>Proceed</button>
+              <button className="btn-design full-width" type="button" onClick={processOrder}>Proceed</button>
             </form>
 
           </div>

@@ -20,6 +20,7 @@ export const SpeakProvider = ({ children }) => {
         if (localStorage.getItem("speak") === "true") {
             const speechSynthesis = window.speechSynthesis;
             const utterance = new SpeechSynthesisUtterance(message);
+            utterance.lang = 'hi-IN'
             speechSynthesis.speak(utterance);
         }
     };

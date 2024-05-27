@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { GetUser } from "../login/Auth";
 import Loader from "../../utils/loader/Loader";
 import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition";
-import {  useSpeak } from "../../utils/voice-recognition/SpeakContext.jsx";
+import { useSpeak } from "../../utils/voice-recognition/SpeakContext.jsx";
 import { useQuery } from "react-query";
 import { notifySuccess, notifyError } from "../../utils/notification/Notification"; // Importing the notification functions
 import voiceCommands from "../commands/profileCommand";
@@ -19,7 +19,7 @@ const Profile = ({ profileSuccess, stepper }) => {
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const { activateVoice } = useLocalData();
-  const {speakMessage} = useSpeak()
+  const { speakMessage } = useSpeak()
 
   const fetchData = async () => {
     return await GetUser(user);
@@ -41,6 +41,16 @@ const Profile = ({ profileSuccess, stepper }) => {
 
     try {
       await originalSeller.updateProfile();
+      const details = `
+  प्रोफाइल विवरण सफलतापूर्वक अपडेट किया गया।
+  विक्रेता का नाम: ${seller.sellerName}.
+  पता: ${seller.profile.address}.
+  शहर: ${seller.profile.city}.
+  राज्य: ${seller.profile.state}.
+  पिन कोड: ${seller.profile.pincode}.
+`;
+      speakMessage(details);
+
       notifySuccess('Details updated successfully'); // Display success notification
       stepper ? profileSuccess() : navigate('/dashboard');
     } catch (error) {

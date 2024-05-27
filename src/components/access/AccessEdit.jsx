@@ -5,6 +5,7 @@ import Seller from "../../models/seller";
 import { useSelector } from "react-redux";
 import { GetUser } from "../login/Auth";
 import "./Access.css"
+import { notifySuccess } from "../../utils/notification/Notification";
 const AccessEdit = () => {
   const [seller, setSeller] = useState(new Seller());
   const [access, setAccess] = useState(new Access());
@@ -49,6 +50,7 @@ const AccessEdit = () => {
       originalAccess.roles = access.roles;
       originalAccess.isFace = access.isFace
       await originalAccess.updateAccess();
+      notifySuccess("Staff details updated successfully")
       navigate("/access");
       return;
     }
@@ -62,6 +64,7 @@ const AccessEdit = () => {
     originalAccess.sellerEmail = seller.profile.email.value;
     originalAccess.sellerMobile = seller.mobile.number;
     await originalAccess.create();
+    notifySuccess("Staff created")
     navigate("/access");
   };
 

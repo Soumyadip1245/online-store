@@ -9,6 +9,7 @@ import Access from "../../models/access";
 import { useQuery } from "react-query";
 import Opp from "./opportunity/opp";
 import useLocalData from "../../utils/localSetting";
+import {notifySuccess} from '../../utils/notification/Notification'
 const AccessDetails = () => {
   const {activateJobs}=useLocalData();
   const [seller, setSeller] = useState(new Seller());
@@ -33,6 +34,7 @@ const AccessDetails = () => {
     access._id = id._id;
     await access.delete();
     const updatedList = accessList.filter((access) => access._id !== id._id);
+    notifySuccess("Opportunity deleted")
     setAccess(updatedList);
   };
   const commands = [];

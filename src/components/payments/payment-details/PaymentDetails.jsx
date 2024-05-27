@@ -10,6 +10,7 @@ import { notifySuccess, notifyError } from "../../../utils/notification/Notifica
 import './PaymentDetails.css';
 import { paymentCommands } from "../../commands/paymentCommands";
 import useLocalData from "../../../utils/localSetting";
+import { useSpeak } from "../../../utils/voice-recognition/SpeakContext";
 
 const PaymentDetails = ({ paymentSuccess, stepper }) => {
   const [seller, setSeller] = useState(new Seller());
@@ -19,7 +20,7 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
   const {activateVoice} = useLocalData()
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
-
+  const {speakMessage} = useSpeak()
   const fetchData = async () => {
     return await GetUser(user);
   };
@@ -37,6 +38,15 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
 
     try {
       await originalSeller.updatePayment();
+      const details = `
+      भुगतान विवरण सफलतापूर्वक अपडेट किया गया।
+      बैंक का नाम: ${originalSeller.paymentDetails.bankName}.
+      खाता संख्या: ${originalSeller.paymentDetails.accountNumber}.
+      IFSC कोड: ${originalSeller.paymentDetails.ifscCode}.
+      शाखा: ${originalSeller.paymentDetails.branch}.
+      UPI लिंक: ${originalSeller.paymentDetails.upiLink}.
+    `;
+    speakMessage(details)
       notifySuccess("Details updated successfully");
       if (stepper) {
         paymentSuccess(seller);

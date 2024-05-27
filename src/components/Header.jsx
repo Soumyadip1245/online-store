@@ -43,7 +43,7 @@ const Header = (props) => {
         fetchUser(user);
     }, [user]);
 
-    const isFormVisible = seller.sellerName === '' && seller.paymentDetails.accountNumber === '';
+    const isFormVisible = !seller.isVerified;
 
     const [isDropdownVisible, setDropdownVisibility] = useState(false);
 

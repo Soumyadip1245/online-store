@@ -19,6 +19,7 @@ export const SpeakProvider = ({ children }) => {
         if (isSpeakingEnabled) {
             const speechSynthesis = window.speechSynthesis;
             const utterance = new SpeechSynthesisUtterance(message);
+            utterance.lang = 'hi-IN'
             speechSynthesis.speak(utterance);
         }
     };

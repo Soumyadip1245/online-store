@@ -13,6 +13,7 @@ class Seller {
   imageUrl = null;
   paymentDetails = new PaymentDetails();
   opportunityId = null
+  isVerified = false
   createdAt = nowiso();
   updatedAt = nowiso();
   paidTill = null;
@@ -27,6 +28,7 @@ class Seller {
     cls.createdAt = obj.createdAt;
     cls.updatedAt = obj.updatedAt;
     cls.paidTill = obj?.paidTill;
+    cls.isVerified = obj?.isVerified
     cls.opportunityId = obj?.opportunityId 
     return cls;
   }
@@ -39,6 +41,7 @@ class Seller {
       obj.paymentDetails = PaymentDetails.toObj(cls.paymentDetails);
       obj.createdAt = cls.createdAt ?? "";
       obj.updatedAt = cls.updatedAt ?? "";
+      obj.isVerified = cls.isVerified ?? false
       obj.opportunityId = cls.opportunityId ?? null
       obj.paidTill = cls?.paidTill ?? null;
     }

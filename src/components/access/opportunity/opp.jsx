@@ -8,6 +8,7 @@ import { useQuery } from 'react-query';
 import { GetUser } from '../../login/Auth';
 import Access from '../../../models/access';
 import { rootUrl } from '../../../utils/backendUrl';
+import { notifySuccess } from '../../../utils/notification/Notification';
 const Opp = () => {
     const [showForm, setShowForm] = useState(false);
     const [showJobOpening, setShowJobOpening] = useState(true);
@@ -76,6 +77,7 @@ const Opp = () => {
         access.sellerEmail = seller.profile.email.value
         access.sellerMobile = seller.mobile.number
         access.mobile = staff.phoneNumber
+        notifySuccess("Staff added")
         await access.create()
     }
     const { data: opportunityData } = useQuery("opportunityData", getOpportunity, { enabled: !!seller.opportunityId })
@@ -88,6 +90,7 @@ const Opp = () => {
             seller.opportunityId = id
             setOpportunity({ ...formData, opportunityId: id });
             getStaff()
+            notifySuccess("Opportunity posted")
             await seller.updateOpportunity()
         }
 

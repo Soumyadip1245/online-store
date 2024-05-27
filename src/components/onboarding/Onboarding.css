@@ -1,0 +1,48 @@
+.onboarding-container{
+    margin: 5rem;
+}
+ol{
+    list-style: none;
+    margin: 0;
+}
+ol >li{
+    padding-bottom: 2.8rem;
+    gap: 1.5rem;
+    grid-template-columns: auto 1fr;
+    display: grid;
+}
+.li11{
+    z-index: 0;
+    position: relative;
+}
+.value-li11{
+    color: rgba(141,141,141,1);
+    font-weight: 500;
+    background-color: var(--sidebar-hover);
+    border-radius: 10000px;
+    justify-content: center;
+    align-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    display: flex;
+    z-index: 10;
+    position: relative;
+}
+.line-li11{
+    position: absolute;
+    top: 1.5rem;
+    height: calc(100% + 1.5rem);
+    width: 1px;
+    left: 50%;
+    background-image: linear-gradient(transparent 5px, rgb(31,31,41) 5px, rgba(31,31,41) 10px);
+}
+.li11-text{
+    color: white;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    margin: 0;
+}
+.text-change{
+    margin-top: 1rem;
+    color: var(--color-text);
+}

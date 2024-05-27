@@ -13,6 +13,7 @@ import Stepper from './stepper/Stepper'
 import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition"
 import { useSpeak } from "../../utils/voice-recognition/SpeakContext.jsx"
 import useLocalData from "../../utils/localSetting"
+import Onboarding from "../onboarding/Onboarding.jsx"
 
 const Dashboard = () => {
   const [showChat, setShow] = useState(false)
@@ -20,8 +21,8 @@ const Dashboard = () => {
   const [loader, setLoader] = useState(true)
   const [loaderSeller, setLoaderSeller] = useState(false)
   const user = useSelector((state) => state.auth.user)
-  const {activateVoice} = useLocalData()
-  const {speakMessage} = useSpeak()
+  const { activateVoice } = useLocalData()
+  const { speakMessage } = useSpeak()
 
   const fetchUser = async () => {
 
@@ -35,9 +36,6 @@ const Dashboard = () => {
       setLoaderSeller(true)
     }
   }, [data])
-  const stepperLoad = (data) => {
-    setSeller(data)
-  }
 
 
   const getDashboard = async () => {
@@ -96,14 +94,17 @@ const Dashboard = () => {
 
   if (isLoading || orderLoading || loader) return <Loader />
 
-
+  const toShow = !user.isStaff && !(seller.sellerName && seller.paymentDetails.accountNumber)
   return (
     <>
       {activateVoice && <VoiceRecognition commands={commands} />}
-      {!user.isStaff && (!seller.sellerName || !seller.paymentDetails.accountNumber) && (
+      {toShow && (
         <Stepper stepperToggle={stepperLoad} />
       )}
-      {(seller.sellerName && seller.paymentDetails.accountNumber) &&
+      {
+        !seller.isVerified && <Onboarding />
+      }
+      {(seller.isVerified) &&
         <>
           <div className="dashboard-container">
             <div className="card-design">

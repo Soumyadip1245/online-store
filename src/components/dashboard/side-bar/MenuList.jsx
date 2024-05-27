@@ -40,7 +40,7 @@ const MenuList = () => {
         hasEffect.current = true
     }, [user])
     
-    const isFormVisible = seller.sellerName === '' && seller.paymentDetails.accountNumber === '';
+    const isFormVisible = !seller.isVerified;
     console.log(isFormVisible)
     const menuItems = [
         {
