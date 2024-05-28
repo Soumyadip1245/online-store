@@ -16,6 +16,7 @@ import useLocalData from "../../utils/localSetting"
 import Onboarding from "../onboarding/Onboarding.jsx"
 
 const Dashboard = () => {
+  const [toShow,settoShow] = useState(false)
   const [showChat, setShow] = useState(false)
   const [seller, setSeller] = useState(new Seller())
   const [loader, setLoader] = useState(true)
@@ -24,7 +25,6 @@ const Dashboard = () => {
   const user = useSelector((state) => state.auth.user)
   const { activateVoice } = useLocalData()
   const { speakMessage } = useSpeak()
-  let toShow
   const fetchUser = async () => {
 
     return await createandGetUser(user)
@@ -35,9 +35,15 @@ const Dashboard = () => {
 
       setSeller(data)
       setLoaderSeller(true)
+      
     }
   }, [data])
-
+  useEffect(() => {
+    if (data && user) {
+      console.log(!user.isStaff && !(data.sellerName && data.paymentDetails.accountNumber))
+      settoShow(!user.isStaff && !(data.sellerName && data.paymentDetails.accountNumber))
+    }
+  }, [data, user])
 
   const getDashboard = async () => {
 
@@ -93,11 +99,11 @@ const Dashboard = () => {
     }
   ]
   const handleOnboarding = () => {
-    toShow = false
+   settoShow(false)
   }
   if (isLoading || orderLoading || loader) return <Loader />
 
-  toShow = !user.isStaff && !(seller.sellerName && seller.paymentDetails.accountNumber)
+ 
   return (
     <>
       {!toShow && activateVoice && <VoiceRecognition commands={commands} />}
