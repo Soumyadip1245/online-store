@@ -5,6 +5,7 @@ import { useQuery } from 'react-query'
 import OrderList from '../../orders/order-list/OrderList'
 import OrderSummary from '../../orders/order-summary/OrderSummary'
 
+
 const StoreOrders = () => {
     const {generatedStore} = useStore()
     const [orders,setOrders] = useState([])
@@ -54,8 +55,6 @@ const StoreOrders = () => {
             display: 'flex',
             alignItems: 'center',
             borderRadius:'10px',
-          
-            
           }}
         >
           <i className="fa-solid fa-arrow-left" style={{ color: '#7c7c7c' }}></i>

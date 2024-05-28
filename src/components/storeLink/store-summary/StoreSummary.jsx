@@ -6,6 +6,7 @@ import { pay } from '../../../utils/razorpay';
 import { generateInvoice } from '../../../utils/invoice-generator/invoice-generator';
 import { useNavigate, useParams } from 'react-router-dom';
 import './StoreSummary.css'
+import delivery from '../../assests/delivery.png';
 
 const StoreSummary = () => {
   const { unique } = useParams()
@@ -359,7 +360,7 @@ const StoreSummary = () => {
 
       <div className='order-confirmed'>
         <div className="unique-container">
-          <img src="https://img.freepik.com/premium-vector/loader-unloads-goods-from-truck-delivery-service-moving_165429-104.jpg" alt="Order Confirmed" className="unique-confirmation-image" />
+          <img src={delivery} alt="Order Confirmed" className="unique-confirmation-image" />
           <h1 className="unique-heading">Order Placed Successfully!</h1>
           <p className="unique-paragraph">Thank you for your purchase. Your order has been successfully placed.</p>
         </div>
