@@ -234,9 +234,9 @@ const StoreSummary = () => {
             onClick={handleBackClick}
             style={{
               position: 'absolute',
-              top: '1rem',
+              
               left: '1rem',
-              marginTop: '5rem',
+
               padding: '0.5rem',
               fontSize: '1.5rem',
               cursor: 'pointer',
