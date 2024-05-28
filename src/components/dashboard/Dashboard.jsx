@@ -24,7 +24,7 @@ const Dashboard = () => {
   const user = useSelector((state) => state.auth.user)
   const { activateVoice } = useLocalData()
   const { speakMessage } = useSpeak()
-
+  let toShow
   const fetchUser = async () => {
 
     return await createandGetUser(user)
@@ -93,19 +93,19 @@ const Dashboard = () => {
     }
   ]
   const handleOnboarding = () => {
-    setOnboarding(true)
+    toShow = false
   }
   if (isLoading || orderLoading || loader) return <Loader />
 
-  const toShow = !user.isStaff && !(seller.sellerName && seller.paymentDetails.accountNumber)
+  toShow = !user.isStaff && !(seller.sellerName && seller.paymentDetails.accountNumber)
   return (
     <>
       {!toShow && activateVoice && <VoiceRecognition commands={commands} />}
-      {!onboarding && toShow && (
+      { toShow && (
         <Stepper stepperToggle={handleOnboarding}/>
       )}
       {
-       onboarding && !seller.isVerified && <Onboarding />
+       !toShow && !seller.isVerified && <Onboarding />
       }
       {(seller.isVerified) &&
         <>
