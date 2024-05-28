@@ -1,1 +1,1 @@
-export const rootUrl = import.meta.env.NODE_ENV === "production" ? import.meta.env.VITE_APP_BACKEND_URL : "http://localhost:8080"
+export const rootUrl = "http://localhost:8080"
