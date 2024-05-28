@@ -22,11 +22,11 @@ const Login = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [responses, setResponses] = useState({});
   const [isPromptActive, setIsPromptActive] = useState(false);
-  const [checkbox, setCheckbox] = useState(false)
+  const [checkbox, setCheckbox] = useState(localStorage.getItem("isStaff") === "true")
   const [confirmation, setConfirmation] = useState(null)
   const [isAvailable, setAvailable] = useState(false)
   const [isOtpSent, setIsOtpSent] = useState(false);
-  const [isStaff, setIsStaff] = useState(false);
+  const [isStaff, setIsStaff] = useState(localStorage.getItem("isStaff") === "true");
 
   const handlePhoneChange = (e) => {
     const value = e.target.value;
@@ -94,9 +94,7 @@ const Login = () => {
     }
     setCheckbox(isChecked)
   }
-  const handleCheckboxChange = () => {
-    setIsStaff(!isStaff);
-  };
+ 
   const verifyOtp = async () => {
     try {
       await confirmation.confirm(otp)
@@ -182,12 +180,19 @@ const Login = () => {
                   />
                 </div>
                 <div id="recaptcha-container" sx={{ mb: 2 }}></div>
-
                 <div style={{ marginTop: 16, display: 'flex', color: '#fff', fontWeight: '700' }}>
-                  <div className="custom-checkbox" onClick={handleCheckboxChange}>
-                    {isStaff && <div className="checkbox-icon">✔</div>}
+                  
+                <div className="input-text gray-theme">
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      className="input-field"
+                      checked={checkbox}
+                      onChange={handleCheckbox}
+                    />
+                    {t('login.l4')}
+                  </label>
                   </div>
-                  <span className="checkbox-label">{t('login.l4')}</span>
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'center' }}>

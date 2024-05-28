@@ -62,7 +62,6 @@ const PrivateRoute = ({  component: Component ,...rest}) => {
 
   return (
     <>
-     {message && type && <Notify message={message} type={type} />}
       {checkStatus?
      console.log("loading")
       :loggedIn?
