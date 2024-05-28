@@ -6,6 +6,8 @@ import { pay } from '../../../utils/razorpay';
 import { generateInvoice } from '../../../utils/invoice-generator/invoice-generator';
 import { useNavigate, useParams } from 'react-router-dom';
 import './StoreSummary.css'
+import delivery from '../../assests/delivery.png';
+
 const StoreSummary = () => {
   const { unique } = useParams()
   const { cart, setCart, generatedStore } = useStore()
@@ -70,10 +72,10 @@ const StoreSummary = () => {
     if (!data.isPaynow) {
       generateInvoice(data, generatedStore)
       // navigate(`/${unique}/store-confirm`)
+      setOfstage(3);
       return
     }
     await paymentOrder(data)
-
   };
   useEffect(() => {
 
@@ -84,6 +86,7 @@ const StoreSummary = () => {
       await createOrder(data)
       generateInvoice(data, generatedStore)
       // navigate(`/${unique}/store-confirm`)
+      setOfstage(3);
     };
 
     const handlePaymentFailure = () => {
@@ -124,11 +127,50 @@ const StoreSummary = () => {
       paymentOption: option,
     });
   };
+  const handleBackClick = () => {
+    window.location.href = '/';
+  };
+
+
+  useEffect(() => {
+    if (ofStage === 3) {
+      const timer = setTimeout(() => {
+        window.location.href = '/'; 
+      }, 4000);
+      return () => clearTimeout(timer); 
+    }
+  }, [ofStage]);
+  
+
+
   return (
     <>
       {ofStage == 1 && <>
+        
+        <div>
+        <button
+          onClick={handleBackClick}
+          style={{
+            position: 'absolute',
+            left:'1rem',
+            padding: '0.5rem',
+            fontSize: '1.5rem',
+            cursor: 'pointer',
+            background: '#29292e',
+            border: 'none',
+            color: '#000',
+            display: 'flex',
+            alignItems: 'center',
+            borderRadius: '10px',
+          }}
+        >
+          <i className="fa-solid fa-arrow-left" style={{ color: '#7c7c7c' }}></i>
+        </button>
         <h1 className="summary-heading" style={{ textAlign: 'center' }}>Cart Items</h1>
+        </div>
         <div className='summary-container'>
+        
+        
           <div className="summary-cart">
             <h1 className='summary-heading'>Cart</h1>
             <div className="summary-cartitems">
@@ -185,8 +227,32 @@ const StoreSummary = () => {
       }
 
       {ofStage == 2 &&
+
         <div className="details-container">
+          <div>
+          <button
+            onClick={handleBackClick}
+            style={{
+              position: 'absolute',
+              top: '1rem',
+              left: '1rem',
+              marginTop: '5rem',
+              padding: '0.5rem',
+              fontSize: '1.5rem',
+              cursor: 'pointer',
+              background: '#29292e',
+              border: 'none',
+              color: '#000',
+              display: 'flex',
+              justifyContent:'center',
+              alignItems: 'center',
+              borderRadius: '10px',
+            }}
+          >
+            <i className="fa-solid fa-arrow-left" style={{ color: '#7c7c7c' }}></i>
+          </button>
           <h1 className="summary-heading">Checkout Details</h1>
+          </div>
           <div className="card-design">
             <form>
               <div className="input-text ">
@@ -269,7 +335,7 @@ const StoreSummary = () => {
                     className={`option ${formData.paymentOption === 'payNow' ? 'selected' : ''}`}
                     onClick={() => handlePaymentOptionChange('payNow')}
                   >
-                    <i className={`fa-regular fa-circle-check ${formData.paymentOption === 'payNow' ? 'selected' : ''}`} style={{ color: formData.paymentOption === 'payNow' ? 'green' : 'grey' }}></i>
+                    <i className={`fa-solid fa-square-check ${formData.paymentOption === 'payNow' ? 'selected' : ''}`} style={{ color: formData.paymentOption === 'payNow' ? 'green' : 'grey' }}></i>
                     Pay Now
                   </div>
                 )}
@@ -283,11 +349,23 @@ const StoreSummary = () => {
                   </div>
                 )}
               </div>
-              <button className="btn-design full-width" type="button" onClick={processOrder}>Proceed</button>
+              <button className="btn-design full-width" type="button" onClick={processOrder}>Proceed Order</button>
             </form>
 
           </div>
         </div>
+      }
+
+      {ofStage === 3 &&
+
+      <div className='order-confirmed'>
+        <div className="unique-container">
+          <img src={delivery} alt="Order Confirmed" className="unique-confirmation-image" />
+          <h1 className="unique-heading">Order Placed Successfully!</h1>
+          <p className="unique-paragraph">Thank you for your purchase. Your order has been successfully placed.</p>
+        </div>
+        </div>
+
       }
     </>
 

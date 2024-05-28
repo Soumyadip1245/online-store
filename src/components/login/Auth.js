@@ -5,7 +5,7 @@ import Access from "../../models/access";
 import { useDispatch, useSelector } from 'react-redux';
 
 export const phoneLogin = async (phone) =>{
-    
+      console.log(phone)
     const recaptchaContainer = document.getElementById("recaptcha-container");
     const recaptcha = new RecaptchaVerifier(auth, recaptchaContainer, {
       size: "invisible",

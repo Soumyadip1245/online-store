@@ -1,5 +1,11 @@
-const voiceCommands = (speakMessage, sendOtp, verifyOtp, setPhone, setOtp,google) => [
-    {
+const voiceCommands = (speakMessage, sendOtp, verifyOtp, setPhone, setOtp,google,handleVoiceResponse) => [
+  {
+    command: "*",
+    callback: (sellerName) => {
+      handleVoiceResponse(sellerName)
+    },
+  },  
+  {
       command: "google login",
       callback: () => {
         speakMessage("Google login")

@@ -99,7 +99,7 @@ const Dashboard = () => {
     <>
       {activateVoice && <VoiceRecognition commands={commands} />}
       {toShow && (
-        <Stepper stepperToggle={stepperLoad} />
+        <Stepper />
       )}
       {
         !seller.isVerified && <Onboarding />

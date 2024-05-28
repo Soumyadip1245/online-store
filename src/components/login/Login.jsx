@@ -8,12 +8,20 @@ import { useTranslation } from "react-i18next";
 import useLocalData from "../../utils/localSetting"
 import voiceCommands from "../commands/loginCommand"
 import { notifyError, notifySuccess, notifyWarning } from "../../utils/notification/Notification"
+const questions = [
+  { field: 'phone', prompt: 'कृपया अपना फ़ोन नंबर दर्ज करें' },
+  { field: 'otp', prompt: 'अपने OTP को दर्ज करें' }
+];
+
 const Login = () => {
   const { t } = useTranslation();
   const { activateVoice } = useLocalData()
   const [phone, setPhone] = useState("")
   const [otp, setOtp] = useState("")
   const { speakMessage } = useSpeak()
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [responses, setResponses] = useState({});
+  const [isPromptActive, setIsPromptActive] = useState(false);
   const [checkbox, setCheckbox] = useState(false)
   const [confirmation, setConfirmation] = useState(null)
   const [isAvailable, setAvailable] = useState(false)
@@ -30,13 +38,30 @@ const Login = () => {
   };
 
   const sendOtp = async () => {
-    if (phone.length < 13) { // Phone number with country code should be at least 13 characters
-      notifyWarning("Please enter a valid phone number with country code.");
-      return;
-    }
-
+  
     try {
-      const confirmationResult = await phoneLogin(phone); // Ensure proper setup
+      console.log(phone.replace(/\s/g, ''))
+      const confirmationResult = await phoneLogin(phone.replace(/\s/g, ''));
+      // Ensure proper setup
+      if (confirmationResult) {
+        setConfirmation(confirmationResult);
+        setIsOtpSent(true);
+        notifySuccess("OTP sent successfully.");
+        speakMessage("OTP sent")
+      } else {
+        notifyWarning("Trouble sending OTP. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error sending OTP:", error); // Log the error for debugging
+      notifyError("An error occurred while sending OTP. Please try again later.");
+    }
+  };
+  const sendOtp11 = async (phone1) => {
+  
+    try {
+      console.log(phone1.replace(/\s/g, ''))
+      const confirmationResult = await phoneLogin(phone1.replace(/\s/g, ''));
+      // Ensure proper setup
       if (confirmationResult) {
         setConfirmation(confirmationResult);
         setIsOtpSent(true);
@@ -80,15 +105,46 @@ const Login = () => {
       notifyError("Wrong OTP")
     }
   }
+  const verifyOtp11 = async (otp1) => {
+    try {
+      await confirmation.confirm(otp1)
+      notifySuccess("OTP Verified")
+    } catch (error) {
+      notifyError("Wrong OTP")
+    }
+  }
   const setValue = (value) => {
     setOtp(value)
   }
 
+  const handleVoiceResponse = async (response) => {
+    speakMessage(response)
+    if (!response) return;
+    const currentQuestion = questions[currentQuestionIndex];
+    console.log(currentQuestionIndex)
+    if (currentQuestionIndex == 0) {
+      await sendOtp11(`+91${response.trim()}`)
+      speakMessage("ओटीपी आपके नंबर पर भेज दिया गया है।")
+    }
+    
 
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      speakMessage(questions[currentQuestionIndex + 1].prompt);
+    } else {
+      setIsPromptActive(false);
+      await verifyOtp11(response.trim())
+    }
+  };
+  const startPromptSequence = () => {
+    setIsPromptActive(true);
+    setCurrentQuestionIndex(0);
+    speakMessage(questions[0].prompt);
+  };
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {
-        speakMessage("वॉयस सिस्टम के साथ बातचीत करने के लिए, 'phone number is,' 'send OTP,' 'OTP is,' 'verify OTP,' और 'Google login' जैसे कमांड कहें। बस अपने कीबोर्ड पर स्पेसबार दबाएं, जो पुश-टू-टॉक बटन के रूप में काम करता है।")
+        startPromptSequence()
       }
     };
 
@@ -98,7 +154,7 @@ const Login = () => {
       document.removeEventListener("keydown", handleEscape);
     };
   }, []);
-  const commands = voiceCommands(speakMessage, sendOtp, verifyOtp, setPhone, setOtp, google);
+  const commands = voiceCommands(speakMessage, sendOtp, verifyOtp, setPhone, setOtp, google, handleVoiceResponse);
   return (
     <>
       {activateVoice && <VoiceRecognition commands={commands} />}
