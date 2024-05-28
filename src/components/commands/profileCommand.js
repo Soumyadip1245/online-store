@@ -1,4 +1,10 @@
-const voiceCommands = (speakMessage, updateFormData, handleSubmit) => [
+const voiceCommands = (speakMessage, updateFormData, handleSubmit, handleVoiceResponse) => [
+  {                   
+    command: "*",
+    callback: (sellerName) => {
+      handleVoiceResponse(sellerName)
+    },
+  },
     {                   
       command: "set seller name to *",
       callback: (sellerName) => {

@@ -12,6 +12,11 @@ import { useSpeak } from '../../utils/voice-recognition/SpeakContext.jsx';
 import { notifySuccess, notifyError } from '../../utils/notification/Notification';
 import { productCommands } from '../commands/productCommands';
 import useLocalData from '../../utils/localSetting';
+const questions = [
+  { field: 'productName', prompt: 'आपके उत्पाद का नाम क्या है?' },
+  { field: 'productPrice', prompt: 'आपके उत्पाद की कीमत क्या है?' },
+  { field: 'productCategory', prompt: 'आपके उत्पाद की श्रेणी क्या है?' },
+];
 
 const ProductEdit = ({ stepper, productSuccess }) => {
   const [seller, setSeller] = useState(new Seller());
@@ -22,6 +27,9 @@ const ProductEdit = ({ stepper, productSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [loader, setLoader] = useState(true);
   const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [responses, setResponses] = useState({});
+  const [isPromptActive, setIsPromptActive] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
   const { activateVoice } = useLocalData()
@@ -135,8 +143,42 @@ const ProductEdit = ({ stepper, productSuccess }) => {
       [fieldName]: value,
     }));
   };
+  const handleVoiceResponse = (response) => {
+    speakMessage(response)
+    if (!response) return;
+    const currentQuestion = questions[currentQuestionIndex];
+    updateFormData(currentQuestion.field, response.trim());
+    const newResponses = { ...responses, [currentQuestion.field]: response.trim() };
+    setResponses(newResponses);
 
-  const commands = productCommands(updateFormData, handleSubmit);
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      speakMessage(questions[currentQuestionIndex + 1].prompt);
+    } else {
+      setIsPromptActive(false);
+      handleSubmit();
+    }
+  };
+  const startPromptSequence = () => {
+    setIsPromptActive(true);
+    setCurrentQuestionIndex(0);
+    speakMessage(questions[0].prompt);
+  };
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        startPromptSequence()
+        // speakMessage("वॉयस सिस्टम के साथ बातचीत करने के लिए, 'phone number is,' 'send OTP,' 'OTP is,' 'verify OTP,' और 'Google login' जैसे कमांड कहें। बस अपने कीबोर्ड पर स्पेसबार दबाएं, जो पुश-टू-टॉक बटन के रूप में काम करता है।")
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+  const commands = productCommands(updateFormData, handleSubmit, handleVoiceResponse);
 
   return (
     <>

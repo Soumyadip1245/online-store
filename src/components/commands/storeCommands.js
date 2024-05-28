@@ -1,6 +1,12 @@
 
-export const storeCommands = (updateFormData, handleSubmit) => [
-    {
+export const storeCommands = (updateFormData, handleSubmit,handleVoiceResponse) => [
+  {                   
+    command: "*",
+    callback: (sellerName) => {
+      handleVoiceResponse(sellerName)
+    },
+  },
+  {
       command: `set store name to *`,
       callback: (name) => {
         updateFormData("storeName", name);

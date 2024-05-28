@@ -7,10 +7,19 @@ import { storeCommands } from "../commands/storeCommands";
 import useLocalData from "../../utils/localSetting";
 import { notifyError, notifySuccess } from "../../utils/notification/Notification";
 import { useSpeak } from "../../utils/voice-recognition/SpeakContext";
+const questions = [
+  { field: 'storeName', prompt: 'आपके स्टोर का नाम क्या है?' },
+  { field: 'storeAddress', prompt: 'आपके स्टोर का पता क्या है?' },
+  { field: 'gstNumber', prompt: 'आपके स्टोर का जीएसटी नंबर क्या है?' }
+];
+
 const StoreShow = ({ store: initialStore, onSubmitSuccess, storeSuccess, editGetting, stepper, edit }) => {
   const [originalStore, setOriginal] = useState(new Store())
   const [loading, setLoading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [responses, setResponses] = useState({});
+  const [isPromptActive, setIsPromptActive] = useState(false);
   const [image, setImage] = useState(null)
   const { activateVoice } = useLocalData()
   const {speakMessage} = useSpeak()
@@ -98,8 +107,41 @@ const StoreShow = ({ store: initialStore, onSubmitSuccess, storeSuccess, editGet
       setLoading(false);
     }
   };
+  const handleVoiceResponse = (response) => {
+    speakMessage(response)
+    if (!response) return;
+    const currentQuestion = questions[currentQuestionIndex];
+    updateFormData(currentQuestion.field, response.trim());
+    const newResponses = { ...responses, [currentQuestion.field]: response.trim() };
+    setResponses(newResponses);
 
-  const commands = storeCommands(updateFormData, handleSubmit);
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      speakMessage(questions[currentQuestionIndex + 1].prompt);
+    } else {
+      setIsPromptActive(false);
+      handleSubmit();
+    }
+  };
+  const startPromptSequence = () => {
+    setIsPromptActive(true);
+    setCurrentQuestionIndex(0);
+    speakMessage(questions[0].prompt)
+  }
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        startPromptSequence()
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+  const commands = storeCommands(updateFormData, handleSubmit,handleVoiceResponse);
   return (
     <>
       {activateVoice && <VoiceRecognition commands={commands} />}

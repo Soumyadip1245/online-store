@@ -1,6 +1,12 @@
 
 
-export const productCommands = (updateFormData, handleSubmit) => [
+export const productCommands = (updateFormData, handleSubmit,handleVoiceResponse) => [
+  {                   
+    command: "*",
+    callback: (sellerName) => {
+      handleVoiceResponse(sellerName)
+    },
+  },
   {
     command: `update product name *`,
     callback: (name) => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { phoneLogin, googleLogin } from "./Auth"
 import "./Login.css"
 import VoiceRecognition from "../../utils/voice-recognition/VoiceRecognition"
-import {  useSpeak } from "../../utils/voice-recognition/SpeakContext.jsx"
+import { useSpeak } from "../../utils/voice-recognition/SpeakContext.jsx"
 import Header from '../Header';
 import { useTranslation } from "react-i18next";
 import useLocalData from "../../utils/localSetting"
@@ -13,7 +13,7 @@ const Login = () => {
   const { activateVoice } = useLocalData()
   const [phone, setPhone] = useState("")
   const [otp, setOtp] = useState("")
-  const {speakMessage} = useSpeak()
+  const { speakMessage } = useSpeak()
   const [checkbox, setCheckbox] = useState(false)
   const [confirmation, setConfirmation] = useState(null)
   const [isAvailable, setAvailable] = useState(false)
@@ -50,7 +50,7 @@ const Login = () => {
       notifyError("An error occurred while sending OTP. Please try again later.");
     }
   };
- 
+
   const google = async () => {
     const data = await googleLogin()
 
@@ -88,7 +88,7 @@ const Login = () => {
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {
-        speakMessage("To interact with the voice system, say commands like 'phone number is,' 'send OTP,' 'OTP is,' 'verify OTP,' and 'Google login.' Simply press the spacebar on your keyboard, which works as a push-to-talk button.")
+        speakMessage("वॉयस सिस्टम के साथ बातचीत करने के लिए, 'phone number is,' 'send OTP,' 'OTP is,' 'verify OTP,' और 'Google login' जैसे कमांड कहें। बस अपने कीबोर्ड पर स्पेसबार दबाएं, जो पुश-टू-टॉक बटन के रूप में काम करता है।")
       }
     };
 
@@ -104,7 +104,7 @@ const Login = () => {
       {activateVoice && <VoiceRecognition commands={commands} />}
 
       <Header hideHeaderRight={true} />
-      <div className="login-container">
+      <div className="login-container gray-theme">
         <div className="login-card">
           <div className="login-form">
             <div className="login-text">

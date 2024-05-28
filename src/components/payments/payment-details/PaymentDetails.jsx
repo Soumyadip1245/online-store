@@ -11,16 +11,26 @@ import './PaymentDetails.css';
 import { paymentCommands } from "../../commands/paymentCommands";
 import useLocalData from "../../../utils/localSetting";
 import { useSpeak } from "../../../utils/voice-recognition/SpeakContext";
+const questions = [
+  { field: 'bankName', prompt: 'आपके बैंक का नाम क्या है?' },
+  { field: 'accountNumber', prompt: 'आपका खाता संख्या क्या है?' },
+  { field: 'ifscCode', prompt: 'आपका IFSC कोड क्या है?' },
+  { field: 'branch', prompt: 'आपकी शाखा क्या है?' },
+  { field: 'upiLink', prompt: 'आपका UPI आईडी क्या है?' }
+];
 
 const PaymentDetails = ({ paymentSuccess, stepper }) => {
   const [seller, setSeller] = useState(new Seller());
   const [loading, setLoading] = useState(false);
   const [originalSeller, setOriginal] = useState(new Seller());
   const [uploadSuccess, setUploadSuccess] = useState(false);
-  const {activateVoice} = useLocalData()
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [responses, setResponses] = useState({});
+  const [isPromptActive, setIsPromptActive] = useState(false);
+  const { activateVoice } = useLocalData()
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
-  const {speakMessage} = useSpeak()
+  const { speakMessage } = useSpeak()
   const fetchData = async () => {
     return await GetUser(user);
   };
@@ -46,7 +56,7 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
       शाखा: ${originalSeller.paymentDetails.branch}.
       UPI लिंक: ${originalSeller.paymentDetails.upiLink}.
     `;
-    speakMessage(details)
+      speakMessage(details)
       notifySuccess("Details updated successfully");
       if (stepper) {
         paymentSuccess(seller);
@@ -87,9 +97,41 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
       },
     }));
   };
+  const handleVoiceResponse = (response) => {
+    speakMessage(response)
+    if (!response) return;
+    const currentQuestion = questions[currentQuestionIndex];
+    updateFormData(currentQuestion.field, response.trim());
+    const newResponses = { ...responses, [currentQuestion.field]: response.trim() };
+    setResponses(newResponses);
 
-  const commands = paymentCommands(updateFormData, handleSubmit);
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      speakMessage(questions[currentQuestionIndex + 1].prompt);
+    } else {
+      setIsPromptActive(false);
+      handleSubmit();
+    }
+  };
+  const startPromptSequence = () => {
+    setIsPromptActive(true);
+    setCurrentQuestionIndex(0);
+    speakMessage(questions[0].prompt)
+  }
+  const commands = paymentCommands(updateFormData, handleSubmit, handleVoiceResponse);
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        startPromptSequence()
+      }
+    };
 
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
   return (
     <>
       {activateVoice && <VoiceRecognition commands={commands} />}

@@ -11,10 +11,20 @@ import { notifySuccess, notifyError } from "../../utils/notification/Notificatio
 import voiceCommands from "../commands/profileCommand";
 import { useTranslation } from "react-i18next";
 import useLocalData from "../../utils/localSetting";
+const questions = [
+  { field: 'sellerName', prompt: 'आपका नाम क्या है?' },
+  { field: 'address', prompt: 'आपका पता क्या है?' },
+  { field: 'city', prompt: 'आपका शहर क्या है?' },
+  { field: 'state', prompt: 'आपका राज्य क्या है?' },
+  { field: 'pincode', prompt: 'आपका पिन कोड क्या है?' }
+];
 
 const Profile = ({ profileSuccess, stepper }) => {
   const [seller, setSeller] = useState(new Seller());
   const [originalSeller, setOriginal] = useState(new Seller());
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [responses, setResponses] = useState({});
+  const [isPromptActive, setIsPromptActive] = useState(false);
   const { t } = useTranslation();
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
@@ -58,7 +68,7 @@ const Profile = ({ profileSuccess, stepper }) => {
     }
   };
 
-  if (isLoading) return <Loader />;
+
 
   const updateFormData = (fieldName, value) => {
     setSeller((prevSeller) => {
@@ -81,9 +91,43 @@ const Profile = ({ profileSuccess, stepper }) => {
       }
     });
   };
+  const handleVoiceResponse = (response) => {
+    speakMessage(response)
+    if (!response) return;
+    const currentQuestion = questions[currentQuestionIndex];
+    updateFormData(currentQuestion.field, response.trim());
+    const newResponses = { ...responses, [currentQuestion.field]: response.trim() };
+    setResponses(newResponses);
 
-  const commands = voiceCommands(speakMessage, updateFormData, handleSubmit);
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      speakMessage(questions[currentQuestionIndex + 1].prompt);
+    } else {
+      setIsPromptActive(false);
+      handleSubmit();
+    }
+  };
+  const startPromptSequence = () => {
+    setIsPromptActive(true);
+    setCurrentQuestionIndex(0);
+    speakMessage(questions[0].prompt);
+  };
+  const commands = voiceCommands(speakMessage, updateFormData, handleSubmit, handleVoiceResponse);
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        startPromptSequence()
+        // speakMessage("वॉयस सिस्टम के साथ बातचीत करने के लिए, 'phone number is,' 'send OTP,' 'OTP is,' 'verify OTP,' और 'Google login' जैसे कमांड कहें। बस अपने कीबोर्ड पर स्पेसबार दबाएं, जो पुश-टू-टॉक बटन के रूप में काम करता है।")
+      }
+    };
 
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+  if (isLoading) return <Loader />;
   return (
     <>
       {activateVoice && <VoiceRecognition commands={commands} />}

@@ -12,7 +12,9 @@
     padding-top: 5rem;
 
 }
-
+::-webkit-scrollbar-thumb {
+    background-color: #202020 !important;
+}
 .colorChange {
     color: rgba(252, 236, 97, 1) !important;
 }
