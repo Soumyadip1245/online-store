@@ -20,6 +20,7 @@ const Dashboard = () => {
   const [seller, setSeller] = useState(new Seller())
   const [loader, setLoader] = useState(true)
   const [loaderSeller, setLoaderSeller] = useState(false)
+  const [onboarding,setOnboarding] = useState(false)
   const user = useSelector((state) => state.auth.user)
   const { activateVoice } = useLocalData()
   const { speakMessage } = useSpeak()
@@ -91,18 +92,20 @@ const Dashboard = () => {
       },
     }
   ]
-
+  const handleOnboarding = () => {
+    setOnboarding(true)
+  }
   if (isLoading || orderLoading || loader) return <Loader />
 
   const toShow = !user.isStaff && !(seller.sellerName && seller.paymentDetails.accountNumber)
   return (
     <>
       {!toShow && activateVoice && <VoiceRecognition commands={commands} />}
-      {toShow && (
-        <Stepper />
+      {!onboarding && toShow && (
+        <Stepper stepperToggle={handleOnboarding}/>
       )}
       {
-        !toShow && !seller.isVerified && <Onboarding />
+       onboarding && !seller.isVerified && <Onboarding />
       }
       {(seller.isVerified) &&
         <>
