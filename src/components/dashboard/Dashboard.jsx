@@ -16,12 +16,12 @@ import useLocalData from "../../utils/localSetting"
 import Onboarding from "../onboarding/Onboarding.jsx"
 
 const Dashboard = () => {
-  const [toShow,settoShow] = useState(false)
+  const [toShow, settoShow] = useState(false)
   const [showChat, setShow] = useState(false)
   const [seller, setSeller] = useState(new Seller())
   const [loader, setLoader] = useState(true)
   const [loaderSeller, setLoaderSeller] = useState(false)
-  const [onboarding,setOnboarding] = useState(false)
+  const [onboarding, setOnboarding] = useState(false)
   const user = useSelector((state) => state.auth.user)
   const { activateVoice } = useLocalData()
   const { speakMessage } = useSpeak()
@@ -35,7 +35,7 @@ const Dashboard = () => {
 
       setSeller(data)
       setLoaderSeller(true)
-      
+
     }
   }, [data])
   useEffect(() => {
@@ -99,19 +99,19 @@ const Dashboard = () => {
     }
   ]
   const handleOnboarding = () => {
-   settoShow(false)
+    settoShow(false)
   }
   if (isLoading || orderLoading || loader) return <Loader />
 
- 
+
   return (
     <>
       {!toShow && activateVoice && <VoiceRecognition commands={commands} />}
-      { toShow && (
-        <Stepper stepperToggle={handleOnboarding}/>
+      {toShow && (
+        <Stepper stepperToggle={handleOnboarding} />
       )}
       {
-       !toShow && !seller.isVerified && <Onboarding />
+        !toShow && !seller.isVerified && <Onboarding />
       }
       {(seller.isVerified) &&
         <>
