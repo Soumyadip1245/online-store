@@ -16,10 +16,12 @@ const AccessShow = ({ access: initialAccess, deleteAccess }) => {
   }
   return <div >
     <div className="card-design card-flex">
+    <div className="access-details-pos">
     <p className="written">{accessOriginal.staffName}</p>
     <div className="button-flex">
     <i class="fa-solid fa-pen-to-square" onClick={editButton}></i>
     <i class="fa-solid fa-trash" onClick={deleteButton}></i>
+    </div>
     </div>
     </div>
   </div>

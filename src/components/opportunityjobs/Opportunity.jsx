@@ -1,44 +1,38 @@
-import React, { useState } from 'react'
-import './Opportunity.css'
+import React, { useState } from 'react';
+import './Opportunity.css';
 import Headerjob from './headerfooter/Headerjob';
 import Footerjob from './headerfooter/Footerjob';
 import { useQuery } from 'react-query';
-import axios from 'axios'
-const Opportunity = () => {
+import axios from 'axios';
+import { rootUrl } from '../../utils/backendUrl';
 
-    const [showEmpDetails1, setShowEmpDetails1] = useState(false);
-    const [showEmpDetails2, setShowEmpDetails2] = useState(false);
-    const [opportunity, setOpportunity] = useState([])
+const Opportunity = () => {
+    const [currentOpportunityId, setCurrentOpportunityId] = useState(null);
+    const [opportunity, setOpportunity] = useState([]);
     const [empDetails, setEmpDetails] = useState({
         name: '',
         phoneNumber: ''
     });
-    const handleApplyNowClick1 = () => {
-        setShowEmpDetails1(true);
+
+    const handleApplyNowClick = (opportunityId) => {
+        setCurrentOpportunityId(opportunityId);
     };
 
-    const handleApplyNowClick2 = () => {
-        setShowEmpDetails2(true);
-    };
-
-    const handleSubmitClick1 = async (opportunity) => {
-        console.log(empDetails)
-        if(!empDetails.name && !empDetails.phoneNumber) return
-        const response = await axios.post("/fetchDatabase/applyPosition", {
+    const handleSubmitClick = async (opportunity) => {
+        console.log(empDetails);
+        if (!empDetails.name && !empDetails.phoneNumber) return;
+        const response = await axios.post(`${rootUrl}/fetchDatabase/applyPosition`, {
             name: empDetails.name,
             phoneNumber: empDetails.phoneNumber,
             opportunityId: opportunity.opportunityId,
             storeName: opportunity.storeName
-        })
-        console.log(response)
-        if(response.status == 200){
-            setShowEmpDetails1(false);
+        });
+        console.log(response);
+        if (response.status === 200) {
+            setCurrentOpportunityId(null);
         }
     };
 
-    const handleSubmitClick2 = () => {
-        setShowEmpDetails2(false);
-    };
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setEmpDetails({
@@ -46,34 +40,51 @@ const Opportunity = () => {
             [name]: value
         });
     };
+
     const getAll = async () => {
-        const response = await axios.get("/fetchDatabase/getOpportunity")
-        if (response.status == 200) {
-            setOpportunity(response.data.message)
+        const response = await axios.get(`${rootUrl}/fetchDatabase/getOpportunity`);
+        if (response.status === 200) {
+            setOpportunity(response.data.message);
         }
-    }
-    const { data } = useQuery("opportunityStaff", getAll)
+    };
+
+    const { data } = useQuery('opportunityStaff', getAll);
+
     return (
-        <div className='job-container'>
+        <div className='job-container gray-theme'>
             <Headerjob />
             <h5 className='heading-job'>Job Opportunities</h5>
             {opportunity.map((opportunity) => (
-                <div className='job-head'>
+                <div className='job-head' key={opportunity.opportunityId}>
                     <div className='job-card'>
-                        {showEmpDetails1 ? (
+                        {currentOpportunityId === opportunity.opportunityId ? (
                             <div className='emp-details'>
-                            <div className='input-text-job'>
-                                <p className='written text-wrap'>Employee Name</p>
-                                <input type="text" className='input-field-job' name="name"value={empDetails.name}
-                onChange={handleInputChange} placeholder='enter your name' />
+                                <div className='input-text-job'>
+                                    <p className='written text-wrap'>Employee Name</p>
+                                    <input
+                                        type='text'
+                                        className='input-field-job'
+                                        name='name'
+                                        value={empDetails.name}
+                                        onChange={handleInputChange}
+                                        placeholder='Enter your name'
+                                    />
+                                </div>
+                                <div className='input-text-job'>
+                                    <p className='written text-wrap'>Mobile Number</p>
+                                    <input
+                                        type='text'
+                                        className='input-field-job'
+                                        name='phoneNumber'
+                                        value={empDetails.phoneNumber}
+                                        onChange={handleInputChange}
+                                        placeholder='Enter your mobile number'
+                                    />
+                                </div>
+                                <button className='btn-job' onClick={() => handleSubmitClick(opportunity)}>
+                                    Submit
+                                </button>
                             </div>
-                            <div className='input-text-job'>
-                                <p className='written text-wrap'>Mobile Number</p>
-                                <input type="text" className='input-field-job' name="phoneNumber" value={empDetails.phoneNumber}
-                onChange={handleInputChange} placeholder='enter your mobile number' />
-                            </div>
-                            <button className='btn-job' onClick={() => handleSubmitClick1(opportunity)}>Submit</button>
-                        </div>
                         ) : (
                             <div className='job-apply'>
                                 <div className='store-name'>{opportunity.storeName}</div>
@@ -85,17 +96,18 @@ const Opportunity = () => {
                                     <div className='job-details-po'>Location: {opportunity.location}</div>
                                 </div>
                                 <div className='job-details'>Description: {opportunity.description}</div>
-                                <button className='btn-job' onClick={handleApplyNowClick1}>Apply Now</button>
+                                <button className='btn-job' onClick={() => handleApplyNowClick(opportunity.opportunityId)}>
+                                    Apply Now
+                                </button>
                             </div>
                         )}
                     </div>
-                    
                 </div>
             ))}
             <hr className='hr-line' />
             <Footerjob />
         </div>
-    )
-}
+    );
+};
 
-export default Opportunity
+export default Opportunity;
