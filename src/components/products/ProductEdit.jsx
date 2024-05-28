@@ -133,16 +133,18 @@ const ProductEdit = ({ stepper, productSuccess }) => {
     const { name, value } = event.target;
     setProduct((prevProduct) => ({
       ...prevProduct,
-      [name]: value,
+      [name]: name === 'productPrice' ? Number(value) : value,
     }));
   };
+  
 
   const updateFormData = (fieldName, value) => {
     setProduct((prevProduct) => ({
       ...prevProduct,
-      [fieldName]: value,
+      [fieldName]: fieldName === 'productPrice' ? Number(value) : value,
     }));
   };
+  
   const handleVoiceResponse = (response) => {
     speakMessage(response)
     if (!response) return;
@@ -203,7 +205,7 @@ const ProductEdit = ({ stepper, productSuccess }) => {
                 </div>
                 <div className='input-text'>
                   <input
-                    type="number"
+                    type="text"
                     placeholder='enter your product price'
                     className='input-field'
                     value={product.productPrice}
