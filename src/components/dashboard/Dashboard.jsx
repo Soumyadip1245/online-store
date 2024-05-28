@@ -97,12 +97,12 @@ const Dashboard = () => {
   const toShow = !user.isStaff && !(seller.sellerName && seller.paymentDetails.accountNumber)
   return (
     <>
-      {activateVoice && <VoiceRecognition commands={commands} />}
+      {!toShow && activateVoice && <VoiceRecognition commands={commands} />}
       {toShow && (
         <Stepper />
       )}
       {
-        !seller.isVerified && <Onboarding />
+        !toShow && !seller.isVerified && <Onboarding />
       }
       {(seller.isVerified) &&
         <>
