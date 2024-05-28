@@ -46,9 +46,9 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
     originalSeller.paymentDetails.upiLink = seller.paymentDetails.upiLink;
     originalSeller.paymentDetails.isEntered = true;
 
-    try {
-      await originalSeller.updatePayment();
-      const details = `
+
+    await originalSeller.updatePayment();
+    const details = `
       भुगतान विवरण सफलतापूर्वक अपडेट किया गया।
       बैंक का नाम: ${originalSeller.paymentDetails.bankName}.
       खाता संख्या: ${originalSeller.paymentDetails.accountNumber}.
@@ -56,16 +56,14 @@ const PaymentDetails = ({ paymentSuccess, stepper }) => {
       शाखा: ${originalSeller.paymentDetails.branch}.
       UPI लिंक: ${originalSeller.paymentDetails.upiLink}.
     `;
-      speakMessage(details)
-      notifySuccess("Details updated successfully");
-      if (stepper) {
-        paymentSuccess(seller);
-      } else {
-        navigate('/dashboard');
-      }
-    } catch (error) {
-      notifyError("Failed to update details");
+    speakMessage(details)
+    notifySuccess("Details updated successfully");
+    if (stepper) {
+      paymentSuccess(seller);
+    } else {
+      navigate('/dashboard');
     }
+
   };
 
   useEffect(() => {
