@@ -148,15 +148,7 @@ const App = () => {
   const host = location.split(".")
   const [subdomain, setSubdomain] = useState(false)
   const { isSpeakingEnabled, toggleSpeak, speakMessage } = useSpeak();
-  useEffect(() => {
-    const location = window.location.host
-    const host = location.split(".")
-    const pathName = window.location.pathname;
-    const store = pathName.split('/').filter(Boolean)[0];
-    if (!((host[0] === 'localhost:5173' || host[1] === 'cosmossecure') && store != 'store')) {
-      setSubdomain(true)
-    }
-  }, [])
+ 
   return (
     <Provider store={store}>
       <StoreProvider>
